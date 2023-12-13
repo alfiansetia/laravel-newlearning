@@ -14,11 +14,13 @@
     <link rel="stylesheet" href="{{ asset('backend/vendors/css/vendor.bundle.base.css') }}">
     <!-- endinject -->
     <!-- Plugin css for this page -->
+    @stack('csslib')
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('backend/css/vertical-layout-light/style.css') }}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('backend/images/favicon.png') }}" />
+    @stack('css')
 </head>
 
 <body>
@@ -46,6 +48,7 @@
     <script src="{{ asset('backend/vendors/js/vendor.bundle.base.js') }}"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
+    @stack('jslib')
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="{{ asset('backend/js/off-canvas.js') }}"></script>
@@ -54,6 +57,7 @@
     <script src="{{ asset('backend/js/settings.js') }}"></script>
     <script src="{{ asset('backend/js/todolist.js') }}"></script>
     <!-- endinject -->
+    @stack('js')
 </body>
 
 </html>

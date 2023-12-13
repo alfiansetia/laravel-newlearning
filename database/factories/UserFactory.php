@@ -32,6 +32,7 @@ class UserFactory extends Factory
             'gender'            => fake()->randomElement(['Male', 'Female']),
             'dob'               => fake()->date(),
             'country'           => fake()->country(),
+            'phone'             => fake()->phoneNumber(),
         ];
     }
 

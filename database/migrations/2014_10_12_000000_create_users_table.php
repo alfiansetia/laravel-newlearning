@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('gender', ['Male', 'Female'])->default('Male');
             $table->enum('role', ['admin', 'mentor', 'user'])->default('user');
             $table->date('dob')->nullable();
+            $table->string('phone')->nullable();
             $table->string('country')->default('Indonesia');
             $table->string('avatar')->nullable();
             $table->rememberToken();

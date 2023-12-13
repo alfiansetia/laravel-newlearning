@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
             'email'     => 'admin@gmail.com',
             'password'  => Hash::make('admin12345'),
             'role'      => 'admin',
+            'email_verified_at' => now(),
         ]);
 
         User::create([
@@ -26,6 +27,7 @@ class UserSeeder extends Seeder
             'email'     => 'user@gmail.com',
             'password'  => Hash::make('user12345'),
             'role'      => 'user',
+            'email_verified_at' => now(),
         ]);
 
         User::create([
@@ -33,6 +35,7 @@ class UserSeeder extends Seeder
             'email'     => 'mentor@gmail.com',
             'password'  => Hash::make('mentor12345'),
             'role'      => 'mentor',
+            'email_verified_at' => now(),
         ]);
 
         User::factory(50)->create();
