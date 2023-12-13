@@ -1,19 +1,13 @@
 @extends('layouts.template')
 
-@push('csslib')
-    <link rel="stylesheet" href="{{ asset('vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendors/ti-icons/css/themify-icons.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('js/select.dataTables.min.css') }}">
-@endpush
 @section('content')
     <div class="row">
         <div class="col-8">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Default form</h4>
-                    <form class="forms-sample" id="form" action="{{ route('user.update', $data->id) }}" method="POST">
+                    <form class="forms-sample" id="form" action="{{ route('setting.profile.update') }}" method="POST">
                         @csrf
-                        @method('PUT')
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
@@ -24,11 +18,8 @@
                         </div>
                         <div class="form-group">
                             <label for="email">Email address</label>
-                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                                id="email" placeholder="Email" value="{{ $data->email }}" required>
-                            @error('email')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                            @enderror
+                            <input type="email" name="email" class="form-control" id="email" placeholder="Email"
+                                value="{{ $data->email }}" readonly disabled>
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone</label>
@@ -68,24 +59,11 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="role">Role</label>
-                            <select name="role" id="role" class="form-control @error('role') is-invalid @enderror"
-                                required>
-                                <option value="">Select Role</option>
-                                <option value="user" {{ $data->role == 'user' ? 'selected' : '' }}>User</option>
-                                <option value="mentor" {{ $data->role == 'mentor' ? 'selected' : '' }}>mentor</option>
-                                <option value="admin" {{ $data->role == 'admin' ? 'selected' : '' }}>admin</option>
-                            </select>
-                            @error('role')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
                             <label for="country">Country</label>
                             <select name="country" id="country"
                                 class="form-control @error('country') is-invalid @enderror" required>
                                 <option value="">Select Country</option>
-                                <option value="user" {{ $data->country == 'Indonesia' ? 'selected' : '' }}>Indonesia
+                                <option value="Indonesia" {{ $data->country == 'Indonesia' ? 'selected' : '' }}>Indonesia
                                 </option>
                             </select>
                             @error('country')
@@ -100,12 +78,3 @@
         </div>
     </div>
 @endsection
-
-@push('jslib')
-    <script src="{{ asset('backend/vendors/datatables.net/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('backend/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
-    <script src="{{ asset('backend/js/dataTables.select.min.js') }}"></script>
-@endpush
-
-@push('js')
-@endpush

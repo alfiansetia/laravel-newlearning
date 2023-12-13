@@ -12,9 +12,14 @@ class UserController extends Controller
 {
     use CompanyTrait;
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = User::paginate(10)->withQueryString();
+        $query = User::query();
+        if ($request->filled('search')) {
+            $query->orWhere('name', 'like', "%$request->search%");
+            $query->orWhere('email', 'like', "%$request->search%");
+        }
+        $data = $query->paginate(10)->withQueryString();
         return view('user.index', compact('data'))->with(['company' => $this->getCompany()]);
     }
 

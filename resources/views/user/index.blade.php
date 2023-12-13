@@ -1,10 +1,5 @@
 @extends('layouts.template')
 
-@push('csslib')
-    <link rel="stylesheet" href="{{ asset('vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendors/ti-icons/css/themify-icons.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('js/select.dataTables.min.css') }}">
-@endpush
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -76,12 +71,3 @@
         {{ $data->links() }}
     </div>
 @endsection
-
-@push('jslib')
-    <script src="{{ asset('backend/vendors/datatables.net/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('backend/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
-    <script src="{{ asset('backend/js/dataTables.select.min.js') }}"></script>
-@endpush
-
-@push('js')
-@endpush
