@@ -21,6 +21,7 @@ return new class extends Migration
             $table->enum('role', ['admin', 'mentor', 'user'])->default('user');
             $table->date('dob')->nullable();
             $table->string('country')->default('Indonesia');
+            $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
