@@ -12,6 +12,11 @@ class UserController extends Controller
 {
     use CompanyTrait;
 
+    public function __construct()
+    {
+        $this->middleware('is.admin');
+    }
+
     public function index(Request $request)
     {
         $query = User::query();

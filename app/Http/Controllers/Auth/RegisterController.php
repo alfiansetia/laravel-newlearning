@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -50,9 +51,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name'      => ['required', 'string', 'max:255'],
+            'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password'  => ['required', 'string', 'min:5', 'confirmed'],
+            'password_confirmation' => 'required|same:password',
+            'gender'    => 'required|in:Male,Female',
+            // 'dob'       => 'required|date_format:Y-m-d|date|before:today|after:01-jan-1900',
+            'country'   => 'required',
+            'phone'     => 'required',
         ]);
     }
 
@@ -65,9 +71,14 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'name'              => $data['name'],
+            'email'             => $data['email'],
+            'password'          => Hash::make($data['password']),
+            'gender'            => $data['gender'],
+            'phone'             => $data['phone'],
+            'country'           => $data['country'],
+            // 'email_verified_at' => now(),
+            'remember_token'    => Str::random(10),
         ]);
     }
 }

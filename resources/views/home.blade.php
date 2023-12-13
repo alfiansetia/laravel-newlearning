@@ -3,6 +3,14 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12 grid-margin">
+            @if (empty(auth()->user()->email_verified_at))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Hello {{ auth()->user()->name }}!</strong> Your account is unverified, please check your email !
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Dropdown menu</h4>

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('gender', ['Male', 'Female'])->default('Male');
             $table->enum('role', ['admin', 'mentor', 'user'])->default('user');
+            $table->enum('status', ['active', 'nonactive'])->default('nonactive');
             $table->date('dob')->nullable();
             $table->string('phone')->nullable();
             $table->string('country')->default('Indonesia');
