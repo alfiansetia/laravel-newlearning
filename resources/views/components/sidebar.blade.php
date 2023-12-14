@@ -36,6 +36,8 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{ route('user.index') }}"> User </a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('category.index') }}"> Category </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('subcategory.index') }}"> Sub Category </a>
+                    </li>
                     <li class="nav-item"> <a class="nav-link"
                             href="{{ asset('backend/pages/samples/error-500.html') }}">
                             500 </a></li>

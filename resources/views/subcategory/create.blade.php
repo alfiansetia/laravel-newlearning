@@ -1,12 +1,12 @@
-@extends('layouts.template', ['title' => 'Category'])
+@extends('layouts.template', ['title' => 'Sub Category'])
 
 @section('content')
     <div class="row">
         <div class="col-8">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Create Category</h4>
-                    <form class="forms-sample" id="form" action="{{ route('category.store') }}" method="POST"
+                    <h4 class="card-title">Create Sub Category</h4>
+                    <form class="forms-sample" id="form" action="{{ route('subcategory.store') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
@@ -14,6 +14,21 @@
                             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
                                 id="name" placeholder="Name" value="{{ old('name') }}" required autofocus>
                             @error('name')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select class="form-control @error('category') is-invalid @enderror" name="category"
+                                id="category" required>
+                                <option value="">Select Category</option>
+                                @foreach ($categories as $item)
+                                    <option value="{{ $item->id }}"
+                                        {{ old('category') === $item->id ? 'selected' : '' }}>{{ $item->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('category')
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
@@ -33,7 +48,7 @@
                             @enderror
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        <a href="{{ route('category.index') }}" class="btn btn-light">Cancel</a>
+                        <a href="{{ route('subcategory.index') }}" class="btn btn-light">Cancel</a>
                     </form>
                 </div>
             </div>

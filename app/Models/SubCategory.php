@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class SubCategory extends Model
 {
     use HasFactory;
 
@@ -13,15 +13,15 @@ class Category extends Model
 
     public function getImageAttribute($value)
     {
-        if ($value && file_exists(public_path('/images/category/' . $value))) {
-            return url('/images/category/' . $value);
+        if ($value && file_exists(public_path('/images/subcategory/' . $value))) {
+            return url('/images/subcategory/' . $value);
         } else {
             return url('/images/default.jpg');
         }
     }
 
-    public function subcategories()
+    public function category()
     {
-        return $this->hasMany(SubCategory::class);
+        return $this->belongsTo(Category::class);
     }
 }

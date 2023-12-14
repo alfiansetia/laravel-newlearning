@@ -1,4 +1,4 @@
-@extends('layouts.template', ['title' => 'Category'])
+@extends('layouts.template', ['title' => 'Sub Category'])
 
 @section('content')
     <div class="row">
@@ -6,14 +6,15 @@
             <div class="card">
                 <div class="card-body">
                     @include('components.card_header', [
-                        'title' => 'Category',
-                        'route' => 'category.create',
+                        'title' => 'Sub Category',
+                        'route' => 'subcategory.create',
                     ])
                     <div class="table-responsive">
                         <table class="table table-sm table-hover" style="width: 100%" id="table">
                             <thead>
                                 <tr>
                                     <th>Name</th>
+                                    <th>Category</th>
                                     <th>Image</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -22,6 +23,7 @@
                                 @forelse ($data as $key => $item)
                                     <tr>
                                         <td>{{ $item->name }}</td>
+                                        <td>{{ $item->category->name }}</td>
                                         <td><img src="{{ $item->image }}" alt="" width="50"></td>
                                         <td class="text-center">
                                             <div class="dropdown">
@@ -32,9 +34,9 @@
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton3">
                                                     <a class="dropdown-item"
-                                                        href="{{ route('category.edit', $item->id) }}">Edit</a>
+                                                        href="{{ route('subcategory.edit', $item->id) }}">Edit</a>
                                                     <button type="button"
-                                                        onclick="deleteData('{{ route('category.destroy', $item->id) }}')"
+                                                        onclick="deleteData('{{ route('subcategory.destroy', $item->id) }}')"
                                                         class="dropdown-item">Delete</button>
                                                 </div>
                                             </div>

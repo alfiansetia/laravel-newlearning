@@ -89,7 +89,7 @@
                         <div class="form-group row">
                             <div class="col">
                                 <label for="status">Status</label>
-                                <select class="form-control @error('country') is-invalid @enderror" name="status"
+                                <select class="form-control @error('status') is-invalid @enderror" name="status"
                                     id="status" required>
                                     <option value="active" {{ old('status') === 'active' ? 'selected' : '' }}>active
                                     </option>
@@ -103,7 +103,7 @@
                             </div>
                             <div class="col">
                                 <label for="verify">Verified</label>
-                                <select class="form-control @error('country') is-invalid @enderror" name="verify"
+                                <select class="form-control @error('verify') is-invalid @enderror" name="verify"
                                     id="verify" required>
                                     <option value="no" {{ old('verify') === 'no' ? 'selected' : '' }}>no </option>
                                     <option value="yes" {{ old('verify') === 'yes' ? 'selected' : '' }}>yes
