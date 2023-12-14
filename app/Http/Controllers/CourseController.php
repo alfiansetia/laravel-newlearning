@@ -20,7 +20,7 @@ class CourseController extends Controller
         if ($request->filled('search')) {
             $query->orWhere('name', 'like', "%$request->search%");
         }
-        $data = $query->with('category')->paginate(10)->withQueryString();
+        $data = $query->with('subcategory')->paginate(10)->withQueryString();
         return view('course.index', compact('data'))->with(['company' => $this->getCompany()]);
     }
 

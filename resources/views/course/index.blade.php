@@ -14,7 +14,7 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Category</th>
+                                    <th>Sub Category</th>
                                     <th>Image</th>
                                     <th>Price</th>
                                     <th class="text-center">Action</th>
@@ -24,8 +24,8 @@
                                 @forelse ($data as $key => $item)
                                     <tr>
                                         <td>{{ $item->name }}</td>
-                                        <td>{{ $item->category->name }}</td>
-                                        <td>{{ $item->image }}</td>
+                                        <td>{{ $item->subcategory->name }}</td>
+                                        <td><img src="{{ $item->image }}" alt="" width="100"></td>
                                         <td>{{ $item->price ?? '-' }}</td>
                                         <td class="text-center">
                                             <div class="dropdown">

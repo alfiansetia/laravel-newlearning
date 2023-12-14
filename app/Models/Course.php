@@ -11,8 +11,17 @@ class Course extends Model
 
     protected $guarded = ['id'];
 
-    public function category()
+    public function getImageAttribute($value)
     {
-        return $this->belongsTo(Category::class);
+        if ($value && file_exists(public_path('/images/course/' . $value))) {
+            return url('/images/course/' . $value);
+        } else {
+            return url('/images/default.jpg');
+        }
+    }
+
+    public function subcategory()
+    {
+        return $this->belongsTo(SubCategory::class);
     }
 }

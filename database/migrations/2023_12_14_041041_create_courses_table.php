@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('subcategory_id');
             $table->unsignedBigInteger('mentor_id')->nullable();
             $table->string('name');
             $table->string('image')->nullable();
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('price')->default(0);
             $table->text('desc')->nullable();
             $table->timestamps();
-            $table->foreign('category_id')->references('id')->on('categories')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('subcategory_id')->references('id')->on('sub_categories')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('mentor_id')->references('id')->on('users')->nullOnDelete()->cascadeOnUpdate();
         });
     }
