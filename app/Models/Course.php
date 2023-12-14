@@ -24,4 +24,9 @@ class Course extends Model
     {
         return $this->belongsTo(SubCategory::class);
     }
+
+    public function mentor()
+    {
+        return $this->belongsTo(User::class, 'mentor_id');
+    }
 }
