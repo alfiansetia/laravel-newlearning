@@ -35,6 +35,7 @@ class UserFactory extends Factory
             'phone'             => fake()->phoneNumber(),
             'status'            => fake()->randomElement(['active', 'nonactive']),
             'role'              => fake()->randomElement(['user', 'admin', 'mentor']),
+            'point'             => fake()->numberBetween(10, 1000),
         ];
     }
 

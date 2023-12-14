@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('country')->default('Indonesia');
             $table->string('avatar')->nullable();
+            $table->integer('point')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

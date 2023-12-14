@@ -4,7 +4,7 @@
 @section('content')
     @include('components.frontend.hero')
 
-    @include('components.frontend.subcategories')
+    {{-- @include('components.frontend.subcategories') --}}
 
     @include('components.frontend.categories')
 

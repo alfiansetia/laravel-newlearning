@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             'role'      => 'admin',
             'email_verified_at' => now(),
             'status'    => 'active',
+            'point'     => 100,
         ]);
 
         User::create([
@@ -30,6 +31,7 @@ class UserSeeder extends Seeder
             'role'      => 'user',
             'email_verified_at' => now(),
             'status'    => 'active',
+            'point'     => 100,
         ]);
 
         User::create([
@@ -39,6 +41,7 @@ class UserSeeder extends Seeder
             'role'      => 'mentor',
             'email_verified_at' => now(),
             'status'    => 'active',
+            'point'     => 100,
         ]);
 
         User::factory(50)->create();
