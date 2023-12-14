@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__table">
-                        @if (empty($carts))
+                        @if (count($carts) < 1)
                             <div class="alert alert-danger" role="alert">
                                 Empty Cart!
                             </div>

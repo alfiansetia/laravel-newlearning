@@ -6,7 +6,7 @@
                 <div class="section-title">
                     <h2>Featured Product</h2>
                 </div>
-                <div class="featured__controls">
+                {{-- <div class="featured__controls">
                     <ul>
                         <li class="active" data-filter="*">All</li>
                         <li data-filter=".oranges">Oranges</li>
@@ -14,7 +14,7 @@
                         <li data-filter=".vegetables">Vegetables</li>
                         <li data-filter=".fastfood">Fastfood</li>
                     </ul>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div class="row featured__filter">
@@ -29,7 +29,7 @@
                             </ul> --}}
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">{{ $item->name }}</a></h6>
+                            <h6><a href="{{ url('cat') }}/{{ $item->slug }}">{{ $item->name }}</a></h6>
                             {{-- <h5>${{ $item->price }}</h5> --}}
                         </div>
                     </div>

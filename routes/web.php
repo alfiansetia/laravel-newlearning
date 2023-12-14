@@ -27,6 +27,10 @@ Route::get('/', [FrontendController::class, 'index'])->name('index');
 Route::get('/courses', [FrontendController::class, 'courseList'])->name('index.course.list');
 Route::get('/courses/{course:slug}', [FrontendController::class, 'courseDetail'])->name('index.course.detail');
 
+Route::get('/cat/{category:slug}', [FrontendController::class, 'category'])->name('index.category');
+
+Route::get('profile', [FrontendController::class, 'profile']);
+
 Auth::routes([
     'reset' => false,
     'verify' => false,

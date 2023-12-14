@@ -39,4 +39,17 @@ class FrontendController extends Controller
             'data',
         ]))->with(['company' => $this->getCompany()]);;
     }
+
+    public function category(Category $category)
+    {
+        $data = $category->load('subcategories.courses');
+        return view('frontend.subcategory_list', compact([
+            'data',
+        ]))->with(['company' => $this->getCompany()]);
+    }
+
+    public function profile()
+    {
+        return view('frontend.profile')->with(['company' => $this->getCompany()]);
+    }
 }

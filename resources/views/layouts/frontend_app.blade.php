@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    @push('css')
+    @endpush
 </head>
 
 <body>
@@ -36,7 +39,12 @@
 
     @yield('content')
 
-    @include('components.frontend.footer')
+    <br>
+    <br>
+    <br>
+    <br>
+
+    {{-- @include('components.frontend.footer') --}}
 
     <!-- Js Plugins -->
     <script src="{{ asset('frontend/js/jquery-3.3.1.min.js') }}"></script>

@@ -64,7 +64,7 @@
         Categories Slider
     ------------------------*/
     $(".categories__slider").owlCarousel({
-        loop: true,
+        loop: false,
         margin: 0,
         items: 4,
         dots: false,
