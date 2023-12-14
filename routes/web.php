@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubCategoryController;
@@ -36,5 +37,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('category', CategoryController::class);
     Route::resource('subcategory', SubCategoryController::class);
+    Route::resource('course', CourseController::class);
     Route::resource('user', UserController::class);
 });
