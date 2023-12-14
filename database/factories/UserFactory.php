@@ -33,6 +33,8 @@ class UserFactory extends Factory
             'dob'               => fake()->date(),
             'country'           => fake()->country(),
             'phone'             => fake()->phoneNumber(),
+            'status'            => fake()->randomElement(['active', 'nonactive']),
+            'role'              => fake()->randomElement(['user', 'admin', 'mentor']),
         ];
     }
 

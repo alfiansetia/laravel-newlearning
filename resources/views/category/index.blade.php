@@ -1,4 +1,4 @@
-@extends('layouts.template', ['title' => 'User'])
+@extends('layouts.template', ['title' => 'Category'])
 
 @section('content')
     <div class="row">
@@ -6,18 +6,14 @@
             <div class="card">
                 <div class="card-body">
                     @include('components.card_header', [
-                        'title' => 'User',
-                        'route' => 'user.create',
+                        'title' => 'Category',
+                        'route' => 'category.create',
                     ])
                     <div class="table-responsive">
                         <table class="table table-sm table-hover" style="width: 100%" id="table">
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th class="text-center">Role</th>
-                                    <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -25,16 +21,6 @@
                                 @forelse ($data as $key => $item)
                                     <tr>
                                         <td>{{ $item->name }}</td>
-                                        <td>{{ $item->email }}</td>
-                                        <td>{{ $item->phone ?? '-' }}</td>
-                                        <td class="text-center">
-                                            <span
-                                                class="badge badge-{{ $item->role === 'admin' ? 'success' : ($item->role === 'user' ? 'warning' : 'primary') }}">{{ $item->role }}</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span
-                                                class="badge badge-{{ $item->status === 'active' ? 'success' : 'danger' }}">{{ $item->status }}</span>
-                                        </td>
                                         <td class="text-center">
                                             <div class="dropdown">
                                                 <button type="button" class="btn btn-sm btn-outline-info dropdown-toggle"
@@ -44,9 +30,9 @@
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton3">
                                                     <a class="dropdown-item"
-                                                        href="{{ route('user.edit', $item->id) }}">Edit</a>
+                                                        href="{{ route('category.edit', $item->id) }}">Edit</a>
                                                     <button type="button"
-                                                        onclick="deleteData('{{ route('user.destroy', $item->id) }}')"
+                                                        onclick="deleteData('{{ route('category.destroy', $item->id) }}')"
                                                         class="dropdown-item">Delete</button>
                                                 </div>
                                             </div>

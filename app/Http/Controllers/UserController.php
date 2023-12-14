@@ -28,6 +28,48 @@ class UserController extends Controller
         return view('user.index', compact('data'))->with(['company' => $this->getCompany()]);
     }
 
+    public function show(User $user)
+    {
+        // 
+    }
+
+    public function create()
+    {
+        return view('user.create')->with(['company' => $this->getCompany()]);
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'name'      => 'required',
+            'email'     => 'required|unique:users,email',
+            'role'      => 'required|in:admin,user,mentor',
+            'gender'    => 'required|in:Male,Female',
+            'dob'       => 'required|date_format:Y-m-d|before:today',
+            'country'   => 'required|max:25',
+            'phone'     => 'required|max:15|min:8',
+            'password'  => 'required|min:5',
+            'verify'    => 'required|in:yes,no',
+            'status'    => 'required|in:active,nonactive',
+        ]);
+
+        User::create([
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'role'      => $request->role,
+            'gender'    => $request->gender,
+            'dob'       => $request->dob,
+            'country'   => $request->country,
+            'phone'     => $request->phone,
+            'email_verified_at'    => $request->verify === 'yes' ? now() : null,
+            'active'    => $request->active,
+            'status'    => $request->status,
+            'password'  => Hash::make($request->password),
+        ]);
+
+        return redirect()->route('user.index')->with(['success' => 'Insert Data Success!']);
+    }
+
     public function edit(User $user)
     {
         $data = $user;
@@ -44,8 +86,9 @@ class UserController extends Controller
             'dob'       => 'required|date_format:Y-m-d|before:today',
             'country'   => 'required|max:25',
             'phone'     => 'required|max:15|min:8',
-            'verify'    => 'nullable',
             'password'  => 'nullable|min:5',
+            'verify'    => 'required|in:yes,no',
+            'status'    => 'required|in:active,nonactive',
         ]);
 
         $param = [
@@ -56,7 +99,9 @@ class UserController extends Controller
             'dob'       => $request->dob,
             'country'   => $request->country,
             'phone'     => $request->phone,
-            'verify'    => !empty($request->verify) ? now() : null,
+            'email_verified_at'    => $request->verify === 'yes' ? now() : null,
+            'active'    => $request->active,
+            'status'    => $request->status,
         ];
         if ($request->filled('password')) {
             $param['password'] = Hash::make($request->password);
@@ -64,5 +109,11 @@ class UserController extends Controller
         $user->update($param);
 
         return redirect()->route('user.index')->with(['success' => 'Update Data Success!']);
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return redirect()->route('user.index')->with(['success' => 'Delete Data Success!']);
     }
 }

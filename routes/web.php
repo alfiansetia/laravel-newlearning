@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
@@ -32,5 +33,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/setting/profile', [SettingController::class, 'profile'])->name('setting.profile');
     Route::post('/setting/profile', [SettingController::class, 'profileUpdate'])->name('setting.profile.update');
 
+    Route::resource('category', CategoryController::class);
     Route::resource('user', UserController::class);
 });

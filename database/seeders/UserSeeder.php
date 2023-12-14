@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'password'  => Hash::make('admin12345'),
             'role'      => 'admin',
             'email_verified_at' => now(),
+            'status'    => 'active',
         ]);
 
         User::create([
@@ -28,6 +29,7 @@ class UserSeeder extends Seeder
             'password'  => Hash::make('user12345'),
             'role'      => 'user',
             'email_verified_at' => now(),
+            'status'    => 'active',
         ]);
 
         User::create([
@@ -36,6 +38,7 @@ class UserSeeder extends Seeder
             'password'  => Hash::make('mentor12345'),
             'role'      => 'mentor',
             'email_verified_at' => now(),
+            'status'    => 'active',
         ]);
 
         User::factory(50)->create();

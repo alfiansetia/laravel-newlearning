@@ -1,4 +1,4 @@
-@extends('layouts.template')
+@extends('layouts.template', ['title' => 'Setting Profile'])
 
 @section('content')
     <div class="row">
