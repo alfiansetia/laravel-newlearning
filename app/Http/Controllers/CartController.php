@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Course;
+use App\Traits\CompanyTrait;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    use CompanyTrait;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $carts = Cart::with('course')->where('User_id', $this->getUser()->id)->get();
+        return view('frontend.cart', compact('carts'));
     }
 
     /**
@@ -28,7 +33,18 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'course' => 'required|integer|exists:courses,id'
+        ]);
+        $exist = Cart::where('user_id', $this->getUser()->id)->where('course_id', $request->course)->first();
+        if ($exist) {
+            return redirect()->back()->with(['error' => 'Course Exsist on your Cart!']);
+        }
+        Cart::create([
+            'user_id' => $this->getUser()->id,
+            'course_id' => $request->course,
+        ]);
+        return redirect()->back()->with(['success' => 'Success Insert to Cart!']);
     }
 
     /**
@@ -60,6 +76,7 @@ class CartController extends Controller
      */
     public function destroy(Cart $cart)
     {
-        //
+        $cart->delete();
+        return redirect()->route('cart.index')->with(['success' => 'Delete Data Success!']);
     }
 }

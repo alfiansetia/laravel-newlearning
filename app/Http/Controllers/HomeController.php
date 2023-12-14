@@ -32,16 +32,4 @@ class HomeController extends Controller
     {
         return view('home')->with(['company' => $this->getCompany()]);;
     }
-
-    public function home()
-    {
-        $categories = Category::paginate(8);
-        $subcategories = SubCategory::all();
-        $courses = Course::all();
-        return view('welcome', compact([
-            'categories',
-            'subcategories',
-            'courses',
-        ]))->with(['company' => $this->getCompany()]);;
-    }
 }

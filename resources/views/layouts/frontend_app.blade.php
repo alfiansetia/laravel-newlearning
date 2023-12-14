@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 
 <body>
@@ -46,7 +47,53 @@
     <script src="{{ asset('frontend/js/mixitup.min.js') }}"></script>
     <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function logout() {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You will be logout!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '<i class="ti-thumb-up"></i> Yes!',
+                confirmButtonAriaLabel: 'Thumbs up, Yes!',
+                cancelButtonText: '<i class="ti-thumb-down"></i> No',
+                cancelButtonAriaLabel: 'Thumbs down',
+                customClass: 'animated tada',
+                showClass: {
+                    popup: 'animate__animated animate__tada'
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#form_logout').submit();
+                    block()
+                }
+            })
+        }
+    </script>
 
+
+    @if (session()->has('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: "{{ session('success') }}",
+            })
+        </script>
+    @elseif (session()->has('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "{{ session('error') }}",
+            })
+        </script>
+    @endif
+
+    @stack('js')
 
 
 </body>
