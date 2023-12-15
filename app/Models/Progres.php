@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class Progres extends Model
 {
     use HasFactory;
 
@@ -16,13 +16,8 @@ class Transaction extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function key()
+    public function course()
     {
-        return $this->belongsTo(Key::class);
-    }
-
-    public function details()
-    {
-        return $this->hasMany(TransactionDetail::class);
+        return $this->belongsTo(Course::class);
     }
 }

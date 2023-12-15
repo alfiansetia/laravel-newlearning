@@ -29,7 +29,6 @@ Route::get('/courses/{course:slug}', [FrontendController::class, 'courseDetail']
 
 Route::get('/cat/{category:slug}', [FrontendController::class, 'category'])->name('index.category');
 
-Route::get('profile', [FrontendController::class, 'profile']);
 
 Auth::routes([
     'reset' => false,
@@ -37,17 +36,26 @@ Auth::routes([
 ]);
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('cart', CartController::class)->only(['index', 'store', 'destroy']);
+    Route::get('/courses-open/{course:slug}', [FrontendController::class, 'courseOpen'])->name('index.course.open');
 
-    Route::resource('transaction', TransactionController::class)->only(['index', 'store']);
+    Route::group(['middleware' => ['is.user']], function () {
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+        Route::get('/profile', [FrontendController::class, 'profile'])->name('index.profile');
+        Route::post('/profile', [FrontendController::class, 'profileUpdate'])->name('index.profile.update');
+        Route::resource('cart', CartController::class)->only(['index', 'store', 'destroy']);
+        Route::resource('transaction', TransactionController::class)->only(['index', 'store']);
+    });
 
-    Route::get('/setting/profile', [SettingController::class, 'profile'])->name('setting.profile');
-    Route::post('/setting/profile', [SettingController::class, 'profileUpdate'])->name('setting.profile.update');
+    Route::group(['middleware' => ['is.admin']], function () {
 
-    Route::resource('category', CategoryController::class);
-    Route::resource('subcategory', SubCategoryController::class);
-    Route::resource('course', CourseController::class);
-    Route::resource('user', UserController::class);
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+        Route::get('/setting/profile', [SettingController::class, 'profile'])->name('setting.profile');
+        Route::post('/setting/profile', [SettingController::class, 'profileUpdate'])->name('setting.profile.update');
+
+        Route::resource('category', CategoryController::class);
+        Route::resource('subcategory', SubCategoryController::class);
+        Route::resource('course', CourseController::class);
+        Route::resource('user', UserController::class);
+    });
 });

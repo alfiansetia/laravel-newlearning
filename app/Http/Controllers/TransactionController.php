@@ -37,6 +37,9 @@ class TransactionController extends Controller
     {
         $user = $this->getUser();
         $carts = Cart::with('course')->where('User_id', $user->id)->get();
+        if (count($carts) < 1) {
+            return redirect()->back()->with(['error' => 'Empty Cart!']);
+        }
         $total = 0;
         foreach ($carts as $item) {
             $total += $item->course->price;

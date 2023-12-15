@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'status'    => 'active',
             'point'     => 100,
+            'phone'     => '62855552222555',
         ]);
 
         User::create([
@@ -32,6 +33,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'status'    => 'active',
             'point'     => 100,
+            'phone'     => '62855552222555',
         ]);
 
         User::create([
@@ -42,6 +44,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'status'    => 'active',
             'point'     => 100,
+            'phone'     => '62855552222555',
         ]);
 
         User::factory(50)->create();

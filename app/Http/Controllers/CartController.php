@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Course;
+use App\Models\TransactionDetail;
 use App\Traits\CompanyTrait;
 use Illuminate\Http\Request;
 
@@ -37,8 +38,12 @@ class CartController extends Controller
             'course' => 'required|integer|exists:courses,id'
         ]);
         $exist = Cart::where('user_id', $this->getUser()->id)->where('course_id', $request->course)->first();
+        $current = Course::find($request->course)->isPurchasedByUser();
         if ($exist) {
             return redirect()->back()->with(['error' => 'Course Exsist on your Cart!']);
+        }
+        if ($current) {
+            return redirect()->back()->with(['error' => 'Course Already Purchase!']);
         }
         Cart::create([
             'user_id' => $this->getUser()->id,

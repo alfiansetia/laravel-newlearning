@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/elegant-icons.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('frontend/css/nice-select.css') }}" type="text/css">
+    {{-- <link rel="stylesheet" href="{{ asset('frontend/css/nice-select.css') }}" type="text/css"> --}}
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery-ui.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css">
@@ -44,12 +44,16 @@
     <br>
     <br>
 
+    <form action="{{ route('logout') }}" method="POST" id="form_logout">
+        @csrf
+    </form>
+
     {{-- @include('components.frontend.footer') --}}
 
     <!-- Js Plugins -->
     <script src="{{ asset('frontend/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/jquery.nice-select.min.js') }}"></script>
+    {{-- <script src="{{ asset('frontend/js/jquery.nice-select.min.js') }}"></script> --}}
     <script src="{{ asset('frontend/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('frontend/js/mixitup.min.js') }}"></script>

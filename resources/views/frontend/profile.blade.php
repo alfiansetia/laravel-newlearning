@@ -2,170 +2,184 @@
 @push('css')
     <style>
         body {
-            margin: 0;
-            padding-top: 40px;
-            color: #2e323c;
-            background: #f5f6fa;
-            position: relative;
-            height: 100%;
-        }
-
-        .account-settings .user-profile {
-            margin: 0 0 1rem 0;
-            padding-bottom: 1rem;
-            text-align: center;
-        }
-
-        .account-settings .user-profile .user-avatar {
-            margin: 0 0 1rem 0;
-        }
-
-        .account-settings .user-profile .user-avatar img {
-            width: 90px;
-            height: 90px;
-            -webkit-border-radius: 100px;
-            -moz-border-radius: 100px;
-            border-radius: 100px;
-        }
-
-        .account-settings .user-profile h5.user-name {
-            margin: 0 0 0.5rem 0;
-        }
-
-        .account-settings .user-profile h6.user-email {
-            margin: 0;
-            font-size: 0.8rem;
-            font-weight: 400;
-            color: #9fa8b9;
-        }
-
-        .account-settings .about {
-            margin: 2rem 0 0 0;
-            text-align: center;
-        }
-
-        .account-settings .about h5 {
-            margin: 0 0 15px 0;
-            color: #007ae1;
-        }
-
-        .account-settings .about p {
-            font-size: 0.825rem;
-        }
-
-        .form-control {
-            border: 1px solid #cfd1d8;
-            -webkit-border-radius: 2px;
-            -moz-border-radius: 2px;
-            border-radius: 2px;
-            font-size: .825rem;
-            background: #ffffff;
-            color: #2e323c;
+            background: #f7f7ff;
+            margin-top: 20px;
         }
 
         .card {
-            background: #ffffff;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-            border: 0;
-            margin-bottom: 1rem;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid transparent;
+            border-radius: .25rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
+        }
+
+        .me-2 {
+            margin-right: .5rem !important;
         }
     </style>
 @endpush
 
 @section('content')
-    <div class="container pt-4">
-        <div class="row gutters">
-            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="account-settings">
-                            <div class="user-profile">
-                                <div class="user-avatar">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
+    <div class="container mt-3">
+        <div class="main-body">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin"
+                                    class="rounded-circle p-1 bg-primary" width="110">
+                                <div class="mt-3">
+                                    <h4>{{ $user->name }}</h4>
+                                    <p class="text-secondary mb-2">{{ $user->email }}</p>
+                                    <p class="text-muted font-size-sm">
+                                        <img src="{{ asset('images/dollar.png') }}" alt="" width="20">
+                                        <b>{{ $user->point }}</b>
+                                    </p>
                                 </div>
-                                <h5 class="user-name">Yuki Hayashi</h5>
-                                <h6 class="user-email">yuki@Maxwell.com</h6>
                             </div>
-                            <div class="about">
-                                <h5>About</h5>
-                                <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human
-                                    experiences.</p>
-                            </div>
+                            <hr class="my-4">
+                            {{-- <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                    <h6 class="mb-0">Website</h6>
+                                    <span class="text-secondary">https://bootdey.com</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                    <h6 class="mb-0">Github</h6>
+                                    <span class="text-secondary">bootdey</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                    <h6 class="mb-0">Twitter</h6>
+                                    <span class="text-secondary">@bootdey</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                    <h6 class="mb-0">Instagram</h6>
+                                    <span class="text-secondary">bootdey</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                    <h6 class="mb-0">Facebook</h6>
+                                    <span class="text-secondary">bootdey</span>
+                                </li>
+                            </ul> --}}
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="row gutters">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mb-2 text-primary">Personal Details</h6>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label for="fullName">Full Name</label>
-                                    <input type="text" class="form-control" id="fullName" placeholder="Enter full name">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{{ route('index.profile.update') }}" method="POST">
+                                @csrf
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Full Name</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <input type="text" name="name"
+                                            class="form-control @error('name') is-invalid @enderror"
+                                            value="{{ $user->name }}" required autofocus>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label for="eMail">Email</label>
-                                    <input type="email" class="form-control" id="eMail" placeholder="Enter email ID">
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Email</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <input type="email" name="email"
+                                            class="form-control @error('email') is-invalid @enderror"
+                                            value="{{ $user->email }}" required disabled readonly>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label for="phone">Phone</label>
-                                    <input type="text" class="form-control" id="phone"
-                                        placeholder="Enter phone number">
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Phone</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <input type="tel" name="phone"
+                                            class="form-control @error('phone') is-invalid @enderror"
+                                            value="{{ $user->phone }}" required>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label for="website">Website URL</label>
-                                    <input type="url" class="form-control" id="website" placeholder="Website url">
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Gender</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <select name="gender" class="form-control @error('gender') is-invalid @enderror"
+                                            id="gender" required>
+                                            <option value="">Select Gender</option>
+                                            <option value="Male" {{ $user->gender === 'Male' ? 'selected' : '' }}>Male
+                                            </option>
+                                            <option value="Female" {{ $user->gender === 'Female' ? 'selected' : '' }}>Female
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Date Of Birth</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <input type="date" name="dob"
+                                            class="form-control @error('dob') is-invalid @enderror"
+                                            value="{{ $user->dob }}" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Country</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <select name="country" class="form-control @error('country') is-invalid @enderror"
+                                            id="country" required>
+                                            <option value="">Select Country</option>
+                                            <option value="Indonesia"
+                                                {{ $user->country === 'Indonesia' ? 'selected' : '' }}>
+                                                Indonesia
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <input type="submit" class="btn btn-primary px-4" value="Save Changes">
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="row gutters">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mt-3 mb-2 text-primary">Address</h6>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label for="Street">Street</label>
-                                    <input type="name" class="form-control" id="Street" placeholder="Enter Street">
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label for="ciTy">City</label>
-                                    <input type="name" class="form-control" id="ciTy" placeholder="Enter City">
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label for="sTate">State</label>
-                                    <input type="text" class="form-control" id="sTate" placeholder="Enter State">
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label for="zIp">Zip Code</label>
-                                    <input type="text" class="form-control" id="zIp" placeholder="Zip Code">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row gutters">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <div class="text-right">
-                                    <button type="button" id="submit" name="submit"
-                                        class="btn btn-secondary">Cancel</button>
-                                    <button type="button" id="submit" name="submit"
-                                        class="btn btn-primary">Update</button>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="d-flex align-items-center mb-3">My Course</h5>
+                                    @forelse ($user->courses as $item)
+                                        <p class="d-flex justify-content-between">
+                                            <span>{{ $item->course->name }}</span>
+                                            <a href="{{ route('index.course.open', $item->course->slug) }}"
+                                                class="btn btn-sm">Open</a>
+                                        </p>
+
+                                        @php
+                                            $value = $item->course->progres->value ?? 0;
+                                        @endphp
+                                        <div class="progress mb-3" style="height: 5px">
+                                            <div class="progress-bar bg-primary" role="progressbar"
+                                                style="width: {{ $value }}%" aria-valuenow="{{ $value }}"
+                                                aria-valuemin="0" aria-valuemax="100">{{ $value }}%</div>
+                                        </div>
+                                    @empty
+                                        <div class="alert alert-danger" role="alert">
+                                            Empty Course!
+                                        </div>
+                                    @endforelse
                                 </div>
                             </div>
                         </div>

@@ -21,7 +21,7 @@ class FrontendController extends Controller
             'categories',
             'subcategories',
             'courses',
-        ]))->with(['company' => $this->getCompany()]);;
+        ]));
     }
 
     public function courseList()
@@ -29,7 +29,7 @@ class FrontendController extends Controller
         $courses = Course::with('subcategory.category')->paginate(9);
         return view('frontend.course_list', compact([
             'courses',
-        ]))->with(['company' => $this->getCompany()]);;
+        ]));
     }
 
     public function courseDetail(Course $course)
@@ -37,7 +37,15 @@ class FrontendController extends Controller
         $data = $course->load('subcategory.category');
         return view('frontend.course_detail', compact([
             'data',
-        ]))->with(['company' => $this->getCompany()]);;
+        ]));
+    }
+
+    public function courseOpen(Course $course)
+    {
+        $data = $course->load('subcategory.category', 'contents', 'quizzes.options')->loadCount('contents', 'quizzes');
+        return view('frontend.course_open', compact([
+            'data',
+        ]));
     }
 
     public function category(Category $category)
@@ -45,11 +53,32 @@ class FrontendController extends Controller
         $data = $category->load('subcategories.courses');
         return view('frontend.subcategory_list', compact([
             'data',
-        ]))->with(['company' => $this->getCompany()]);
+        ]));
     }
 
     public function profile()
     {
-        return view('frontend.profile')->with(['company' => $this->getCompany()]);
+        return view('frontend.profile');
+    }
+
+    public function profileUpdate(Request $request)
+    {
+        $user = $this->getUser();
+        $this->validate($request, [
+            'name'      => 'required|max:50',
+            'phone'     => 'required|max:15',
+            'dob'       => 'required|date_format:Y-m-d',
+            'gender'    => 'required|in:Male,Female',
+            'country'   => 'required|max:30',
+        ]);
+
+        $user->update([
+            'name'      => $request->name,
+            'phone'     => $request->phone,
+            'dob'       => $request->dob,
+            'gender'    => $request->gender,
+            'country'   => $request->country,
+        ]);
+        return redirect()->route('index.profile')->with(['success' => 'Update Profile Success']);
     }
 }

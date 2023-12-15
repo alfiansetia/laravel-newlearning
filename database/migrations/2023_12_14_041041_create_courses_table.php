@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('subcategory_id');
             $table->unsignedBigInteger('mentor_id')->nullable();
             $table->string('name');
+            $table->string('video')->nullable();
+            $table->string('subtitle')->nullable();
             $table->string('image')->nullable();
             $table->string('slug');
             $table->integer('price')->default(0);

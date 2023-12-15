@@ -40,7 +40,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="header__logo">
-                    <a href="./index.html"><img src="{{ asset('frontend/img/logo.png') }}" alt=""></a>
+                    <a href="{{ route('index') }}"><img src="{{ asset('frontend/img/logo.png') }}" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -64,11 +64,27 @@
             <div class="col-lg-3">
                 <div class="header__cart">
                     <ul>
-                        {{-- <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li> --}}
-                        <li><a href="{{ route('cart.index') }}"><i class="fa fa-shopping-bag"></i> <span>3</span></a>
-                        </li>
+                        @auth
+                            <li>
+                                <a href="{{ route('cart.index') }}">
+                                    <i class="fa fa-shopping-bag"></i><span>{{ $user->carts_count }}</span></a>
+                            </li>
+                            <li>
+                                <a href="{{ route('index.profile') }}">
+                                    <img src="{{ asset('images/dollar.png') }}" alt=""
+                                        width="18"><span>{{ $user->point }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <button class="btn" onclick="logout()"><i class="fa fa-sign-out"></i></button>
+                            </li>
+                        @else
+                            <li>
+                                <a href="{{ route('login') }}"><i class="fa fa-sign-in"></i></a>
+                            </li>
+                        @endauth
+
                     </ul>
-                    <div class="header__cart__price">item: <span>$150.00</span></div>
                 </div>
             </div>
         </div>

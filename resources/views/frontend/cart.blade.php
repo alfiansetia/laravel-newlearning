@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="shoping__continue">
+                    {{-- <div class="shoping__continue">
                         <div class="shoping__discount">
                             <h5>Discount Codes</h5>
                             <form action="#">
@@ -63,7 +63,7 @@
                                 <button type="submit" class="site-btn">APPLY COUPON</button>
                             </form>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 @php
                     $total = 0;
@@ -71,6 +71,7 @@
                         $total += $item->course->price;
                     }
                     $enough = $total < auth()->user()->point;
+                    $empty = count($carts) < 1;
                 @endphp
                 <div class="col-lg-6">
                     <div class="shoping__checkout">
@@ -79,13 +80,18 @@
                                 Not Enough Point!
                             </div>
                         @endif
+                        @if ($empty)
+                            <div class="alert alert-danger" role="alert">
+                                Empty Cart
+                            </div>
+                        @endif
                         <h5>Cart Total</h5>
                         <ul>
                             <li>Total <span>${{ $total }}</span></li>
                         </ul>
                         <form action="{{ route('transaction.store') }}" method="POST">
                             @csrf
-                            <button {{ !$enough || empty($carts) ? 'disabled' : '' }} type="submit"
+                            <button {{ !$enough || $empty ? 'disabled' : '' }} type="submit"
                                 class="btn primary-btn">PROCEED TO
                                 CHECKOUT</button>
                         </form>

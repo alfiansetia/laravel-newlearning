@@ -10,7 +10,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     @foreach ($data->subcategories as $item)
         <!-- Categories Section Begin -->
@@ -25,22 +24,29 @@
                 </div>
                 <div class="row">
                     <div class="categories__slider owl-carousel">
-                        @foreach ($item->courses as $c)
+
+                        @forelse ($item->courses as $c)
                             <div class="col-lg-3">
                                 <div class="card">
                                     <div class="categories__item set-bg" data-setbg="{{ $c->image }}">
                                     </div>
-                                    <div class="card-body">
+                                    <div class="card-body text-center">
                                         <h5 class="card-title">
                                             <a href="{{ route('index.course.detail', $c->slug) }}">{{ $c->name }}</a>
                                         </h5>
-                                        {{-- <p class="card-text">Some quick example text to build on the card title and make up
-                                            the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a> --}}
+                                        <h5>
+                                            <img src="{{ asset('images/dollar.png') }}" alt="" class="d-inline"
+                                                style="max-width: 18px; max-height: 18px">
+                                            <span class="d-inline">{{ $c->price }}</span>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @empty
+                            <div class="alert alert-danger" role="alert">
+                                Empty Course!
+                            </div>
+                        @endforelse
                     </div>
                 </div>
             </div>

@@ -22,6 +22,9 @@ class MentorMiddleware
             if ($request->ajax()) {
                 return response()->json(['message' => 'Unauthorize!'], 403);
             }
+            if ($this->getUser()->role === 'user') {
+                return redirect()->route('index');
+            }
             return redirect()->route('home')->with('error', 'Unauthorize!');
         }
         return $next($request);

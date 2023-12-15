@@ -7,10 +7,9 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ActiveMiddleware
+class UserMiddleware
 {
     use CompanyTrait;
-
     /**
      * Handle an incoming request.
      *
@@ -18,14 +17,8 @@ class ActiveMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($this->getUser()->status != 'active') {
-            if ($request->ajax() || $request->expectsJson()) {
-                return response()->json(['message' => 'Your account is Nonactive!'], 403);
-            }
-            if ($this->getUser()->role === 'user') {
-                return redirect()->route('index');
-            }
-            return redirect()->route('home')->with('error', 'Your account is Nonactive!');
+        if ($this->getUser()->role != 'user') {
+            return redirect()->route('home');
         }
         return $next($request);
     }

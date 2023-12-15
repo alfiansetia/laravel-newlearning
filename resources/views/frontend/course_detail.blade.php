@@ -44,11 +44,15 @@
                                 </div>
                             </div>
                         </div> --}}
-                        <form action="{{ route('cart.store') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="course" value="{{ $data->id }}">
-                            <button class="btn primary-btn">ADD TO CARD</button>
-                        </form>
+                        @if ($data->isPurchasedByUser())
+                            <a href="{{ route('index.course.open', $data->slug) }}" class="primary-btn">OPEN COURSE</a>
+                        @else
+                            <form action="{{ route('cart.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="course" value="{{ $data->id }}">
+                                <button class="btn primary-btn">ADD TO CARD</button>
+                            </form>
+                        @endif
                         {{-- <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a> --}}
                         <ul>
                             {{-- <li><b>Availability</b> <span>In Stock</span></li>

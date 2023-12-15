@@ -50,4 +50,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function courses()
+    {
+        return $this->hasManyThrough(
+            TransactionDetail::class, // Model tujuan
+            Transaction::class,       // Model perantara
+            // 'user_id',                // Foreign key di tabel transactions
+            // 'transaction_id',         // Foreign key di tabel transaction_details
+            // 'id',                     // Kunci lokal di tabel users
+            // 'user_id'                      // Kunci asing di tabel transactions
+        );
+    }
 }

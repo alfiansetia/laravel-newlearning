@@ -277,17 +277,25 @@
                                 <div class="product__item">
                                     <div class="product__item__pic set-bg" data-setbg="{{ $item->image }}">
                                         <ul class="product__item__pic__hover">
-                                            <li><a href="{{ route('index.course.detail', $item->slug) }}"><i
-                                                        class="fa fa-info-circle"></i></a></li>
-                                            <li><a href="#" onclick="post_cart('{{ $item->id }}')"><i
-                                                        class="fa fa-shopping-cart"></i></a></li>
+                                            <li>
+                                                <a href="{{ route('index.course.detail', $item->slug) }}"><i
+                                                        class="fa fa-info-circle"></i></a>
+                                            </li>
+                                            @if (!$item->isPurchasedByUser())
+                                                <li>
+                                                    <a href="#" onclick="post_cart('{{ $item->id }}')"><i
+                                                            class="fa fa-shopping-cart"></i></a>
+                                                </li>
+                                            @endif
+
                                         </ul>
                                     </div>
                                     <div class="product__item__text">
                                         <h6><a
                                                 href="{{ route('index.course.detail', $item->slug) }}">{{ $item->name }}</a>
                                         </h6>
-                                        <h5>${{ $item->price }}</h5>
+                                        <h5><img src="{{ asset('images/dollar.png') }}" alt="" width="18">
+                                            {{ $item->price }}</h5>
                                     </div>
                                 </div>
                             </div>
