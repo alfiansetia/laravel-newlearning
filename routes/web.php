@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/profile', [FrontendController::class, 'profileUpdate'])->name('index.profile.update');
         Route::resource('cart', CartController::class)->only(['index', 'store', 'destroy']);
         Route::resource('transaction', TransactionController::class)->only(['index', 'store']);
+        Route::post('transaction-key/{course}', [TransactionController::class, 'withKey'])->name('index.transaction.key');
     });
 
     Route::group(['middleware' => ['is.admin']], function () {

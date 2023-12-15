@@ -38,10 +38,10 @@
                             <span class="d-inline">{{ $data->price }}</span>
                         </div>
                         <p>{{ $data->subtitle }}</p>
-                        {{-- <div class="product__details__quantity">
+                        {{-- <div class="product__details__quantity mb-3">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <input type="text" value="1">
+                                    <input type="text" value="" placeholder="KEY">
                                 </div>
                             </div>
                         </div> --}}
@@ -52,6 +52,8 @@
                                 @csrf
                                 <input type="hidden" name="course" value="{{ $data->id }}">
                                 <button class="btn primary-btn">ADD TO CARD</button>
+                                <button type="button" class="btn primary-btn" data-toggle="modal"
+                                    data-target="#exampleModal">REEDEM</button>
                             </form>
                         @endif
                         {{-- <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a> --}}
@@ -154,4 +156,31 @@
         </div>
     </section>
     <!-- Product Details Section End -->
+    <form action="{{ route('index.transaction.key', $data->id) }}" method="POST">
+        @csrf
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Reedem <b>{{ $data->name }}</b> With KEY</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <select name="key" id="key" class="form-control form-control-lg" required>
+                            <option value="">Select Key</option>
+                            @foreach ($user->available_keys as $item)
+                                <option value="{{ $item->id }}">{{ $item->value }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn primary-btn">Reedem Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 @endsection

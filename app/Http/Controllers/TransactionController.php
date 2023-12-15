@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use App\Models\Cart;
+use App\Models\Course;
+use App\Models\Key;
 use App\Models\TransactionDetail;
 use App\Traits\CompanyTrait;
 use Illuminate\Http\Request;
@@ -100,5 +102,32 @@ class TransactionController extends Controller
     public function destroy(Transaction $transaction)
     {
         //
+    }
+
+    public function withKey(Request $request, Course $course)
+    {
+        $user = $this->getUser();
+        $key = Key::where('user_id', $user->id)->where('status', 'available')->find($request->key);
+        if (!$key) {
+            return redirect()->back()->with(['error' => 'Key not Valid!']);
+        }
+
+        $trx = Transaction::create([
+            'user_id'   => $user->id,
+            'date'      => date('Y-m-d H:i:s'),
+            'number'    => Str::random(10),
+            'total'     => $course->price,
+            'status'    => 'success',
+        ]);
+
+        TransactionDetail::create([
+            'transaction_id'    => $trx->id,
+            'course_id'         => $course->id,
+            'price'             => $course->price,
+        ]);
+        $key->update([
+            'status' => 'unavailable',
+        ]);
+        return redirect()->back()->with(['success' => 'Reedem Success!']);
     }
 }

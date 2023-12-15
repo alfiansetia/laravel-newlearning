@@ -23,7 +23,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         view()->composer(
-            ['layouts.frontend_app', 'frontend.profile'],
+            [
+                'layouts.frontend_app',
+                'frontend.profile',
+                'frontend.course_detail'
+            ],
             function ($view) {
                 $view->with('company', Company::first());
                 $view->with('user', User::withCount('carts')->find(auth()->id()));

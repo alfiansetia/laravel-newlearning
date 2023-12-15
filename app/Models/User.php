@@ -56,6 +56,16 @@ class User extends Authenticatable
         return $this->hasMany(Cart::class);
     }
 
+    public function keys()
+    {
+        return $this->hasMany(Key::class);
+    }
+
+    public function available_keys()
+    {
+        return $this->hasMany(Key::class)->where('status', 'available');
+    }
+
     public function courses()
     {
         return $this->hasManyThrough(
