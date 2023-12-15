@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <h2>Featured Product</h2>
+                    <h2>All Course</h2>
                 </div>
                 {{-- <div class="featured__controls">
                     <ul>
@@ -29,7 +29,8 @@
                             </ul> --}}
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="{{ url('cat') }}/{{ $item->slug }}">{{ $item->name }}</a></h6>
+                            <h6 style="font-size: 15px"><a
+                                    href="{{ url('cat') }}/{{ $item->slug }}">{{ $item->name }}</a></h6>
                             {{-- <h5>${{ $item->price }}</h5> --}}
                         </div>
                     </div>

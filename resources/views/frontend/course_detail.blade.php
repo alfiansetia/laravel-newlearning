@@ -25,18 +25,19 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
                         <h3>{{ $data->name }} </h3>
-                        <div class="product__details__rating">
+                        {{-- <div class="product__details__rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star-half-o"></i>
                             <span>(18 reviews)</span>
+                        </div> --}}
+                        <div class="product__details__price"><img src="{{ asset('images/dollar.png') }}" alt=""
+                                class="d-inline" style="max-width: 30px; max-height: 30px">
+                            <span class="d-inline">{{ $data->price }}</span>
                         </div>
-                        <div class="product__details__price">${{ $data->price }}</div>
-                        <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam
-                            vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet
-                            quam vehicula elementum sed sit amet dui. Proin eget tortor risus.</p>
+                        <p>{{ $data->subtitle }}</p>
                         {{-- <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
@@ -69,7 +70,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-12">
+                {{-- <div class="col-lg-12">
                     <div class="product__details__tab">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
@@ -148,7 +149,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>

@@ -11,7 +11,8 @@
             </div>
         </div>
     </div>
-    @foreach ($data->subcategories as $item)
+
+    @forelse ($data->subcategories as $item)
         <!-- Categories Section Begin -->
         <section class="categories mb-3">
             <div class="container">
@@ -31,20 +32,26 @@
                                     <div class="categories__item set-bg" data-setbg="{{ $c->image }}">
                                     </div>
                                     <div class="card-body text-center">
-                                        <h5 class="card-title">
-                                            <a href="{{ route('index.course.detail', $c->slug) }}">{{ $c->name }}</a>
-                                        </h5>
-                                        <h5>
+                                        <h6 class="card-title">
+                                            <a href="{{ route('index.course.detail', $c->slug) }}">
+                                                <b>
+                                                    <font color="grey">{{ $c->name }}</font>
+                                                </b>
+                                            </a>
+                                        </h6>
+                                        <h6>
                                             <img src="{{ asset('images/dollar.png') }}" alt="" class="d-inline"
                                                 style="max-width: 18px; max-height: 18px">
                                             <span class="d-inline">{{ $c->price }}</span>
-                                        </h5>
+                                        </h6>
                                     </div>
                                 </div>
                             </div>
                         @empty
-                            <div class="alert alert-danger" role="alert">
-                                Empty Course!
+                            <div class="col-lg-3">
+                                <div class="alert alert-danger" role="alert">
+                                    Empty Course!
+                                </div>
                             </div>
                         @endforelse
                     </div>
@@ -52,5 +59,11 @@
             </div>
         </section>
         <!-- Categories Section End -->
-    @endforeach
+    @empty
+        <div class="container">
+            <div class="alert alert-danger" role="alert">
+                Empty Course!
+            </div>
+        </div>
+    @endforelse
 @endsection
