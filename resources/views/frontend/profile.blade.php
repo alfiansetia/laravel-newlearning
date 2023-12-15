@@ -27,6 +27,9 @@
 @endpush
 
 @section('content')
+    @php
+        $keys = $user->available_keys;
+    @endphp
     <div class="container mt-3">
         <div class="main-body">
             <div class="row">
@@ -43,31 +46,23 @@
                                         <img src="{{ asset('images/dollar.png') }}" alt="" width="20">
                                         <b>{{ $user->point }}</b>
                                     </p>
+                                    <p class="text-muted font-size-sm">
+                                        <b>{{ count($keys) }} Key</b>
+                                    </p>
                                 </div>
                             </div>
                             <hr class="my-4">
-                            {{-- <ul class="list-group list-group-flush">
-                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Website</h6>
-                                    <span class="text-secondary">https://bootdey.com</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Github</h6>
-                                    <span class="text-secondary">bootdey</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Twitter</h6>
-                                    <span class="text-secondary">@bootdey</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Instagram</h6>
-                                    <span class="text-secondary">bootdey</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0">Facebook</h6>
-                                    <span class="text-secondary">bootdey</span>
-                                </li>
-                            </ul> --}}
+                            <ul class="list-group list-group-flush">
+                                @forelse ($keys as $item)
+                                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <h6 class="mb-0">{{ $item->value }}</h6>
+                                    </li>
+                                @empty
+                                    <div class="alert alert-danger" role="alert">
+                                        No Available Keys
+                                    </div>
+                                @endforelse
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -116,7 +111,8 @@
                                             <option value="">Select Gender</option>
                                             <option value="Male" {{ $user->gender === 'Male' ? 'selected' : '' }}>Male
                                             </option>
-                                            <option value="Female" {{ $user->gender === 'Female' ? 'selected' : '' }}>Female
+                                            <option value="Female" {{ $user->gender === 'Female' ? 'selected' : '' }}>
+                                                Female
                                             </option>
                                         </select>
                                     </div>
