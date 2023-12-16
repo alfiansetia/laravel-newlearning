@@ -37,4 +37,22 @@
             Don't have an account? <a href="{{ route('register') }}" class="text-primary">Create</a>
         </div>
     </form>
+
+    <div class="container mt-2">
+        <h4>List Account demo</h4>
+        <ul class="list-group">
+            <li class="list-group-item">
+                admin@gmail.com
+                admin12345
+            </li>
+            <li class="list-group-item">
+                user@gmail.com
+                user12345
+            </li>
+            <li class="list-group-item">
+                mentor@gmail.com
+                mentor12345
+            </li>
+        </ul>
+    </div>
 @endsection

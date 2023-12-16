@@ -47,7 +47,7 @@
                 <nav class="header__menu">
                     <ul>
                         <li class="active"><a href="{{ route('index') }}">Home</a></li>
-                        <li><a href="{{ route('index.course.list') }}">Shop</a></li>
+                        <li><a href="{{ route('index.course.list') }}">Course</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="header__menu__dropdown">
                                 <li><a href="./shop-details.html">Shop Details</a></li>

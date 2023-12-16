@@ -2,14 +2,27 @@
 <div class="humberger__menu__overlay"></div>
 <div class="humberger__menu__wrapper">
     <div class="humberger__menu__logo">
-        <a href="#"><img src="{{ asset('frontend/img/logo.png') }}" alt=""></a>
+        <a href="{{ route('index') }}"><img src="{{ asset('frontend/img/logo.png') }}" alt=""></a>
     </div>
     <div class="humberger__menu__cart">
         <ul>
-            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+            @auth
+                <li>
+                    <a href="{{ route('cart.index') }}">
+                        <i class="fa fa-shopping-bag"></i><span>{{ $user->carts_count }}</span></a>
+                </li>
+                <li>
+                    <a href="{{ route('index.profile') }}">
+                        <img src="{{ asset('images/dollar.png') }}" alt=""
+                            width="18"><span>{{ $user->point }}</span>
+                    </a>
+                </li>
+                <li>
+                    <button class="btn" onclick="logout()"><i class="fa fa-sign-out"></i></button>
+                </li>
+            @endauth
         </ul>
-        <div class="header__cart__price">item: <span>$150.00</span></div>
+        {{-- <div class="header__cart__price">item: <span>$150.00</span></div> --}}
     </div>
     <div class="humberger__menu__widget">
         <div class="header__top__right__language">
@@ -22,13 +35,13 @@
             </ul>
         </div>
         <div class="header__top__right__auth">
-            <a href="#"><i class="fa fa-user"></i> Login</a>
+            <a href="{{ route('login') }}"><i class="fa fa-user"></i> Login</a>
         </div>
     </div>
     <nav class="humberger__menu__nav mobile-menu">
         <ul>
-            <li class="active"><a href="./index.html">Home</a></li>
-            <li><a href="./shop-grid.html">Shop</a></li>
+            <li class="active"><a href="{{ route('index') }}">Home</a></li>
+            <li><a href="{{ route('index.course.list') }}">Course</a></li>
             <li><a href="#">Pages</a>
                 <ul class="header__menu__dropdown">
                     <li><a href="./shop-details.html">Shop Details</a></li>
