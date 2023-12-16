@@ -38,20 +38,20 @@
         </div>
     </form>
 
-    <div class="container mt-2">
+    <div class="container mt-3">
         <h4>List Account demo</h4>
-        <ul class="list-group">
+        <ul class="list-group mt-2">
             <li class="list-group-item">
                 admin@gmail.com
-                admin12345
+                <br>admin12345
             </li>
             <li class="list-group-item">
                 user@gmail.com
-                user12345
+                <br>user12345
             </li>
             <li class="list-group-item">
                 mentor@gmail.com
-                mentor12345
+                <br>mentor12345
             </li>
         </ul>
     </div>
