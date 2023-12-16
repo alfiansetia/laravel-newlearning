@@ -170,7 +170,7 @@
                     <div class="modal-body">
                         <select name="key" id="key" class="form-control form-control-lg" required>
                             <option value="">Select Key</option>
-                            @foreach ($user->available_keys as $item)
+                            @foreach ($user->available_keys ?? [] as $item)
                                 <option value="{{ $item->id }}">{{ $item->value }}</option>
                             @endforeach
                         </select>
