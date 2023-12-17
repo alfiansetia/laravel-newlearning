@@ -15,7 +15,7 @@ class SubCategorySeeder extends Seeder
     public function run(): void
     {
         $categories = Category::all();
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             SubCategory::factory()->create([
                 'category_id' => $categories->random()->id,
             ]);
