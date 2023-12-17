@@ -22,7 +22,6 @@ class SettingController extends Controller
             'name'      => 'required',
             'gender'    => 'required|in:Male,Female',
             'dob'       => 'required|date_format:Y-m-d|before:today',
-            'country'   => 'required|max:25',
             'phone'     => 'required|max:15|min:8',
             'password'  => 'nullable|min:5',
         ]);
@@ -31,7 +30,6 @@ class SettingController extends Controller
             'name'      => $request->name,
             'gender'    => $request->gender,
             'dob'       => $request->dob,
-            'country'   => $request->country,
             'phone'     => $request->phone,
         ];
         if ($request->filled('password')) {

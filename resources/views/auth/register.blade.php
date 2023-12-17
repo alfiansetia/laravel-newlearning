@@ -26,19 +26,6 @@
             @enderror
         </div>
         <div class="form-group">
-            <select name="country" class="form-control form-control-lg @error('country') is-invalid @enderror"
-                id="country" required>
-                <option value="">Select Country</option>
-                <option value="Indonesia" {{ old('country') == 'Indonesia' ? 'selected' : '' }}>Indonesia</option>
-                <option value="India" {{ old('country') == 'India' ? 'selected' : '' }}>India</option>
-                <option value="Germany" {{ old('country') == 'Germany' ? 'selected' : '' }}>Germany</option>
-                <option value="Argentina" {{ old('country') == 'Argentina' ? 'selected' : '' }}>Argentina</option>
-            </select>
-            @error('country')
-                <div class="alert alert-danger mt-2">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group">
             <input type="password" name="password"
                 class="form-control form-control-lg @error('password') is-invalid @enderror" id="password"
                 placeholder="Password" required>

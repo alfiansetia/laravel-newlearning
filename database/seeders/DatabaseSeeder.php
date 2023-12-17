@@ -20,6 +20,10 @@ class DatabaseSeeder extends Seeder
             CourseSeeder::class,
             KeySeeder::class,
             CartSeeder::class,
+            QuizSeeder::class,
+            QuizOptionSeeder::class,
+            ContentSeeder::class,
+
         ]);
     }
 }

@@ -24,7 +24,6 @@ class User extends Authenticatable
         'gender',
         'role',
         'dob',
-        'country',
         'phone',
         'status',
         'email_verified_at',

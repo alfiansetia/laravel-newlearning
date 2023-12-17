@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
             'role'      => 'mentor',
             'email_verified_at' => now(),
             'status'    => 'active',
-            'point'     => 100,
+            'point'     => 50,
             'phone'     => '62855552222555',
         ]);
 

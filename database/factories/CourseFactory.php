@@ -17,11 +17,13 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'      => fake()->name(),
-            'subtitle'  => fake()->text(100),
-            'slug'      => fake()->slug(3),
-            'price'     => fake()->randomDigitNotZero(),
-            'desc'      => fake()->text(500),
+            'name'          => fake()->name(),
+            'subtitle'      => fake()->text(100),
+            'slug'          => fake()->slug(3),
+            'price'         => fake()->randomDigitNotZero(),
+            'image_materi'  => null,
+            'header_materi' => fake()->title(),
+            'materi_detail' => fake()->text(500),
         ];
     }
 }

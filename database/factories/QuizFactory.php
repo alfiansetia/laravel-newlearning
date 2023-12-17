@@ -17,7 +17,8 @@ class QuizFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title'     => fake()->text(20),
+            'question'  => fake()->text(200),
         ];
     }
 }

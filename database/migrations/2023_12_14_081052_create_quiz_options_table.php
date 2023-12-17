@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('quiz_id');
             $table->string('value');
+            $table->enum('is_answer', ['yes', 'no'])->default('no');
             $table->timestamps();
             $table->foreign('quiz_id')->references('id')->on('quizzes')->cascadeOnDelete()->cascadeOnUpdate();
         });

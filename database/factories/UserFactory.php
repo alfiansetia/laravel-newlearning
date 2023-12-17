@@ -31,11 +31,10 @@ class UserFactory extends Factory
             'remember_token'    => Str::random(10),
             'gender'            => fake()->randomElement(['Male', 'Female']),
             'dob'               => fake()->date(),
-            'country'           => fake()->country(),
             'phone'             => fake()->phoneNumber(),
             'status'            => fake()->randomElement(['active', 'nonactive']),
             'role'              => fake()->randomElement(['user', 'admin', 'mentor']),
-            'point'             => fake()->numberBetween(10, 1000),
+            'point'             => fake()->numberBetween(10, 100),
         ];
     }
 

@@ -57,7 +57,6 @@ class RegisterController extends Controller
             'password_confirmation' => 'required|same:password',
             'gender'    => 'required|in:Male,Female',
             // 'dob'       => 'required|date_format:Y-m-d|date|before:today|after:01-jan-1900',
-            'country'   => 'required',
             'phone'     => 'required',
         ]);
     }
@@ -76,7 +75,6 @@ class RegisterController extends Controller
             'password'          => Hash::make($data['password']),
             'gender'            => $data['gender'],
             'phone'             => $data['phone'],
-            'country'           => $data['country'],
             // 'email_verified_at' => now(),
             'remember_token'    => Str::random(10),
         ]);

@@ -20,6 +20,15 @@ class Course extends Model
         }
     }
 
+    public function getImageMateriAttribute($value)
+    {
+        if ($value && file_exists(public_path('/images/content/' . $value))) {
+            return url('/images/content/' . $value);
+        } else {
+            return url('/images/default.jpg');
+        }
+    }
+
     public function isPurchasedByUser()
     {
         $user = auth()->user();

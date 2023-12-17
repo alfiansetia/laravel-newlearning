@@ -18,7 +18,7 @@ class CourseSeeder extends Seeder
         $subcategories = SubCategory::all();
         $mentors = User::where('role', 'mentor')->where('status', 'active')->get();
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 15; $i++) {
             Course::factory()->create([
                 'subcategory_id' => $subcategories->random()->id,
                 'mentor_id'      => $mentors->random()->id,

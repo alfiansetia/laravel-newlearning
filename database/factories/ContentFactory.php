@@ -17,7 +17,9 @@ class ContentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title'     => fake()->name(),
+            'file'      => 'default.mp4',
+            'detail'    => fake()->text(200),
         ];
     }
 }

@@ -127,21 +127,6 @@
                                             value="{{ $user->dob }}" required>
                                     </div>
                                 </div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Country</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <select name="country" class="form-control @error('country') is-invalid @enderror"
-                                            id="country" required>
-                                            <option value="">Select Country</option>
-                                            <option value="Indonesia"
-                                                {{ $user->country === 'Indonesia' ? 'selected' : '' }}>
-                                                Indonesia
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="col-sm-3"></div>
                                     <div class="col-sm-9 text-secondary">

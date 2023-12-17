@@ -17,7 +17,8 @@ class QuizOptionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'value'     => fake()->text(20),
+            'is_answer' => 'no',
         ];
     }
 }
