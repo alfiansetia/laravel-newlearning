@@ -19,11 +19,14 @@ class ContentSeeder extends Seeder
         File::cleanDirectory(public_path('videos/content'));
         $courses = Course::all();
         $file_name[] = Str::random(10) . '.mp4';
-        File::copy(public_path('videos/default.mp4'), public_path('videos/content/' . $file_name[0]));
+        copy(public_path('videos/default.mp4'), public_path('videos/content/' . $file_name[0]));
+        // File::copy(public_path('videos/default.mp4'), public_path('videos/content/' . $file_name[0]));
         $file_name[] = Str::random(10) . '.mp4';
-        File::copy(public_path('videos/default2.mp4'), public_path('videos/content/' . $file_name[1]));
+        copy(public_path('videos/default2.mp4'), public_path('videos/content/' . $file_name[1]));
+        // File::copy(public_path('videos/default2.mp4'), public_path('videos/content/' . $file_name[1]));
         $file_name[] = Str::random(10) . '.mp4';
-        File::copy(public_path('videos/default3.mp4'), public_path('videos/content/' . $file_name[2]));
+        copy(public_path('videos/default3.mp4'), public_path('videos/content/' . $file_name[2]));
+        // File::copy(public_path('videos/default3.mp4'), public_path('videos/content/' . $file_name[2]));
 
         foreach ($courses as $key => $value) {
             for ($i = 0; $i < 3; $i++) {
