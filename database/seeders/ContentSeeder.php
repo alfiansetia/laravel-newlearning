@@ -32,7 +32,7 @@ class ContentSeeder extends Seeder
         foreach ($courses as $key => $value) {
             for ($i = 0; $i < 3; $i++) {
                 Content::factory()->create([
-                    'course_id' => $courses->random()->id,
+                    'course_id' => $value->id,
                     'file'      => $file_name[$i]
                 ]);
             }
