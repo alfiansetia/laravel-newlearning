@@ -44,7 +44,7 @@
                                                     data-target="#collapseOne{{ $item->id }}"
                                                     aria-expanded="{{ $key === 0 ? 'true' : 'false' }}"
                                                     aria-controls="collapseOne{{ $item->id }}">
-                                                    {{ $item->title }}
+                                                    {{ $key + 1 }}. {{ $item->title }}
                                                 </button>
                                             </h5>
                                         </div>
@@ -55,7 +55,7 @@
                                             <div class="card-body">
                                                 {{ $item->question }}
                                                 @php
-                                                    $options = $item->options;
+                                                    $options = $item->options ?? [];
                                                 @endphp
                                                 <br>
                                                 @foreach ($options as $option)
