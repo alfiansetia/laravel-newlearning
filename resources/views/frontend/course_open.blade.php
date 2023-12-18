@@ -10,7 +10,7 @@
     <section class="product-details spad">
         <div class="container">
             <div class="row">
-                <div class="col-8">
+                <div class="col-lg-8 col-md-8 col-sm-12">
                     <div class="tab-content" id="nav-tabContent">
                         @foreach ($contents ?? [] as $key => $item)
                             <div class="tab-pane {{ $key === 0 ? 'fade show active' : '' }}" id="list-home{{ $item->id }}"
@@ -80,7 +80,7 @@
                     </div>
                 </div>
 
-                <div class="col-4">
+                <div class="col-lg-4 col-md-4 col-sm-4">
                     <h4 class="mb-2">{{ $data->name }}</h4>
                     <div class="list-group" id="list-tab" role="tablist">
                         @foreach ($contents ?? [] as $key => $item)
