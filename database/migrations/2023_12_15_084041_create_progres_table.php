@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('progres', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('course_id')->nullable();
+            $table->unsignedBigInteger('content_id')->nullable();
+            $table->unsignedBigInteger('quiz_id')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->integer('value')->default(0);
             $table->timestamps();
             $table->foreign('course_id')->references('id')->on('courses')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('content_id')->references('id')->on('contents')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('quiz_id')->references('id')->on('courses')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }

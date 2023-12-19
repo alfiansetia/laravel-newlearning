@@ -22,7 +22,7 @@ class CourseFactory extends Factory
             'slug'          => fake()->slug(3),
             'price'         => fake()->randomDigitNotZero(),
             'image_materi'  => null,
-            'header_materi' => fake()->title(),
+            'header_materi' => fake()->text(25),
             'materi_detail' => fake()->text(500),
         ];
     }

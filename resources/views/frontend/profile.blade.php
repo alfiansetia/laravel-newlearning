@@ -149,9 +149,9 @@
                                         </p>
 
                                         @php
-                                            $value = $item->course->progres->value ?? 0;
+                                            $value = $item->course->userProgres() ?? 0;
                                         @endphp
-                                        <div class="progress mb-3" style="height: 5px">
+                                        <div class="progress mb-3" style="height: 15px">
                                             <div class="progress-bar bg-primary" role="progressbar"
                                                 style="width: {{ $value }}%" aria-valuenow="{{ $value }}"
                                                 aria-valuemin="0" aria-valuemax="100">{{ $value }}%</div>

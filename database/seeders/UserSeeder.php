@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
             'status'    => 'active',
             'point'     => 100,
             'phone'     => '62855552222555',
+            'dob'       => '2002-05-01',
         ]);
 
         User::create([
@@ -34,6 +35,7 @@ class UserSeeder extends Seeder
             'status'    => 'active',
             'point'     => 100,
             'phone'     => '62855552222555',
+            'dob'       => '2002-05-02',
         ]);
 
         User::create([
@@ -45,6 +47,7 @@ class UserSeeder extends Seeder
             'status'    => 'active',
             'point'     => 50,
             'phone'     => '62855552222555',
+            'dob'       => '2002-05-03',
         ]);
 
         User::factory(50)->create();

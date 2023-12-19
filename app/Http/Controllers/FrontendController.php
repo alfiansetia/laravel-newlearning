@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Progres;
 use App\Models\QuizOption;
 use App\Models\QuizUserAnswer;
 use App\Models\SubCategory;
@@ -106,9 +107,44 @@ class FrontendController extends Controller
             'course_id' => $course->id
         ], [
             'iser_id'   => $user->id,
+            'date'      => date('Y-m-d H:i:s'),
             'course_id' => $course->id,
             'value'     => $score_percentage,
         ]);
         return redirect()->back()->with(['success' => 'Answer Saved! Your Score : ' . $score_percentage]);
+    }
+
+    public function saveProgres(Request $request)
+    {
+        $this->validate($request, [
+            'type'      => 'required|in:content,course,quiz',
+        ]);
+        $user = $this->getUser();
+        if ($request->type === 'content') {
+            Progres::updateOrCreate([
+                'user_id' => $user->id,
+                'content_id' => $request->content,
+            ], [
+                'user_id' => $user->id,
+                'content_id' => $request->content,
+            ]);
+        } else if ($request->type === 'course') {
+            Progres::updateOrCreate([
+                'user_id'   => $user->id,
+                'course_id' => $request->course,
+            ], [
+                'user_id'   => $user->id,
+                'course_id' => $request->course,
+            ]);
+        } else if ($request->type === 'quiz') {
+            Progres::updateOrCreate([
+                'user_id'   => $user->id,
+                'quiz_id' => $request->quiz,
+            ], [
+                'user_id'   => $user->id,
+                'quiz_id' => $request->quiz,
+            ]);
+        }
+        return redirect()->back()->with(['success' => 'Progres Saved!']);
     }
 }

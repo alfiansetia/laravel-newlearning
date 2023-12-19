@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('transaction-key/{course}', [TransactionController::class, 'withKey'])->name('index.transaction.key');
 
         Route::post('save-answer/{course}', [FrontendController::class, 'saveAnswer'])->name('index.save.answer');
+        Route::post('save-progres/', [FrontendController::class, 'saveProgres'])->name('index.save.progres');
     });
 
     Route::group(['middleware' => ['is.admin']], function () {

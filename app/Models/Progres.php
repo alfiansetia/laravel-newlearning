@@ -20,4 +20,9 @@ class Progres extends Model
     {
         return $this->belongsTo(Course::class);
     }
+
+    public function content()
+    {
+        return $this->belongsTo(Content::class);
+    }
 }

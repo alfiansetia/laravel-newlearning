@@ -22,6 +22,19 @@
                                         id="{{ 'vid' . $item->id . $loop->iteration }}">
                                     Your browser does not support the video tag.
                                 </video>
+                                <br>
+                                @if (!$data->isContentDoneUser($item->id))
+                                    <form action="{{ route('index.save.progres') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="type" value="content">
+                                        <input type="hidden" name="content" value="{{ $item->id }}">
+                                        <button type="submit" class="btn btn-sm primary-btn">Set Done</button>
+                                    </form>
+                                @else
+                                    <div class="alert alert-success" role="alert">
+                                        You have completed this session!
+                                    </div>
+                                @endif
                             </div>
                         @endforeach
 
@@ -32,9 +45,19 @@
                             <br>
                             <h3 class="pt-2">{!! $data->header_materi !!}</h3>
                             {!! $data->materi_detail !!}
-                            <br>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum dicta
-                            accusantium ipsa. Fugit, nam quia ab tenetur quasi, libero impedit sequi incidunt vero optio
-                            iure dolorum quis, voluptas atque beatae!
+                            <br>
+                            @if (!$data->isCourseDoneUser($data->id))
+                                <form action="{{ route('index.save.progres') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="type" value="course">
+                                    <input type="hidden" name="course" value="{{ $data->id }}">
+                                    <button type="submit" class="btn btn-sm primary-btn">Set Done</button>
+                                </form>
+                            @else
+                                <div class="alert alert-success" role="alert">
+                                    You have completed this session!
+                                </div>
+                            @endif
                         </div>
                         <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
                             <div class="alert alert-{{ $score > 50 ? 'success' : 'danger' }}" role="alert">
@@ -82,8 +105,20 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <button class="btn primary-btn mt-3">SAVE ANSWER</button>
+                                <button class="btn primary-btn mt-3 mb-2">SAVE ANSWER</button>
                             </form>
+                            @if (!$data->isQuizDoneUser($data->id))
+                                <form action="{{ route('index.save.progres') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="type" value="quiz">
+                                    <input type="hidden" name="quiz" value="{{ $data->id }}">
+                                    <button type="submit" class="btn btn-sm primary-btn">Set Done</button>
+                                </form>
+                            @else
+                                <div class="alert alert-success" role="alert">
+                                    You have completed this session!
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
