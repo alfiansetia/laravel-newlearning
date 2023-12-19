@@ -28,7 +28,7 @@ class SubCategoryController extends Controller
             $query->orWhere('name', 'like', "%$request->search%");
         }
         $data = $query->with('category')->paginate(10)->withQueryString();
-        return view('subcategory.index', compact('data'))->with(['company' => $this->getCompany()]);
+        return view('subcategory.index', compact('data'));
     }
 
     /**
@@ -37,7 +37,7 @@ class SubCategoryController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('subcategory.create', compact('categories'))->with(['company' => $this->getCompany()]);
+        return view('subcategory.create', compact('categories'));
     }
 
     /**
@@ -79,7 +79,7 @@ class SubCategoryController extends Controller
     {
         $data = $subcategory;
         $categories = Category::all();
-        return view('subcategory.edit', compact('data', 'categories'))->with(['company' => $this->getCompany()]);
+        return view('subcategory.edit', compact('data', 'categories'));
     }
 
     /**

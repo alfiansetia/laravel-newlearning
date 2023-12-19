@@ -13,7 +13,7 @@ class SettingController extends Controller
     public function profile()
     {
         $data = $this->getUser();
-        return view('setting.profile', compact('data'))->with(['company' => $this->getCompany()]);
+        return view('setting.profile', compact('data'));
     }
 
     public function profileUpdate(Request $request)

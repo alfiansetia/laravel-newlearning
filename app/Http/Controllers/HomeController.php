@@ -30,6 +30,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home')->with(['company' => $this->getCompany()]);;
+        return view('home');
     }
 }

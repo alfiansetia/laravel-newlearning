@@ -25,7 +25,7 @@ class UserController extends Controller
             $query->orWhere('email', 'like', "%$request->search%");
         }
         $data = $query->paginate(10)->withQueryString();
-        return view('user.index', compact('data'))->with(['company' => $this->getCompany()]);
+        return view('user.index', compact('data'));
     }
 
     public function show(User $user)
@@ -35,7 +35,7 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('user.create')->with(['company' => $this->getCompany()]);
+        return view('user.create');
     }
 
     public function store(Request $request)
@@ -73,7 +73,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $data = $user;
-        return view('user.edit', compact('data'))->with(['company' => $this->getCompany()]);
+        return view('user.edit', compact('data'));
     }
 
     public function update(Request $request, User $user)

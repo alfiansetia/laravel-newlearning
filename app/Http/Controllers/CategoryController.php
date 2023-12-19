@@ -27,7 +27,7 @@ class CategoryController extends Controller
             $query->orWhere('name', 'like', "%$request->search%");
         }
         $data = $query->paginate(10)->withQueryString();
-        return view('category.index', compact('data'))->with(['company' => $this->getCompany()]);
+        return view('category.index', compact('data'));
     }
 
     /**
@@ -35,7 +35,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('category.create')->with(['company' => $this->getCompany()]);
+        return view('category.create');
     }
 
     /**
@@ -75,7 +75,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         $data = $category;
-        return view('category.edit', compact('data'))->with(['company' => $this->getCompany()]);
+        return view('category.edit', compact('data'));
     }
 
     /**
