@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer(
             [
+                'layouts.template',
                 'layouts.frontend_app',
                 'frontend.profile',
                 'frontend.course_detail'

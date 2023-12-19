@@ -18,7 +18,7 @@ class KeyFactory extends Factory
     public function definition(): array
     {
         return [
-            'value'     => Str::random(16),
+            'value'     => Str::random(20),
             'status'    => fake()->randomElement(['available', 'unavailable']),
         ];
     }

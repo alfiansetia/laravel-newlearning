@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KeyController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\TransactionController;
@@ -61,5 +62,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('subcategory', SubCategoryController::class);
         Route::resource('course', CourseController::class);
         Route::resource('user', UserController::class);
+        Route::resource('key', KeyController::class);
     });
 });
