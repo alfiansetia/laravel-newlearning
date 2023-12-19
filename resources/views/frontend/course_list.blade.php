@@ -283,7 +283,7 @@
                                             </li>
                                             @if (!$item->isPurchasedByUser())
                                                 <li>
-                                                    <a href="#" onclick="post_cart('{{ $item->id }}')"><i
+                                                    <a style="cursor: pointer" onclick="post_cart('{{ $item->id }}')"><i
                                                             class="fa fa-shopping-cart"></i></a>
                                                 </li>
                                             @endif
