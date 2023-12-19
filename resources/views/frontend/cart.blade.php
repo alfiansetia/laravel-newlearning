@@ -29,7 +29,8 @@
                                             <h5>{{ $item->course->name }}</h5>
                                         </td>
                                         <td class="shoping__cart__price">
-                                            ${{ $item->course->price }}
+                                            <img src="{{ asset('images/dollar.png') }}" alt="" width="20">
+                                            {{ $item->course->price }}
                                         </td>
                                         <td class="shoping__cart__item__close">
                                             <form action="{{ route('cart.destroy', $item->id) }}" method="POST">
@@ -87,7 +88,11 @@
                         @endif
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Total <span>${{ $total }}</span></li>
+                            <li>Total <span>
+                                    <img src="{{ asset('images/dollar.png') }}" alt=""
+                                        width="20">{{ $total }}
+                                </span>
+                            </li>
                         </ul>
                         <form action="{{ route('transaction.store') }}" method="POST">
                             @csrf
