@@ -94,7 +94,7 @@
                                 </span>
                             </li>
                         </ul>
-                        <form action="{{ route('transaction.store') }}" method="POST">
+                        <form action="{{ route('index.save.transaction') }}" method="POST">
                             @csrf
                             <button {{ !$enough || $empty ? 'disabled' : '' }} type="submit"
                                 class="btn primary-btn">PROCEED TO

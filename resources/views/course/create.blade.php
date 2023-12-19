@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-8">
+        <div class="col-lg-8">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Create User</h4>

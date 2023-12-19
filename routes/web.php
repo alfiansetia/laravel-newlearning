@@ -44,9 +44,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/profile', [FrontendController::class, 'profile'])->name('index.profile');
         Route::post('/profile', [FrontendController::class, 'profileUpdate'])->name('index.profile.update');
         Route::resource('cart', CartController::class)->only(['index', 'store', 'destroy']);
-        Route::resource('transaction', TransactionController::class)->only(['index', 'store']);
-        Route::post('transaction-key/{course}', [TransactionController::class, 'withKey'])->name('index.transaction.key');
 
+        Route::post('transaction-key/{course}', [FrontendController::class, 'withKey'])->name('index.save.transaction.key');
+        Route::post('save-transaction/', [FrontendController::class, 'saveTransaction'])->name('index.save.transaction');
         Route::post('save-answer/{course}', [FrontendController::class, 'saveAnswer'])->name('index.save.answer');
         Route::post('save-progres/', [FrontendController::class, 'saveProgres'])->name('index.save.progres');
     });
@@ -63,5 +63,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('course', CourseController::class);
         Route::resource('user', UserController::class);
         Route::resource('key', KeyController::class);
+        Route::resource('transaction', TransactionController::class)->only(['index', 'show', 'destroy']);
     });
 });

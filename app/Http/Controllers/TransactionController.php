@@ -19,9 +19,14 @@ class TransactionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Transaction::query();
+        if ($request->filled('search')) {
+            $query->orWhere('number', 'like', "%$request->search%");
+        }
+        $data = $query->paginate(10)->withQueryString();
+        return view('transaction.index', compact('data'));
     }
 
     /**
@@ -37,39 +42,7 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        $user = $this->getUser();
-        $carts = Cart::with('course')->where('User_id', $user->id)->get();
-        if (count($carts) < 1) {
-            return redirect()->back()->with(['error' => 'Empty Cart!']);
-        }
-        $total = 0;
-        foreach ($carts as $item) {
-            $total += $item->course->price;
-        }
-        if ($user->point < $total) {
-            return redirect()->back()->with(['error' => 'Not Enough Token!']);
-        }
-        $trx = Transaction::create([
-            'user_id'   => $user->id,
-            'date'      => date('Y-m-d H:i:s'),
-            'number'    => Str::random(10),
-            'total'     => $total,
-            'status'    => 'success',
-        ]);
-
-        foreach ($carts as $item) {
-            TransactionDetail::create([
-                'transaction_id'    => $trx->id,
-                'course_id'         => $item->course_id,
-                'price'             => $item->course->price,
-            ]);
-            $item->delete();
-        }
-        $new_point = $user->point - $total;
-        $user->update([
-            'point' => $new_point,
-        ]);
-        return redirect()->back()->with(['success' => 'Payment Successfull !']);
+        // 
     }
 
     /**
@@ -77,7 +50,8 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        //
+        $data = $transaction->load('details', 'user');
+        return view('transaction.show', compact('data'));
     }
 
     /**
@@ -101,33 +75,9 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
-    }
-
-    public function withKey(Request $request, Course $course)
-    {
-        $user = $this->getUser();
-        $key = Key::where('user_id', $user->id)->where('status', 'available')->find($request->key);
-        if (!$key) {
-            return redirect()->back()->with(['error' => 'Key not Valid!']);
-        }
-
-        $trx = Transaction::create([
-            'user_id'   => $user->id,
-            'date'      => date('Y-m-d H:i:s'),
-            'number'    => Str::random(10),
-            'total'     => $course->price,
-            'status'    => 'success',
+        $transaction->update([
+            'status' => 'cancel'
         ]);
-
-        TransactionDetail::create([
-            'transaction_id'    => $trx->id,
-            'course_id'         => $course->id,
-            'price'             => $course->price,
-        ]);
-        $key->update([
-            'status' => 'unavailable',
-        ]);
-        return redirect()->back()->with(['success' => 'Reedem Success!']);
+        return redirect()->route('transaction.index')->with(['success' => 'Cancel Data Success!']);
     }
 }

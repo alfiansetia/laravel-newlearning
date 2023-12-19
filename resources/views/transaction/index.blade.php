@@ -1,4 +1,4 @@
-@extends('layouts.template', ['title' => 'Sub Category'])
+@extends('layouts.template', ['title' => 'Transaction'])
 
 @section('content')
     <div class="row">
@@ -6,25 +6,33 @@
             <div class="card">
                 <div class="card-body">
                     @include('components.card_header', [
-                        'title' => 'Sub Category',
-                        'route' => 'subcategory.create',
+                        'title' => 'Transaction',
+                        'route' => 'transaction.index',
                     ])
                     <div class="table-responsive">
                         <table class="table table-sm table-hover" style="width: 100%" id="table">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Category</th>
-                                    <th>Image</th>
+                                    <th>Date</th>
+                                    <th>Number</th>
+                                    <th>Total</th>
+                                    <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($data as $key => $item)
                                     <tr>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->category->name }}</td>
-                                        <td><img src="{{ $item->image }}" alt="" width="50"></td>
+                                        <td>{{ $item->date }}</td>
+                                        <td>{{ $item->number }}</td>
+                                        <td>
+                                            <img src="{{ asset('images/dollar.png') }}"
+                                                style="max-width: 20px;max-height: 20px"> {{ $item->total }}
+                                        </td>
+                                        <td class="text-center">
+                                            <span
+                                                class="badge badge-{{ $item->status === 'success' ? 'success' : 'danger' }}">{{ $item->status }}</span>
+                                        </td>
                                         <td class="text-center">
                                             <div class="dropdown">
                                                 <button type="button" class="btn btn-sm btn-outline-info dropdown-toggle"
@@ -34,10 +42,10 @@
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton3">
                                                     <a class="dropdown-item"
-                                                        href="{{ route('subcategory.edit', $item->id) }}">Edit</a>
+                                                        href="{{ route('transaction.show', $item->id) }}">Detail</a>
                                                     <button type="button"
-                                                        onclick="deleteData('{{ route('subcategory.destroy', $item->id) }}')"
-                                                        class="dropdown-item">Delete</button>
+                                                        onclick="deleteData('{{ route('transaction.destroy', $item->id) }}')"
+                                                        class="dropdown-item">Cancel</button>
                                                 </div>
                                             </div>
                                         </td>

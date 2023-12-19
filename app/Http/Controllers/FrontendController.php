@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Key;
 use App\Models\Progres;
 use App\Models\QuizOption;
 use App\Models\QuizUserAnswer;
 use App\Models\SubCategory;
+use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use App\Traits\CompanyTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class FrontendController extends Controller
 {
@@ -146,5 +151,69 @@ class FrontendController extends Controller
             ]);
         }
         return redirect()->back()->with(['success' => 'Progres Saved!']);
+    }
+
+    public function saveTransaction(Request $request)
+    {
+        $user = $this->getUser();
+        $carts = Cart::with('course')->where('User_id', $user->id)->get();
+        if (count($carts) < 1) {
+            return redirect()->back()->with(['error' => 'Empty Cart!']);
+        }
+        $total = 0;
+        foreach ($carts as $item) {
+            $total += $item->course->price;
+        }
+        if ($user->point < $total) {
+            return redirect()->back()->with(['error' => 'Not Enough Token!']);
+        }
+        $trx = Transaction::create([
+            'user_id'   => $user->id,
+            'date'      => date('Y-m-d H:i:s'),
+            'number'    => Str::random(10),
+            'total'     => $total,
+            'status'    => 'success',
+        ]);
+
+        foreach ($carts as $item) {
+            TransactionDetail::create([
+                'transaction_id'    => $trx->id,
+                'course_id'         => $item->course_id,
+                'price'             => $item->course->price,
+            ]);
+            $item->delete();
+        }
+        $new_point = $user->point - $total;
+        $user->update([
+            'point' => $new_point,
+        ]);
+        return redirect()->back()->with(['success' => 'Payment Successfull !']);
+    }
+
+    public function withKey(Request $request, Course $course)
+    {
+        $user = $this->getUser();
+        $key = Key::where('user_id', $user->id)->where('status', 'available')->find($request->key);
+        if (!$key) {
+            return redirect()->back()->with(['error' => 'Key not Valid!']);
+        }
+
+        $trx = Transaction::create([
+            'user_id'   => $user->id,
+            'date'      => date('Y-m-d H:i:s'),
+            'number'    => Str::random(10),
+            'total'     => $course->price,
+            'status'    => 'success',
+        ]);
+
+        TransactionDetail::create([
+            'transaction_id'    => $trx->id,
+            'course_id'         => $course->id,
+            'price'             => $course->price,
+        ]);
+        $key->update([
+            'status' => 'unavailable',
+        ]);
+        return redirect()->back()->with(['success' => 'Reedem Success!']);
     }
 }

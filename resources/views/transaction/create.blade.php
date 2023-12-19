@@ -1,12 +1,12 @@
-@extends('layouts.template', ['title' => 'User'])
+@extends('layouts.template', ['title' => 'Transaction'])
 
 @section('content')
     <div class="row">
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Create User</h4>
-                    <form class="forms-sample" id="form" action="{{ route('user.store') }}" method="POST">
+                    <h4 class="card-title">Create Transaction</h4>
+                    <form class="forms-sample" id="form" action="{{ route('transaction.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="name">Name</label>

@@ -156,7 +156,7 @@
         </div>
     </section>
     <!-- Product Details Section End -->
-    <form action="{{ route('index.transaction.key', $data->id) }}" method="POST">
+    <form action="{{ route('index.save.transaction.key', $data->id) }}" method="POST">
         @csrf
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog  modal-dialog-centered">
