@@ -5,12 +5,13 @@
         $contents = $data->contents ?? [];
         $empty_contents = count($contents) < 1;
         $quizzes = $data->quizzes ?? [];
+        $score = $data->userScore();
     @endphp
     <!-- Product Details Section Begin -->
     <section class="product-details spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-12">
+                <div class="col-lg-8 col-md-8 col-sm-12 mb-3">
                     <div class="tab-content" id="nav-tabContent">
                         @foreach ($contents ?? [] as $key => $item)
                             <div class="tab-pane {{ $key === 0 ? 'fade show active' : '' }}" id="list-home{{ $item->id }}"
@@ -35,47 +36,53 @@
                             iure dolorum quis, voluptas atque beatae!
                         </div>
                         <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
-                            <div id="accordion">
-                                @foreach ($quizzes as $key => $item)
-                                    <div class="card">
-                                        <div class="card-header" id="headingOne{{ $item->id }}">
-                                            <h5 class="mb-0">
-                                                <button class="btn btn-link" data-toggle="collapse"
-                                                    data-target="#collapseOne{{ $item->id }}"
-                                                    aria-expanded="{{ $key === 0 ? 'true' : 'false' }}"
-                                                    aria-controls="collapseOne{{ $item->id }}">
-                                                    {{ $key + 1 }}. {{ $item->title }}
-                                                </button>
-                                            </h5>
-                                        </div>
+                            <div class="alert alert-{{ $score > 50 ? 'success' : 'danger' }}" role="alert">
+                                Your Score <b>{{ $score }}</b>
+                            </div>
+                            <form action="{{ route('index.save.answer', $data->id) }}" method="POST">
+                                @csrf
+                                <div id="accordion">
+                                    @foreach ($quizzes as $key => $item)
+                                        <div class="card">
+                                            <div class="card-header" id="headingOne{{ $item->id }}">
+                                                <h5 class="mb-0">
+                                                    <button type="button" class="btn btn-link" data-toggle="collapse"
+                                                        data-target="#collapseOne{{ $item->id }}"
+                                                        aria-expanded="{{ $key === 0 ? 'true' : 'false' }}"
+                                                        aria-controls="collapseOne{{ $item->id }}">
+                                                        {{ $key + 1 }}. {{ $item->title }}
+                                                    </button>
+                                                </h5>
+                                            </div>
 
-                                        <div id="collapseOne{{ $item->id }}"
-                                            class="collapse {{ $key === 0 ? 'show' : '' }}"
-                                            aria-labelledby="headingOne{{ $item->id }}" data-parent="#accordion">
-                                            <div class="card-body">
-                                                {{ $item->question }}
-                                                @php
-                                                    $options = $item->options ?? [];
-                                                @endphp
-                                                <br>
-                                                @foreach ($options as $option)
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="{{ $item->id }}"
-                                                            id="exampleRadios{{ $option->id }}"
-                                                            value="{{ $option->id }}">
-                                                        <label class="form-check-label"
-                                                            for="exampleRadios{{ $option->id }}">
-                                                            {{ $option->value }}
-                                                        </label>
-                                                    </div>
-                                                @endforeach
+                                            <div id="collapseOne{{ $item->id }}"
+                                                class="collapse {{ $key === 0 ? 'show' : '' }}"
+                                                aria-labelledby="headingOne{{ $item->id }}" data-parent="#accordion">
+                                                <div class="card-body">
+                                                    {{ $item->question }}
+                                                    @php
+                                                        $options = $item->options ?? [];
+                                                    @endphp
+                                                    <br>
+                                                    @foreach ($options as $option)
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="answer[{{ $item->id }}]"
+                                                                id="exampleRadios{{ $option->id }}"
+                                                                value="{{ $option->id }}">
+                                                            <label class="form-check-label"
+                                                                for="exampleRadios{{ $option->id }}">
+                                                                {{ $option->value }}
+                                                            </label>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                            <button class="btn primary-btn mt-3">SAVE ANSWER</button>
+                                    @endforeach
+                                </div>
+                                <button class="btn primary-btn mt-3">SAVE ANSWER</button>
+                            </form>
                         </div>
                     </div>
                 </div>

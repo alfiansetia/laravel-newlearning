@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\QuizOption;
+use App\Models\QuizUserAnswer;
 use App\Models\SubCategory;
 use App\Traits\CompanyTrait;
 use Illuminate\Http\Request;
@@ -80,5 +82,35 @@ class FrontendController extends Controller
             'country'   => $request->country,
         ]);
         return redirect()->route('index.profile')->with(['success' => 'Update Profile Success']);
+    }
+
+    public function saveAnswer(Request $request, Course $course)
+    {
+        $this->validate($request, [
+            'answer'    => 'array|required',
+            'answer.*' => 'required|integer|exists:quiz_options,id'
+        ]);
+        $user = $this->getUser();
+        $correct_answer = 0;
+        foreach ($request->answer as $key => $value) {
+            $option = QuizOption::find($value);
+            if ($option) {
+                if ($option->is_answer === 'yes') {
+                    $correct_answer += 1;
+                }
+            }
+        }
+        $total_questions = count($course->quizzes ?? []);
+        $score_percentage = ($correct_answer / $total_questions) * 100;
+        $score_percentage = min($score_percentage, 100);
+        QuizUserAnswer::updateOrCreate([
+            'user_id'   => $user->id,
+            'course_id' => $course->id
+        ], [
+            'iser_id'   => $user->id,
+            'course_id' => $course->id,
+            'value'     => $score_percentage,
+        ]);
+        return redirect()->back()->with(['success' => 'Answer Saved! Your Score : ' . $score_percentage]);
     }
 }

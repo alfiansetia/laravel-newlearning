@@ -45,6 +45,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('cart', CartController::class)->only(['index', 'store', 'destroy']);
         Route::resource('transaction', TransactionController::class)->only(['index', 'store']);
         Route::post('transaction-key/{course}', [TransactionController::class, 'withKey'])->name('index.transaction.key');
+
+        Route::post('save-answer/{course}', [FrontendController::class, 'saveAnswer'])->name('index.save.answer');
     });
 
     Route::group(['middleware' => ['is.admin']], function () {

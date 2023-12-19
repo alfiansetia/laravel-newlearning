@@ -40,6 +40,17 @@ class Course extends Model
             ->exists();
     }
 
+    public function userScore()
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return 0;
+        }
+        $quiz = QuizUserAnswer::where('course_id', $this->id)
+            ->where('user_id', $user->id)->first();
+        return $quiz->value ?? 0;
+    }
+
     public function subcategory()
     {
         return $this->belongsTo(SubCategory::class);
