@@ -51,6 +51,17 @@ class Course extends Model
         return $quiz->value ?? 0;
     }
 
+    public function userProgres()
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return 0;
+        }
+        $quiz = Progres::where('course_id', $this->id)
+            ->where('user_id', $user->id)->first();
+        return $quiz->value ?? 0;
+    }
+
     public function subcategory()
     {
         return $this->belongsTo(SubCategory::class);

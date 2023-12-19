@@ -119,7 +119,7 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0">Date Of Birth</h6>
+                                        <h6 class="mb-0">Date Of Birth </h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input type="date" name="dob"

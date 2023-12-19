@@ -71,7 +71,6 @@ class FrontendController extends Controller
             'phone'     => 'required|max:15',
             'dob'       => 'required|date_format:Y-m-d',
             'gender'    => 'required|in:Male,Female',
-            'country'   => 'required|max:30',
         ]);
 
         $user->update([
@@ -79,7 +78,6 @@ class FrontendController extends Controller
             'phone'     => $request->phone,
             'dob'       => $request->dob,
             'gender'    => $request->gender,
-            'country'   => $request->country,
         ]);
         return redirect()->route('index.profile')->with(['success' => 'Update Profile Success']);
     }

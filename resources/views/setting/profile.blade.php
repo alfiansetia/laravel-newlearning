@@ -58,18 +58,6 @@
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="country">Country</label>
-                            <select name="country" id="country"
-                                class="form-control @error('country') is-invalid @enderror" required>
-                                <option value="">Select Country</option>
-                                <option value="Indonesia" {{ $data->country == 'Indonesia' ? 'selected' : '' }}>Indonesia
-                                </option>
-                            </select>
-                            @error('country')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                         <button class="btn btn-light">Cancel</button>
                     </form>

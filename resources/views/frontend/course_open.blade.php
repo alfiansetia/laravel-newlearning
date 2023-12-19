@@ -6,6 +6,7 @@
         $empty_contents = count($contents) < 1;
         $quizzes = $data->quizzes ?? [];
         $score = $data->userScore();
+        $progres = $data->userProgres();
     @endphp
     <!-- Product Details Section Begin -->
     <section class="product-details spad">
@@ -103,13 +104,10 @@
                             href="#list-messages" role="tab" aria-controls="messages">Quest
                             ({{ $data->quizzes_count }})</a>
                     </div>
-                    @php
-                        $value = $data->progres->value ?? 0;
-                    @endphp
                     <div class="progress mt-4" style="height: 30px;">
                         <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
-                            style="width: {{ $value + 10 }}%" aria-valuenow="{{ $value + 10 }}" aria-valuemin="0"
-                            aria-valuemax="100">{{ $value + 10 }}%</div>
+                            style="width: {{ $progres }}%" aria-valuenow="{{ $progres }}" aria-valuemin="0"
+                            aria-valuemax="100">{{ $progres }}%</div>
                     </div>
                     <p class="mt-3">{{ $data->subtitle }}</p>
                 </div>
