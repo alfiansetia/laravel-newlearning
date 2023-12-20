@@ -11,6 +11,15 @@ class Content extends Model
 
     protected $guarded = ['id'];
 
+    public function getFileAttribute($value)
+    {
+        if ($value && file_exists(public_path('/videos/content/' . $value))) {
+            return url('/videos/content/' . $value);
+        } else {
+            return url('/videos/default.mp4');
+        }
+    }
+
     public function course()
     {
         return $this->belongsTo(Course::class);

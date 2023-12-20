@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
@@ -64,5 +65,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('user', UserController::class);
         Route::resource('key', KeyController::class);
         Route::resource('transaction', TransactionController::class)->only(['index', 'show', 'destroy']);
+        Route::resource('content', ContentController::class);
     });
 });

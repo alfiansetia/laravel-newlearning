@@ -17,11 +17,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('transaction.index') }}">Transaction</a>
                     </li>
-                    <li class="nav-item"> <a class="nav-link"
-                            href="{{ asset('backend/pages/ui-features/dropdowns.html') }}">Dropdowns</a>
-                    </li>
-                    <li class="nav-item"> <a class="nav-link"
-                            href="{{ asset('backend/pages/ui-features/typography.html') }}">Typography</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('content.index') }}">Content</a>
                     </li>
                 </ul>
             </div>
