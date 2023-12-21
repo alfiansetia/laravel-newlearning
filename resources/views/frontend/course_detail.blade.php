@@ -52,8 +52,10 @@
                                 @csrf
                                 <input type="hidden" name="course" value="{{ $data->id }}">
                                 <button class="btn primary-btn">ADD TO CARD</button>
-                                <button type="button" class="btn primary-btn" data-toggle="modal"
-                                    data-target="#exampleModal">REEDEM</button>
+                                @auth
+                                    <button type="button" class="btn primary-btn" data-toggle="modal"
+                                        data-target="#exampleModal">REEDEM</button>
+                                @endauth
                             </form>
                         @endif
                         {{-- <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a> --}}

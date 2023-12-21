@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('price')->default(0);
             $table->string('image_materi')->nullable();
             $table->string('header_materi')->nullable();
-            $table->text('materi_detail')->nullable();
+            $table->text('detail_materi')->nullable();
             $table->timestamps();
             $table->foreign('subcategory_id')->references('id')->on('sub_categories')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('mentor_id')->references('id')->on('users')->nullOnDelete()->cascadeOnUpdate();

@@ -18,8 +18,12 @@ class ContentController extends Controller
         if ($request->filled('search')) {
             $query->orWhere('title', 'like', "%$request->search%");
         }
+        if ($request->filled('course')) {
+            $query->where('course_id', $request->course);
+        }
         $data = $query->with('course')->paginate(10)->withQueryString();
-        return view('content.index', compact('data'));
+        $courses = Course::all();
+        return view('content.index', compact('data', 'courses'));
     }
 
     /**

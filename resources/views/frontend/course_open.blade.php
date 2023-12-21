@@ -44,7 +44,7 @@
                             <img src="{{ $data->image_materi }}" alt="">
                             <br>
                             <h3 class="pt-2">{!! $data->header_materi !!}</h3>
-                            {!! $data->materi_detail !!}
+                            {!! $data->detail_materi !!}
                             <br>
                             @if (!$data->isCourseDoneUser($data->id))
                                 <form action="{{ route('index.save.progres') }}" method="POST">
