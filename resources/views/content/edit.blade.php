@@ -35,11 +35,14 @@
                         </div>
                         <div class="form-group">
                             <label for="file">File</label>
-                            <input type="file" id="file" name="file" class="file-upload-default" required>
+                            <input type="file" id="file" name="file" class="file-upload-default">
                             <div class="input-group col-xs-12">
                                 <input type="text"
                                     class="form-control file-upload-info @error('file') is-invalid @enderror" disabled
-                                    placeholder="Upload File">
+                                    placeholder="Upload File"
+                                    @empty($data->getRawOriginal('file'))
+                                        required
+                                    @endempty>
                                 <span class="input-group-append">
                                     <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                                 </span>
