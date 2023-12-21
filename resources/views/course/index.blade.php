@@ -36,9 +36,9 @@
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton3">
                                                     <a class="dropdown-item"
-                                                        href="{{ route('user.edit', $item->id) }}">Edit</a>
+                                                        href="{{ route('course.edit', $item->id) }}">Edit</a>
                                                     <button type="button"
-                                                        onclick="deleteData('{{ route('user.destroy', $item->id) }}')"
+                                                        onclick="deleteData('{{ route('course.destroy', $item->id) }}')"
                                                         class="dropdown-item">Delete</button>
                                                 </div>
                                             </div>

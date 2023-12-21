@@ -18,7 +18,7 @@
                             <div class="tab-pane {{ $key === 0 ? 'fade show active' : '' }}" id="list-home{{ $item->id }}"
                                 role="tabpanel" aria-labelledby="list-video{{ $item->id }}">
                                 <video width="400" height="400" controls>
-                                    <source src="{{ asset('videos/content/') }}/{{ $item->file }}" type="video/mp4"
+                                    <source src="{{ $item->file }}" type="video/mp4"
                                         id="{{ 'vid' . $item->id . $loop->iteration }}">
                                     Your browser does not support the video tag.
                                 </video>

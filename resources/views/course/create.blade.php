@@ -1,12 +1,13 @@
-@extends('layouts.template', ['title' => 'User'])
+@extends('layouts.template', ['title' => 'Course'])
 
 @section('content')
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Create User</h4>
-                    <form class="forms-sample" id="form" action="{{ route('user.store') }}" method="POST">
+                    <h4 class="card-title">Create Course</h4>
+                    <form class="forms-sample" id="form" action="{{ route('course.store') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="name">Name</label>
@@ -115,10 +116,82 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        <a href="{{ route('user.index') }}" class="btn btn-light">Cancel</a>
+                        <a href="{{ route('course.index') }}" class="btn btn-light">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Materi Of Course</h4>
+                    <form class="forms-sample" id="form" action="{{ route('course.store') }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="header">Header</label>
+                            <input type="text" name="header"
+                                class="form-control @error('header') is-invalid @enderror" id="header"
+                                placeholder="header" value="{{ old('header') }}" required autofocus>
+                            @error('header')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Image</label>
+                            <input type="file" id="image" name="image" class="file-upload-default">
+                            <div class="input-group col-xs-12">
+                                <input type="text"
+                                    class="form-control file-upload-info @error('image') is-invalid @enderror" disabled
+                                    placeholder="Upload Image">
+                                <span class="input-group-append">
+                                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                </span>
+                            </div>
+                            @error('image')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <textarea name="detail" id="detail">{{ old('detail') }}</textarea>
+                            @error('detail')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                        <a href="{{ route('course.index') }}" class="btn btn-light">Cancel</a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
+@push('jslib')
+    <script src="{{ asset('backend/js/file-upload.js') }}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+@endpush
+
+@push('js')
+    <script>
+        var toolbar = [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ol', 'ul', 'paragraph', 'height']],
+            ['table', ['table']],
+            ['insert', ['link']],
+            ['view', ['undo', 'redo', 'fullscreen', 'codeview', 'help']]
+        ];
+
+        $('#detail').summernote({
+            placeholder: 'Detail Materi',
+            tabsize: 2,
+            height: 200,
+            toolbar: toolbar
+        });
+    </script>
+@endpush

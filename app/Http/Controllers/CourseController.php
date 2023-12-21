@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\SubCategory;
+use App\Models\User;
 use App\Traits\CompanyTrait;
 use Illuminate\Http\Request;
 
@@ -29,7 +31,9 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        $subcategories = SubCategory::all();
+        $mentors = User::where('role', 'mentor')->get();
+        return view('course.create', compact('subcategories'));
     }
 
     /**
