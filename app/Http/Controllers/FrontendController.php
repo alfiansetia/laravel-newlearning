@@ -26,7 +26,7 @@ class FrontendController extends Controller
 
     public function index()
     {
-        $categories = Category::paginate(8);
+        $categories = Category::all();
         $subcategories = SubCategory::all();
         $courses = Course::all();
         return view('welcome', compact([

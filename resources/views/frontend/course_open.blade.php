@@ -85,7 +85,8 @@
                                                 <div class="card-body">
                                                     {{ $item->question }}
                                                     @php
-                                                        $options = $item->options ?? [];
+                                                        $old = $item->options ?? [];
+                                                        $options = $old->shuffle();
                                                     @endphp
                                                     <br>
                                                     @foreach ($options as $option)
@@ -144,7 +145,7 @@
                             style="width: {{ $progres }}%" aria-valuenow="{{ $progres }}" aria-valuemin="0"
                             aria-valuemax="100">{{ $progres }}%</div>
                     </div>
-                    <p class="mt-3">{{ $data->subtitle }}</p>
+                    <p class="mt-3">{!! $data->subtitle !!}</p>
                 </div>
             </div>
 

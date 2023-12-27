@@ -4,6 +4,7 @@
     <form class="forms-sample" id="form" action="{{ route('course.update', $data->id) }}" method="POST"
         enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <div class="row">
             <div class="col-lg-6">
                 <div class="card">
@@ -120,7 +121,7 @@
                         </div>
                         <div class="form-group">
                             <label for="detail">Detail Materi</label>
-                            <textarea name="detail" id="detail">{{ $data->detail_materi }}</textarea>
+                            <textarea name="detail" id="detail" required>{{ $data->detail_materi }}</textarea>
                             @error('detail')
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror

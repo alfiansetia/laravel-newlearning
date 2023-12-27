@@ -49,7 +49,7 @@ class CourseController extends Controller
     {
         $this->validate($request, [
             'name'          => 'required|max:100|unique:courses,name',
-            'subcategory'   => 'required|integer|exists:subcategories,id',
+            'subcategory'   => 'required|integer|exists:sub_categories,id',
             'mentor'        => 'required|integer|exists:users,id',
             'image'         => 'required|image|mimes:jpg,jpeg,png|max:5120',
             'price'         => 'required|integer|gte:1',
@@ -109,7 +109,7 @@ class CourseController extends Controller
     {
         $this->validate($request, [
             'name'          => 'required|max:100|unique:courses,name,' . $course->id,
-            'subcategory'   => 'required|integer|exists:subcategories,id',
+            'subcategory'   => 'required|integer|exists:sub_categories,id',
             'mentor'        => 'required|integer|exists:users,id',
             'image'         => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
             'price'         => 'required|integer|gte:1',

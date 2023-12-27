@@ -12,7 +12,8 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
-                            <img class="product__details__pic__item--large" src="{{ $data->image }}" alt="">
+                            <img class="product__details__pic__item--large" src="{{ $data->image }}" alt=""
+                                style="max-height: 400px;max-width: 400px;">
                         </div>
                         {{-- <div class="product__details__pic__slider owl-carousel">
                             <img data-imgbigurl="{{ asset('frontend/img/product/details/product-details-2.jpg') }}"
@@ -45,7 +46,7 @@
                                 class="d-inline" style="max-width: 30px; max-height: 30px">
                             <span class="d-inline">{{ $data->price }}</span>
                         </div>
-                        <p>{{ $data->subtitle }}</p>
+                        <p>{!! $data->subtitle !!}</p>
                         {{-- <div class="product__details__quantity mb-3">
                             <div class="quantity">
                                 <div class="pro-qty">

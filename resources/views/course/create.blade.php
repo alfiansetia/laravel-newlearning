@@ -110,7 +110,7 @@
                         </div>
                         <div class="form-group">
                             <label for="detail">Detail Materi</label>
-                            <textarea name="detail" id="detail">{{ old('detail') }}</textarea>
+                            <textarea name="detail" id="detail" required>{{ old('detail') }}</textarea>
                             @error('detail')
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
