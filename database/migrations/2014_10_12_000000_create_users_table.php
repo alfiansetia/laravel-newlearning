@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('dob')->nullable();
             $table->string('phone')->nullable();
             $table->string('avatar')->nullable();
-            $table->integer('point')->default(0);
+            $table->decimal('point', 10, 2)->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

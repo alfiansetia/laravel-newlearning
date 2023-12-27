@@ -215,6 +215,12 @@ class FrontendController extends Controller
             'course_id'         => $course->id,
             'price'             => $course->price,
         ]);
+        $mentor = $course->mentor;
+        if ($mentor) {
+            $mentor->update([
+                'point' => $mentor->point + ($course->price / 2)
+            ]);
+        }
         $key->update([
             'status' => 'unavailable',
         ]);
