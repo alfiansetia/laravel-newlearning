@@ -136,7 +136,7 @@
                                 </a>
                                 <div class="card-content">
                                     <h4 class="card-title">
-                                        <a href="{{ url('cat') }}/{{ $item->slug }}">5
+                                        <a href="{{ url('cat') }}/{{ $item->slug }}">
                                             {{ $item->name }}
                                         </a>
                                     </h4>
