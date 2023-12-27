@@ -52,6 +52,8 @@
                                 </div>
                             </div>
                             <hr class="my-4">
+                            <a href="{{ route('index.chat') }}" class="btn btn-block btn-primary">Open Chat</a>
+                            <hr class="my-4">
                             <ul class="list-group list-group-flush">
                                 @forelse ($keys as $item)
                                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">

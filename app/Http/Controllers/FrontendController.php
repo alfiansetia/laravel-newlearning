@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Chat;
+use App\Models\ChatMessage;
 use App\Models\Comment;
 use App\Models\Course;
 use App\Models\Key;
@@ -240,5 +242,46 @@ class FrontendController extends Controller
             'value'     => $request->rate,
         ]);
         return redirect()->back()->with(['success' => 'Comment and Rate Saved!']);
+    }
+
+    public function chat()
+    {
+        $user = $this->getUser();
+        $data = Chat::with('messages')->withCount('messages')->orWhere('from_id', $user->id)->orWhere('to_id', $user->id)->get();
+        $detail = null;
+        return view('frontend.chat', compact([
+            'data',
+            'detail'
+        ]));
+    }
+
+    public function chatDetail(Chat $chat)
+    {
+        $user = $this->getUser();
+        $data = Chat::with('messages')->withCount('messages')->orWhere('from_id', $user->id)->orWhere('to_id', $user->id)->get();
+        $detail = $chat->load('messages.sender');
+        return view('frontend.chat', compact([
+            'data',
+            'detail'
+        ]));
+    }
+
+    public function saveChat(Request $request, Chat $chat)
+    {
+        $this->validate($request, [
+            'message'   => 'required|max:250'
+        ]);
+        $user = $this->getUser();
+        ChatMessage::create([
+            'chat_id'   => $chat->id,
+            'message'   => $request->message,
+            'sender_id' => $user->id,
+        ]);
+        $data = Chat::with('messages')->withCount('messages')->orWhere('from_id', $user->id)->orWhere('to_id', $user->id)->get();
+        $detail = $chat->load('messages.sender');
+        return view('frontend.chat', compact([
+            'data',
+            'detail'
+        ]));
     }
 }

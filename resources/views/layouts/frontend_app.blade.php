@@ -23,8 +23,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-    @push('css')
-    @endpush
+    @stack('css')
 </head>
 
 <body>

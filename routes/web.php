@@ -42,6 +42,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['middleware' => ['is.user']], function () {
 
+        Route::get('/list-chat/{chat}', [FrontendController::class, 'chatDetail'])->name('index.chat.detail');
+        Route::post('/list-chat/{chat}', [FrontendController::class, 'saveChat'])->name('index.chat.save');
+        Route::get('/list-chat', [FrontendController::class, 'chat'])->name('index.chat');
         Route::get('/profile', [FrontendController::class, 'profile'])->name('index.profile');
         Route::post('/profile', [FrontendController::class, 'profileUpdate'])->name('index.profile.update');
         Route::resource('cart', CartController::class)->only(['index', 'store', 'destroy']);
