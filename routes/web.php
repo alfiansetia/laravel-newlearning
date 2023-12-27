@@ -7,6 +7,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KeyController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\TransactionController;
@@ -70,5 +71,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('key', KeyController::class);
         Route::resource('transaction', TransactionController::class)->only(['index', 'show', 'destroy']);
         Route::resource('content', ContentController::class);
+        Route::resource('quiz', QuizController::class);
     });
 });

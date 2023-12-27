@@ -11,6 +11,11 @@ class Quiz extends Model
 
     protected $guarded = ['id'];
 
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
     public function options()
     {
         return $this->hasMany(QuizOption::class);

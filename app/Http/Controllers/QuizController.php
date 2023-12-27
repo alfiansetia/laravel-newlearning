@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Quiz;
+use App\Models\QuizOption;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller
@@ -10,9 +12,18 @@ class QuizController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Quiz::query();
+        if ($request->filled('search')) {
+            $query->orWhere('title', 'like', "%$request->search%");
+        }
+        if ($request->filled('course')) {
+            $query->where('course_id', $request->course);
+        }
+        $data = $query->with('course')->withCount('options')->paginate(10)->withQueryString();
+        $courses = Course::all();
+        return view('quiz.index', compact('data', 'courses'));
     }
 
     /**
@@ -20,7 +31,8 @@ class QuizController extends Controller
      */
     public function create()
     {
-        //
+        $courses = Course::all();
+        return view('quiz.create', compact('courses'));
     }
 
     /**
@@ -28,7 +40,28 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'course'    => 'required|integer|exists:courses,id',
+            'title'     => 'required|max:200',
+            'question'  => 'required|max:200',
+            'value'     => 'required|array|min:1',
+            'answer'    => 'nullable|array|min:1',
+            'value.*'   => 'required|max:250',
+            'answer.*'  => 'nullable|in:yes,no',
+        ]);
+        $quiz = Quiz::create([
+            'course_id' => $request->course,
+            'title'     => $request->title,
+            'question'  => $request->question,
+        ]);
+        foreach ($request->value as $i => $item) {
+            QuizOption::create([
+                'quiz_id'   => $quiz->id,
+                'value'     => $item,
+                'is_answer' => $request->answer[$i] ?? 'no',
+            ]);
+        }
+        return redirect()->route('quiz.index')->with(['success' => 'Insert Data Success!']);
     }
 
     /**
@@ -44,7 +77,9 @@ class QuizController extends Controller
      */
     public function edit(Quiz $quiz)
     {
-        //
+        $courses = Course::all();
+        $data = $quiz->load('course', 'options');
+        return view('quiz.edit', compact('courses', 'data'));
     }
 
     /**
@@ -52,7 +87,31 @@ class QuizController extends Controller
      */
     public function update(Request $request, Quiz $quiz)
     {
-        //
+        $this->validate($request, [
+            'course'    => 'required|integer|exists:courses,id',
+            'title'     => 'required|max:200',
+            'question'  => 'required|max:200',
+            'value'     => 'required|array|min:1',
+            'answer'    => 'nullable|array|min:1',
+            'value.*'   => 'required|max:250',
+            'answer.*'  => 'nullable|in:yes,no',
+        ]);
+        $quiz->update([
+            'course_id' => $request->course,
+            'title'     => $request->title,
+            'question'  => $request->question,
+        ]);
+        foreach ($quiz->options ?? [] as $item) {
+            $item->delete();
+        }
+        foreach ($request->value as $i => $item) {
+            QuizOption::create([
+                'quiz_id'   => $quiz->id,
+                'value'     => $item,
+                'is_answer' => $request->answer[$i] ?? 'no',
+            ]);
+        }
+        return redirect()->route('quiz.index')->with(['success' => 'Update Data Success!']);
     }
 
     /**
@@ -60,6 +119,7 @@ class QuizController extends Controller
      */
     public function destroy(Quiz $quiz)
     {
-        //
+        $quiz->delete();
+        return redirect()->route('quiz.index')->with(['success' => 'Delete Data Success!']);
     }
 }

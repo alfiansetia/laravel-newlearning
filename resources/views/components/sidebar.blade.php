@@ -20,6 +20,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('content.index') }}">Video Content</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('quiz.index') }}">Quiz</a>
+                    </li>
                 </ul>
             </div>
         </li>
