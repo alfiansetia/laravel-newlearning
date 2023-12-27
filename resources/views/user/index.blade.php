@@ -29,11 +29,11 @@
                                         <td>{{ $item->phone ?? '-' }}</td>
                                         <td class="text-center">
                                             <span
-                                                class="badge badge-{{ $item->role === 'admin' ? 'success' : ($item->role === 'user' ? 'warning' : 'primary') }}">{{ $item->role }}</span>
+                                                class="badge badge-{{ $item->role == 'admin' ? 'success' : ($item->role == 'user' ? 'warning' : 'primary') }}">{{ $item->role }}</span>
                                         </td>
                                         <td class="text-center">
                                             <span
-                                                class="badge badge-{{ $item->status === 'active' ? 'success' : 'danger' }}">{{ $item->status }}</span>
+                                                class="badge badge-{{ $item->status == 'active' ? 'success' : 'danger' }}">{{ $item->status }}</span>
                                         </td>
                                         <td class="text-center">
                                             <div class="dropdown">

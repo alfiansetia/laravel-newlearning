@@ -79,9 +79,9 @@
                                 <label for="status">Status</label>
                                 <select class="form-control @error('status') is-invalid @enderror" name="status"
                                     id="status" required>
-                                    <option value="active" {{ old('status') === 'active' ? 'selected' : '' }}>active
+                                    <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>active
                                     </option>
-                                    <option value="nonactive" {{ old('status') === 'nonactive' ? 'selected' : '' }}>
+                                    <option value="nonactive" {{ old('status') == 'nonactive' ? 'selected' : '' }}>
                                         nonactive
                                     </option>
                                 </select>
@@ -93,8 +93,8 @@
                                 <label for="verify">Verified</label>
                                 <select class="form-control @error('verify') is-invalid @enderror" name="verify"
                                     id="verify" required>
-                                    <option value="no" {{ old('verify') === 'no' ? 'selected' : '' }}>no </option>
-                                    <option value="yes" {{ old('verify') === 'yes' ? 'selected' : '' }}>yes
+                                    <option value="no" {{ old('verify') == 'no' ? 'selected' : '' }}>no </option>
+                                    <option value="yes" {{ old('verify') == 'yes' ? 'selected' : '' }}>yes
                                     </option>
                                 </select>
                                 @error('verify')

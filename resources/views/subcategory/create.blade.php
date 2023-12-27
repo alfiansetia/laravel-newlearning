@@ -24,7 +24,7 @@
                                 <option value="">Select Category</option>
                                 @foreach ($categories as $item)
                                     <option value="{{ $item->id }}"
-                                        {{ old('category') === $item->id ? 'selected' : '' }}>{{ $item->name }}
+                                        {{ old('category') == $item->id ? 'selected' : '' }}>{{ $item->name }}
                                     </option>
                                 @endforeach
                             </select>

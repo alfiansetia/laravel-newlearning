@@ -80,9 +80,9 @@
                                 <label for="status">Status</label>
                                 <select class="form-control @error('country') is-invalid @enderror" name="status"
                                     id="status" required>
-                                    <option value="active" {{ $data->status === 'active' ? 'selected' : '' }}>active
+                                    <option value="active" {{ $data->status == 'active' ? 'selected' : '' }}>active
                                     </option>
-                                    <option value="nonactive" {{ $data->status === 'nonactive' ? 'selected' : '' }}>
+                                    <option value="nonactive" {{ $data->status == 'nonactive' ? 'selected' : '' }}>
                                         nonactive
                                     </option>
                                 </select>

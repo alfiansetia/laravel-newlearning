@@ -25,7 +25,7 @@
                                 <option value="">Select Sub Category</option>
                                 @foreach ($subcategories as $item)
                                     <option value="{{ $item->id }}"
-                                        {{ $data->subcategory_id === $item->id ? 'selected' : '' }}>{{ $item->name }}
+                                        {{ $data->subcategory_id == $item->id ? 'selected' : '' }}>{{ $item->name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -40,7 +40,7 @@
                                 <option value="">Select Mentor</option>
                                 @foreach ($mentors as $item)
                                     <option value="{{ $item->id }}"
-                                        {{ $data->mentor_id === $item->id ? 'selected' : '' }}>
+                                        {{ $data->mentor_id == $item->id ? 'selected' : '' }}>
                                         {{ $item->name }}
                                     </option>
                                 @endforeach
