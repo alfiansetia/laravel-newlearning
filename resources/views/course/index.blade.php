@@ -44,7 +44,8 @@
                                 <th>Name</th>
                                 <th>Sub Category</th>
                                 <th>Image</th>
-                                <th>Price</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Content Count</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -54,10 +55,11 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->subcategory->name }}</td>
                                     <td><img src="{{ $item->image }}" alt="" width="100"></td>
-                                    <td>
+                                    <td class="text-center">
                                         <img src="{{ asset('images/dollar.png') }}" alt=""
                                             style="max-width: 20px;max-height: 20px;"> {{ $item->price }}
                                     </td>
+                                    <td class="text-center">{{ $item->contents_count }}</td>
                                     <td class="text-center">
                                         <div class="dropdown">
                                             <button type="button" class="btn btn-sm btn-outline-info dropdown-toggle"

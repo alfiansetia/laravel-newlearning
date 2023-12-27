@@ -27,7 +27,7 @@ class CourseController extends Controller
         if ($request->filled('subcat')) {
             $query->where('subcategory_id', $request->subcat);
         }
-        $data = $query->with('subcategory')->paginate(10)->withQueryString();
+        $data = $query->with('subcategory')->withCount('contents')->paginate(10)->withQueryString();
         $subcategories = SubCategory::all();
         return view('course.index', compact('data', 'subcategories'));
     }
