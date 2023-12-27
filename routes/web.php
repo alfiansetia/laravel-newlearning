@@ -39,9 +39,9 @@ Auth::routes([
 ]);
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/courses-open/{course:slug}', [FrontendController::class, 'courseOpen'])->name('index.course.open');
 
     Route::group(['middleware' => ['is.user']], function () {
+        Route::get('/courses-open/{course:slug}', [FrontendController::class, 'courseOpen'])->name('index.course.open');
 
         Route::get('/list-chat/{chat}', [FrontendController::class, 'chatDetail'])->name('index.chat.detail');
         Route::post('/list-chat/{chat}', [FrontendController::class, 'saveChat'])->name('index.chat.save');
