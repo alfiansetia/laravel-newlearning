@@ -1,6 +1,10 @@
 @extends('layouts.frontend_app')
 
 @section('content')
+    @php
+        $average_rating = $data->averageRating();
+        $user_review = $data->userComment();
+    @endphp
     <!-- Product Details Section Begin -->
     <section class="product-details spad">
         <div class="container">
@@ -24,15 +28,19 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
-                        <h3>{{ $data->name }} </h3>
-                        {{-- <div class="product__details__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <span>(18 reviews)</span>
-                        </div> --}}
+                        <h3>{{ $data->name }} {{ $average_rating }}</h3>
+                        <div class="product__details__rating">
+                            @for ($i = 1; $i <= 5; $i++)
+                                @if ($i <= $average_rating)
+                                    <i class="fa fa-star"></i>
+                                @elseif ($i - 0.5 <= $average_rating)
+                                    <i class="fa fa-star-half-o"></i>
+                                @else
+                                    <i class="fa fa-star-o"></i>
+                                @endif
+                            @endfor
+                            <span>({{ $data->comments_count }} Reviews)</span>
+                        </div>
                         <div class="product__details__price"><img src="{{ asset('images/dollar.png') }}" alt=""
                                 class="d-inline" style="max-width: 30px; max-height: 30px">
                             <span class="d-inline">{{ $data->price }}</span>
@@ -47,6 +55,10 @@
                         </div> --}}
                         @if ($data->isPurchasedByUser())
                             <a href="{{ route('index.course.open', $data->slug) }}" class="primary-btn">OPEN COURSE</a>
+                            @if (!$user_review)
+                                <button type="button" class="btn primary-btn" data-toggle="modal"
+                                    data-target="#reviewModal">REVIEW</button>
+                            @endif
                         @else
                             <form action="{{ route('cart.store') }}" method="POST">
                                 @csrf
@@ -74,86 +86,44 @@
                         </ul>
                     </div>
                 </div>
-                {{-- <div class="col-lg-12">
+                <div class="col-lg-12">
                     <div class="product__details__tab">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
-                                    aria-selected="true">Description</a>
+                                    aria-selected="true">Reviews <span>({{ $data->comments_count }})</span></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
-                                    aria-selected="false">Information</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                                    aria-selected="false">Reviews <span>(1)</span></a>
-                            </li>
+                            @if ($user_review)
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
+                                        aria-selected="false">Your Review</a>
+                                </li>
+                            @endif
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                                <div class="product__details__tab__desc">
-                                    <h6>Products Infomation</h6>
-                                    <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
-                                        Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus. Vivamus
-                                        suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam sit amet quam
-                                        vehicula elementum sed sit amet dui. Donec rutrum congue leo eget malesuada.
-                                        Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur arcu erat,
-                                        accumsan id imperdiet et, porttitor at sem. Praesent sapien massa, convallis a
-                                        pellentesque nec, egestas non nisi. Vestibulum ac diam sit amet quam vehicula
-                                        elementum sed sit amet dui. Vestibulum ante ipsum primis in faucibus orci luctus
-                                        et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam
-                                        vel, ullamcorper sit amet ligula. Proin eget tortor risus.</p>
-                                    <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem
-                                        ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet
-                                        elit, eget tincidunt nibh pulvinar a. Cras ultricies ligula sed magna dictum
-                                        porta. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus
-                                        nibh. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
-                                        Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Sed
-                                        porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum
-                                        sed sit amet dui. Proin eget tortor risus.</p>
-                                </div>
+                            <div class="tab-pane active mt-3" id="tabs-1" role="tabpanel">
+                                @forelse ($data->comments as $item)
+                                    <div class="product__details__tab__desc">
+                                        <h6>{{ $item->user->name ?? '-' }}</h6>
+                                        <p>{{ $item->value }} </p>
+                                    </div>
+                                @empty
+                                    <div class="alert alert-danger" role="alert">
+                                        Empty Comment
+                                    </div>
+                                @endforelse
                             </div>
-                            <div class="tab-pane" id="tabs-2" role="tabpanel">
-                                <div class="product__details__tab__desc">
-                                    <h6>Products Infomation</h6>
-                                    <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
-                                        Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus.
-                                        Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam
-                                        sit amet quam vehicula elementum sed sit amet dui. Donec rutrum congue leo
-                                        eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
-                                        Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Praesent
-                                        sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ac
-                                        diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ante
-                                        ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-                                        Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
-                                        Proin eget tortor risus.</p>
-                                    <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem
-                                        ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet
-                                        elit, eget tincidunt nibh pulvinar a. Cras ultricies ligula sed magna dictum
-                                        porta. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus
-                                        nibh. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.</p>
+                            @if ($user_review)
+                                <div class="tab-pane" id="tabs-2" role="tabpanel">
+                                    <div class="product__details__tab__desc">
+                                        <h6>{{ $user_review->user->name }}</h6>
+                                        <p>{{ $user_review->value }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="tabs-3" role="tabpanel">
-                                <div class="product__details__tab__desc">
-                                    <h6>Products Infomation</h6>
-                                    <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
-                                        Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus.
-                                        Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam
-                                        sit amet quam vehicula elementum sed sit amet dui. Donec rutrum congue leo
-                                        eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
-                                        Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Praesent
-                                        sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ac
-                                        diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ante
-                                        ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-                                        Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
-                                        Proin eget tortor risus.</p>
-                                </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
-                </div> --}}
+                </div>
             </div>
         </div>
     </section>
@@ -180,6 +150,42 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn primary-btn">Reedem Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="{{ route('index.save.review', $data->id) }}" method="POST">
+        @csrf
+        <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="reviewModalLabel">Rate and Comment <b>{{ $data->name }}</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <select name="rate" id="rate" class="form-control form-control-lg" required>
+                                <option value="">Select Rates</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="comment">Comment</label>
+                            <textarea name="comment" id="comment" class="form-control" required>{{ old('comment') }}</textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn primary-btn">Save</button>
                     </div>
                 </div>
             </div>

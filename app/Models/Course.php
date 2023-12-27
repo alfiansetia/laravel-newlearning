@@ -71,7 +71,7 @@ class Course extends Model
         $total_progress = $progres_content + $progres_course + $progres_quiz;
 
         $percentage = ($total_progress / $total) * 100;
-        return $percentage;
+        return round($percentage);
     }
 
     public function isCourseDoneUser()
@@ -102,6 +102,39 @@ class Course extends Model
         }
         return Progres::where('quiz_id', $id)
             ->where('user_id', $user->id)->exists();
+    }
+
+    public function rates()
+    {
+        return $this->hasMany(Rate::class);
+    }
+
+    public function userRate()
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return false;
+        }
+        return Rate::with('user')->where('course_id', $this->id)->where('user_id', $user->id)->first();
+    }
+
+    public function averageRating()
+    {
+        return $this->rates()->avg('value') ?? 0;
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function userComment()
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return false;
+        }
+        return Comment::with('user')->where('course_id', $this->id)->where('user_id', $user->id)->first();
     }
 
     public function subcategory()

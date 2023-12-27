@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/profile', [FrontendController::class, 'profileUpdate'])->name('index.profile.update');
         Route::resource('cart', CartController::class)->only(['index', 'store', 'destroy']);
 
+        Route::post('rate-course/{course}', [FrontendController::class, 'rate'])->name('index.save.review');
         Route::post('transaction-key/{course}', [FrontendController::class, 'withKey'])->name('index.save.transaction.key');
         Route::post('save-transaction/', [FrontendController::class, 'saveTransaction'])->name('index.save.transaction');
         Route::post('save-answer/{course}', [FrontendController::class, 'saveAnswer'])->name('index.save.answer');

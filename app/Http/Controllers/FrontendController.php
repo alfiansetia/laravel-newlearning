@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Course;
 use App\Models\Key;
 use App\Models\Progres;
 use App\Models\QuizOption;
 use App\Models\QuizUserAnswer;
+use App\Models\Rate;
 use App\Models\SubCategory;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
@@ -42,7 +44,7 @@ class FrontendController extends Controller
 
     public function courseDetail(Course $course)
     {
-        $data = $course->load('subcategory.category');
+        $data = $course->load('subcategory.category', 'rates', 'comments')->loadCount('rates', 'comments');
         return view('frontend.course_detail', compact([
             'data',
         ]));
@@ -215,5 +217,28 @@ class FrontendController extends Controller
             'status' => 'unavailable',
         ]);
         return redirect()->back()->with(['success' => 'Reedem Success!']);
+    }
+
+    public function rate(Request $request, Course $course)
+    {
+        $this->validate($request, [
+            'comment'   => 'required|max:250',
+            'rate'      => 'required|min:1|max:5',
+        ]);
+        $user = $this->getUser();
+        if ($course->userRate() || $course->userComment()) {
+            return redirect()->back()->with(['error' => 'Your Rate or Comment is already!']);
+        }
+        Comment::create([
+            'user_id'   => $user->id,
+            'course_id' => $course->id,
+            'value'     => $request->comment,
+        ]);
+        Rate::create([
+            'user_id'   => $user->id,
+            'course_id' => $course->id,
+            'value'     => $request->rate,
+        ]);
+        return redirect()->back()->with(['success' => 'Comment and Rate Saved!']);
     }
 }
