@@ -1,4 +1,4 @@
-@extends('layouts.template', ['title' => 'Content'])
+@extends('layouts.template', ['title' => 'Video Content'])
 
 @section('content')
     <div class="row">
@@ -8,7 +8,7 @@
                     <form action="">
                         <div class="row align-items-center mb-3">
                             <div class="col-md-6">
-                                <h4 class="card-title">Content
+                                <h4 class="card-title">Video Content
                                     <a href="{{ route('content.create') }}" class="btn btn-sm btn-info">Create</a>
                                 </h4>
                             </div>

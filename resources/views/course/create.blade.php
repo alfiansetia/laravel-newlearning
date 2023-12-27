@@ -1,14 +1,13 @@
 @extends('layouts.template', ['title' => 'Course'])
 
 @section('content')
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Create Course</h4>
-                    <form class="forms-sample" id="form" action="{{ route('course.store') }}" method="POST"
-                        enctype="multipart/form-data">
-                        @csrf
+    <form class="forms-sample" id="form" action="{{ route('course.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Create Course</h4>
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
@@ -79,17 +78,13 @@
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                         <a href="{{ route('course.index') }}" class="btn btn-light">Cancel</a>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Materi Of Course</h4>
-                    <form class="forms-sample" id="form" action="{{ route('course.store') }}" method="POST"
-                        enctype="multipart/form-data">
-                        @csrf
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Materi Of Course</h4>
                         <div class="form-group">
                             <label for="header">Header</label>
                             <input type="text" name="header" class="form-control @error('header') is-invalid @enderror"
@@ -120,13 +115,11 @@
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        <a href="{{ route('course.index') }}" class="btn btn-light">Cancel</a>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 @endsection
 
 @push('jslib')

@@ -96,7 +96,10 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        //
+        $subcategories = SubCategory::all();
+        $mentors = User::where('role', 'mentor')->get();
+        $data = $course->load('subcategory.category', 'mentor');
+        return view('course.edit', compact('subcategories', 'mentors', 'data'));
     }
 
     /**

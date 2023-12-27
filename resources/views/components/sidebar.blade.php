@@ -18,7 +18,7 @@
                         <a class="nav-link" href="{{ route('transaction.index') }}">Transaction</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('content.index') }}">Content</a>
+                        <a class="nav-link" href="{{ route('content.index') }}">Video Content</a>
                     </li>
                 </ul>
             </div>

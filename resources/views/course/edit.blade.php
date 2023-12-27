@@ -1,14 +1,15 @@
-@extends('layouts.template', ['title' => 'User'])
+@extends('layouts.template', ['title' => 'Course'])
 
 @section('content')
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Edit User</h4>
-                    <form class="forms-sample" id="form" action="{{ route('user.update', $data->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
+    <form class="forms-sample" id="form" action="{{ route('course.update', $data->id) }}" method="POST"
+        enctype="multipart/form-data">
+        @csrf
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Edit Course</h4>
+
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
@@ -18,108 +19,150 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="email">Email address</label>
-                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                                id="email" placeholder="Email" value="{{ $data->email }}" required>
-                            @error('email')
+                            <label for="subcategory">Sub Category</label>
+                            <select class="form-control @error('subcategory') is-invalid @enderror" name="subcategory"
+                                id="subcategory" required>
+                                <option value="">Select Sub Category</option>
+                                @foreach ($subcategories as $item)
+                                    <option value="{{ $item->id }}"
+                                        {{ $data->subcategory_id === $item->id ? 'selected' : '' }}>{{ $item->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('subcategory')
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="phone">Phone</label>
-                            <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror"
-                                id="phone" placeholder="Phone" value="{{ $data->phone }}" required>
-                            @error('phone')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="gender">Gender</label>
-                            <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror"
+                            <label for="mentor">Mentor</label>
+                            <select class="form-control @error('mentor') is-invalid @enderror" name="mentor" id="mentor"
                                 required>
-                                <option value="">Select Gender</option>
-                                <option value="Male" {{ $data->gender == 'Male' ? 'selected' : '' }}>Male</option>
-                                <option value="Female" {{ $data->gender == 'Female' ? 'selected' : '' }}>Female</option>
-                            </select>
-                            @error('gender')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="dob">Date OF Birth</label>
-                            <input type="date" name="dob" class="form-control @error('dob') is-invalid @enderror"
-                                id="dob" placeholder="Date OF Birth" value="{{ $data->dob }}" required>
-                            @error('dob')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="password">New Password</label>
-                            <input type="password" name="password"
-                                class="form-control @error('password') is-invalid @enderror" id="password"
-                                placeholder="Password" autocomplete="off">
-                            @error('password')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="role">Role</label>
-                            <select name="role" id="role" class="form-control @error('role') is-invalid @enderror"
-                                required>
-                                <option value="">Select Role</option>
-                                <option value="user" {{ $data->role == 'user' ? 'selected' : '' }}>User</option>
-                                <option value="mentor" {{ $data->role == 'mentor' ? 'selected' : '' }}>mentor</option>
-                                <option value="admin" {{ $data->role == 'admin' ? 'selected' : '' }}>admin</option>
-                            </select>
-                            @error('role')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="country">Country</label>
-                            <select name="country" id="country"
-                                class="form-control @error('country') is-invalid @enderror" required>
-                                <option value="">Select Country</option>
-                                <option value="Indonesia" {{ $data->country == 'Indonesia' ? 'selected' : '' }}>Indonesia
-                                </option>
-                            </select>
-                            @error('country')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group row">
-                            <div class="col">
-                                <label for="status">Status</label>
-                                <select class="form-control @error('country') is-invalid @enderror" name="status"
-                                    id="status" required>
-                                    <option value="active" {{ $data->status === 'active' ? 'selected' : '' }}>active
+                                <option value="">Select Mentor</option>
+                                @foreach ($mentors as $item)
+                                    <option value="{{ $item->id }}"
+                                        {{ $data->mentor_id === $item->id ? 'selected' : '' }}>
+                                        {{ $item->name }}
                                     </option>
-                                    <option value="nonactive" {{ $data->status === 'nonactive' ? 'selected' : '' }}>
-                                        nonactive
-                                    </option>
-                                </select>
-                                @error('status')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
+                                @endforeach
+                            </select>
+                            @error('mentor')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Image</label>
+                            <input type="file" id="image" name="image" class="file-upload-default">
+                            <div class="input-group col-xs-12">
+                                <input type="text"
+                                    class="form-control file-upload-info @error('image') is-invalid @enderror" disabled
+                                    placeholder="Upload Image">
+                                <span class="input-group-append">
+                                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                </span>
                             </div>
-                            <div class="col">
-                                <label for="verify">Verified</label>
-                                <select class="form-control @error('country') is-invalid @enderror" name="verify"
-                                    id="verify" required>
-                                    <option value="no">no </option>
-                                    <option value="yes" {{ !empty($data->email_verified_at) ? 'selected' : '' }}>yes
-                                    </option>
-                                </select>
-                                @error('verify')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
-                            </div>
+                            @error('image')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                            @if (!empty($data->getRawOriginal('image')))
+                                <img src="{{ $data->image }}" alt="{{ $data->name }}" width="200" class="mt-2">
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" name="price" class="form-control @error('price') is-invalid @enderror"
+                                id="price" placeholder="Price" value="{{ $data->price ?? 0 }}" min="1" required>
+                            @error('price')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="subtitle">Subtitle</label>
+                            <textarea name="subtitle" id="subtitle">{{ $data->subtitle }}</textarea>
+                            @error('subtitle')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        <a href="{{ route('user.index') }}" class="btn btn-light">Cancel</a>
-                    </form>
+                        <a href="{{ route('course.index') }}" class="btn btn-light">Cancel</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Materi Of Course</h4>
+                        <div class="form-group">
+                            <label for="header">Header</label>
+                            <input type="text" name="header" class="form-control @error('header') is-invalid @enderror"
+                                id="header" placeholder="header" value="{{ $data->header_materi }}" required autofocus>
+                            @error('header')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="image_materi">Image</label>
+                            <input type="file" id="image_materi" name="image_materi" class="file-upload-default">
+                            <div class="input-group col-xs-12">
+                                <input type="text"
+                                    class="form-control file-upload-info @error('image_materi') is-invalid @enderror"
+                                    disabled placeholder="Upload Image">
+                                <span class="input-group-append">
+                                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                </span>
+                            </div>
+                            @error('image_materi')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                            @if (!empty($data->getRawOriginal('image_materi')))
+                                <img src="{{ $data->image_materi }}" alt="{{ $data->name }}" width="200"
+                                    class="mt-2">
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            <label for="detail">Detail Materi</label>
+                            <textarea name="detail" id="detail">{{ $data->detail_materi }}</textarea>
+                            @error('detail')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 @endsection
+
+@push('jslib')
+    <script src="{{ asset('backend/js/file-upload.js') }}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+@endpush
+
+@push('js')
+    <script>
+        var toolbar = [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ol', 'ul', 'paragraph', 'height']],
+            ['table', ['table']],
+            ['insert', ['link']],
+            ['view', ['undo', 'redo', 'fullscreen', 'codeview', 'help']]
+        ];
+
+        $('#detail').summernote({
+            placeholder: 'Detail Materi',
+            tabsize: 2,
+            height: 200,
+            toolbar: toolbar
+        });
+        $('#subtitle').summernote({
+            placeholder: 'Subtitle Course',
+            tabsize: 2,
+            height: 200,
+            toolbar: toolbar
+        });
+    </script>
+@endpush

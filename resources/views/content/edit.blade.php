@@ -1,11 +1,11 @@
-@extends('layouts.template', ['title' => 'Content'])
+@extends('layouts.template', ['title' => 'Video Content'])
 
 @section('content')
     <div class="row">
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Edit Content</h4>
+                    <h4 class="card-title">Edit Video Content</h4>
                     <form class="forms-sample" id="form" action="{{ route('content.update', $data->id) }}" method="POST">
                         @csrf
                         @method('PUT')
