@@ -11,6 +11,7 @@ use App\Http\Controllers\KeyController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\TopupController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -59,6 +60,8 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['middleware' => ['is.admin']], function () {
+
+        Route::resource('topup', TopupController::class);
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
 
