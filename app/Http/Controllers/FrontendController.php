@@ -264,8 +264,11 @@ class FrontendController extends Controller
     public function chatDetail(Chat $chat)
     {
         $user = $this->getUser();
+        if ($chat->sender_id != $user->id && $chat->to_id != $user->id) {
+            abort(404);
+        }
         $data = Chat::with('messages')->withCount('messages')->orWhere('from_id', $user->id)->orWhere('to_id', $user->id)->get();
-        $detail = $chat->load('messages.sender');
+        $detail = $chat->load('messages.sender', 'from', 'to');
         return view('frontend.chat', compact([
             'data',
             'detail'
@@ -278,13 +281,16 @@ class FrontendController extends Controller
             'message'   => 'required|max:250'
         ]);
         $user = $this->getUser();
+        if ($chat->sender_id != $user->id && $chat->to_id != $user->id) {
+            abort(404);
+        }
         ChatMessage::create([
             'chat_id'   => $chat->id,
             'message'   => $request->message,
             'sender_id' => $user->id,
         ]);
         $data = Chat::with('messages')->withCount('messages')->orWhere('from_id', $user->id)->orWhere('to_id', $user->id)->get();
-        $detail = $chat->load('messages.sender');
+        $detail = $chat->load('messages.sender', 'from', 'to');
         return view('frontend.chat', compact([
             'data',
             'detail'

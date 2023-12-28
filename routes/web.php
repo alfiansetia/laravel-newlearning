@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FrontendController;
@@ -64,6 +65,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/setting/profile', [SettingController::class, 'profile'])->name('setting.profile');
         Route::post('/setting/profile', [SettingController::class, 'profileUpdate'])->name('setting.profile.update');
 
+        Route::resource('chat', ChatController::class);
         Route::resource('category', CategoryController::class);
         Route::resource('subcategory', SubCategoryController::class);
         Route::resource('course', CourseController::class);
