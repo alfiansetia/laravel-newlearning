@@ -8,6 +8,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KeyController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubCategoryController;
@@ -28,7 +29,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [FrontendController::class, 'index'])->name('index');
+Route::get('/', [LandingPageController::class, 'index'])->name('index');
+Route::get('/courses-list', [LandingPageController::class, 'course'])->name('index.landing.course');
+Route::get('/about', [LandingPageController::class, 'about'])->name('index.landing.about');
+Route::get('/team', [LandingPageController::class, 'team'])->name('index.landing.team');
+Route::get('/contact', [LandingPageController::class, 'contact'])->name('index.landing.contact');
+// Route::get('/', [FrontendController::class, 'index'])->name('index');
 Route::get('/courses', [FrontendController::class, 'courseList'])->name('index.course.list');
 Route::get('/courses/{course:slug}', [FrontendController::class, 'courseDetail'])->name('index.course.detail');
 

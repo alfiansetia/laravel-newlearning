@@ -1,0 +1,10 @@
+@extends('layouts.landing_app')
+@section('content')
+    @include('components.landing.carousel')
+    @include('components.landing.service')
+    @include('components.landing.about')
+    @include('components.landing.category', ['categories' => $categories])
+    @include('components.landing.course', ['courses' => $courses])
+    @include('components.landing.team', ['mentors' => $mentors])
+    @include('components.landing.testi', ['comments' => $comments])
+@endsection
