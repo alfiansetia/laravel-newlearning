@@ -60,7 +60,7 @@ class TopupController extends Controller
         return response()->json(['error' => 'Topup not found'], 404);
     }
 
-    public function handle(Request $request)
+    public function payment(Request $request)
     {
         $user = $this->getUser();
         $topup = Topup::where('code', $request->order_id)->first();
