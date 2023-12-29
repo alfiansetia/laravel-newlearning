@@ -53,6 +53,7 @@
                             </div>
                             <hr class="my-4">
                             <a href="{{ route('index.chat') }}" class="btn btn-block btn-primary">Open Chat</a>
+                            <a href="{{ route('index.topup') }}" class="btn btn-block btn-primary">Topup Point</a>
                             <hr class="my-4">
                             <ul class="list-group list-group-flush">
                                 @forelse ($keys as $item)

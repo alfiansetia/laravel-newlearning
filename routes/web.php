@@ -51,6 +51,10 @@ Auth::routes([
 Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['middleware' => ['is.user']], function () {
+
+        Route::get('/list-topup', [FrontendController::class, 'topup'])->name('index.topup');
+        Route::post('/list-topup', [TopupController::class, 'store'])->name('index.topup.store');
+
         Route::get('/courses-open/{course:slug}', [FrontendController::class, 'courseOpen'])->name('index.course.open');
 
         Route::get('/list-chat/{chat}', [FrontendController::class, 'chatDetail'])->name('index.chat.detail');

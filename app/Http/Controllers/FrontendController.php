@@ -14,6 +14,7 @@ use App\Models\QuizOption;
 use App\Models\QuizUserAnswer;
 use App\Models\Rate;
 use App\Models\SubCategory;
+use App\Models\Topup;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use App\Traits\CompanyTrait;
@@ -294,6 +295,15 @@ class FrontendController extends Controller
         return view('frontend.chat', compact([
             'data',
             'detail'
+        ]));
+    }
+
+    public function topup()
+    {
+        $user = $this->getUser();
+        $data = Topup::where('user_id', $user->id)->get();
+        return view('frontend.topup', compact([
+            'data',
         ]));
     }
 }
