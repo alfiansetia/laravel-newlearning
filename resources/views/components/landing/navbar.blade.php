@@ -32,8 +32,13 @@
              <a href="{{ route('index.landing.contact') }}"
                  class="nav-item nav-link {{ $title == 'Contact' ? 'active' : '' }}">Contact</a>
          </div>
-         <a href="{{ route('login') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i
-                 class="fa fa-arrow-right ms-3"></i></a>
+         @auth
+             <a href="{{ route('index.profile') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Profile<i
+                     class="fa fa-arrow-right ms-3"></i></a>
+         @else
+             <a href="{{ route('login') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i
+                     class="fa fa-arrow-right ms-3"></i></a>
+         @endauth
      </div>
  </nav>
  <!-- Navbar End -->
