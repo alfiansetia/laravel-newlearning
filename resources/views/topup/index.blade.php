@@ -8,7 +8,7 @@
                     <div class="row align-items-center mb-3">
                         <div class="col-md-8">
                             <h4 class="card-title">Topup Point
-                                <button type="button" class="btn btn-sm btn-info">Create</button>
+                                <a href="{{ route('setting.profile') }}" class="btn btn-sm btn-info">Create</a>
                             </h4>
                         </div>
                         <div class="col-md-4">

@@ -90,7 +90,7 @@
                                 value="0" disabled readonly>
                         </div>
                         <button type="submit" class="btn btn-primary mr-2" id="pay-button">Submit</button>
-                        <a href="{{ route('user.index') }}" class="btn btn-light">Cancel</a>
+                        <a href="{{ route('topup.index') }}" class="btn btn-light">Cancel</a>
                     </form>
                 </div>
             </div>

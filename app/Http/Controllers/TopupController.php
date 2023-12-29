@@ -25,7 +25,7 @@ class TopupController extends Controller
     public function callback(Request $request)
     {
         $requestData = $request->all();
-        $serverKey = config('midtrans.server_key');
+        $serverKey = config('services.midtrans.serverKey');
         $signatureKey = $requestData['signature_key'];
         $orderId = $requestData['order_id'];
         $amount = $requestData['gross_amount'];
@@ -75,7 +75,7 @@ class TopupController extends Controller
         }
         if ($user) {
             if ($user->role == 'admin' || $user->role == 'mentor') {
-                return redirect()->route('setting.profile')->with($message);
+                return redirect()->route('topup.index')->with($message);
             }
         }
         return redirect()->route('index.profile')->with($message);
