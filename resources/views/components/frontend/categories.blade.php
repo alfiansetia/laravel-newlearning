@@ -131,12 +131,12 @@
                     @foreach ($categories as $item)
                         <div class="col-xs-12 col-sm-4">
                             <div class="card" style="border-radius: 15px">
-                                <a class="img-card" href="{{ url('cat') }}/{{ $item->slug }}">
+                                <a class="img-card" href="{{ route('index.category.detail', $item->slug) }}">
                                     <img src="{{ $item->image }}" />
                                 </a>
                                 <div class="card-content">
                                     <h4 class="card-title">
-                                        <a href="{{ url('cat') }}/{{ $item->slug }}">
+                                        <a href="{{ route('index.category.detail', $item->slug) }}">
                                             {{ $item->name }}
                                         </a>
                                     </h4>
@@ -146,7 +146,8 @@
                                     </p> --}}
                                 </div>
                                 <div class="card-read-more">
-                                    <a href="{{ url('cat') }}/{{ $item->slug }}" class="btn btn-link btn-block">
+                                    <a href="{{ route('index.category.detail', $item->slug) }}"
+                                        class="btn btn-link btn-block">
                                         Read More
                                     </a>
                                 </div>
@@ -159,31 +160,3 @@
         </div>
     </div>
 </section>
-
-<!-- Featured Section Begin -->
-{{-- <section class="featured spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title">
-                    <h2>All Course</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row featured__filter">
-            @foreach ($categories as $item)
-                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="{{ $item->image }}">
-                        </div>
-                        <div class="featured__item__text">
-                            <h6 style="font-size: 15px"><a
-                                    href="{{ url('cat') }}/{{ $item->slug }}">{{ $item->name }}</a></h6>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
-</section> --}}
-<!-- Featured Section End -->

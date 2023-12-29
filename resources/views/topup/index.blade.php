@@ -86,30 +86,6 @@
         @csrf
         @method('DELETE')
     </form>
-
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Topup Point</h4>
-                    <form class="forms-sample" id="form" action="{{ route('topup.store') }}" method="POST">
-                        @csrf
-                        <div class="form-group">
-                            <label for="amount">Amount</label>
-                            <input type="number" name="amount" class="form-control @error('amount') is-invalid @enderror"
-                                id="amount" placeholder="Amount" value="{{ old('amount', 200) }}" min="200"
-                                required autofocus>
-                            @error('amount')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <button type="submit" class="btn btn-primary mr-2" id="pay-button">Submit</button>
-                        <a href="{{ route('user.index') }}" class="btn btn-light">Cancel</a>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @push('jslib')

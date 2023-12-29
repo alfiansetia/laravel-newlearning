@@ -60,6 +60,27 @@ class TopupController extends Controller
         return response()->json(['error' => 'Topup not found'], 404);
     }
 
+    public function handle(Request $request)
+    {
+        $user = $this->getUser();
+        $topup = Topup::where('code', $request->order_id)->first();
+        if (!$topup) {
+            abort(404);
+        }
+        $message = ['error' => 'Topup Failed'];
+        if ($request->filled('transaction_status')) {
+            if ($request->transaction_status == 'success' || $request->transaction_status == 'settlement') {
+                $message = ['success' => 'Topup Success'];
+            }
+        }
+        if ($user) {
+            if ($user->role == 'admin' || $user->role == 'mentor') {
+                return redirect()->route('setting.profile')->with($message);
+            }
+        }
+        return redirect()->route('index.profile')->with($message);
+    }
+
     /**
      * Display a listing of the resource.
      */

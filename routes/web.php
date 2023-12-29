@@ -35,12 +35,13 @@ Route::get('/about', [LandingPageController::class, 'about'])->name('index.landi
 Route::get('/team', [LandingPageController::class, 'team'])->name('index.landing.team');
 Route::get('/contact', [LandingPageController::class, 'contact'])->name('index.landing.contact');
 Route::get('/testi', [LandingPageController::class, 'testi'])->name('index.landing.testi');
-// Route::get('/', [FrontendController::class, 'index'])->name('index');
 Route::get('/courses', [FrontendController::class, 'courseList'])->name('index.course.list');
 Route::get('/courses/{course:slug}', [FrontendController::class, 'courseDetail'])->name('index.course.detail');
 
-Route::get('/cat/{category:slug}', [FrontendController::class, 'category'])->name('index.category');
+Route::get('/category-list', [FrontendController::class, 'index'])->name('index.category');
+Route::get('/category-list/{category:slug}', [FrontendController::class, 'category'])->name('index.category.detail');
 
+Route::get('/payment', [TopupController::class, 'payment'])->name('topup.handle.callback');
 
 Auth::routes([
     'reset' => false,

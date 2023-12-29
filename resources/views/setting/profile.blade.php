@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Default form</h4>
+                    <h4 class="card-title">User Setting</h4>
                     <form class="forms-sample" id="form" action="{{ route('setting.profile.update') }}" method="POST">
                         @csrf
                         <div class="form-group">
@@ -64,5 +64,47 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-6">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">Info</h4>
+                    <h5>1 Point = 100 Rp</h5>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Topup Point</h4>
+                    <form class="forms-sample" id="form" action="{{ route('topup.store') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="amount">Amount Point</label>
+                            <input type="number" name="amount" class="form-control @error('amount') is-invalid @enderror"
+                                id="amount" placeholder="Amount" value="{{ old('amount', 200) }}" min="200"
+                                required autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label for="rp">Amount Rupiah</label>
+                            <input type="text" name="rp" class="form-control" id="rp" placeholder="rp"
+                                value="0" disabled readonly>
+                        </div>
+                        <button type="submit" class="btn btn-primary mr-2" id="pay-button">Submit</button>
+                        <a href="{{ route('user.index') }}" class="btn btn-light">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        $('#amount').change(function() {
+            let amount = $(this).val() ?? 0
+            $('#rp').val(amount * 100)
+        })
+
+        $('#amount').change()
+    </script>
+@endpush
