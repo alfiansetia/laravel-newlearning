@@ -48,7 +48,13 @@
                                             <td>{{ $item->date }}</td>
                                             <td>{{ $item->code }}</td>
                                             <td>{{ $item->point }}</td>
-                                            <td>{{ $item->status }}</td>
+                                            <td>
+                                                {{ $item->status }}
+                                                @if ($item->status == 'pending')
+                                                    <a class="btn btn-primary"
+                                                        href="https://app.sandbox.midtrans.com/snap/v3/redirection/{{ $item->snap_token }}">Pay</a>
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

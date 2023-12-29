@@ -54,11 +54,15 @@
                                                     <i class="ti-settings"></i>
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton3">
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('topup.edit', $item->id) }}">Edit</a>
-                                                    <button type="button"
-                                                        onclick="deleteData('{{ route('topup.destroy', $item->id) }}')"
-                                                        class="dropdown-item">Delete</button>
+                                                    {{-- <a class="dropdown-item"
+                                                        href="{{ route('topup.edit', $item->id) }}">Edit</a> --}}
+                                                    @if ($item->status == 'pending')
+                                                        <a class="dropdown-item"
+                                                            href="https://app.sandbox.midtrans.com/snap/v3/redirection/{{ $item->snap_token }}">Pay</a>
+                                                        <button type="button"
+                                                            onclick="deleteData('{{ route('topup.destroy', $item->id) }}')"
+                                                            class="dropdown-item">Cancel</button>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </td>

@@ -181,7 +181,9 @@ class TopupController extends Controller
      */
     public function destroy(Topup $topup)
     {
-        $topup->delete();
-        return redirect()->route('topup.index')->with(['success' => 'Delete Data Success!']);
+        $topup->update([
+            'status' => 'cancel'
+        ]);
+        return redirect()->route('topup.index')->with(['success' => 'Cancel transaction Success!']);
     }
 }

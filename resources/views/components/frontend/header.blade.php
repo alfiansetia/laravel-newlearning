@@ -46,7 +46,7 @@
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li class="active"><a href="{{ route('index') }}">Home</a></li>
+                        <li class="active"><a href="{{ route('index.category') }}">Home</a></li>
                         <li><a href="{{ route('index.course.list') }}">Course</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="header__menu__dropdown">
