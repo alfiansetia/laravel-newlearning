@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
                 'layouts.template',
                 'layouts.frontend_app',
                 'layouts.landing_app',
+                'layouts.auth',
                 'frontend.profile',
                 'frontend.course_detail',
                 'frontend.course_detail',

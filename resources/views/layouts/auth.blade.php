@@ -29,7 +29,9 @@
                     <div class="col-lg-4 mx-auto">
                         <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                             <div class="brand-logo">
-                                <img src="{{ asset('backend/images/logo.svg') }}" alt="logo">
+                                {{-- <img src="{{ asset('backend/images/logo.svg') }}" alt="logo"> --}}
+                                <img src="{{ $company->logo }}" style="max-height: 50px;max-width: 50px;"
+                                    alt="logo"><strong><span class="h3 ml-2">{{ $company->name }}</span></strong>
                             </div>
                             @yield('content')
                         </div>
