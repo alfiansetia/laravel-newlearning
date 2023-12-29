@@ -22,20 +22,10 @@ class ContentSeeder extends Seeder
             File::cleanDirectory(public_path('videos/content'));
         }
         $courses = Course::all();
-        $file_name[] = Str::random(10) . '.mp4';
-        File::copy(public_path('videos/default.mp4'), public_path('videos/content/' . $file_name[0]));
-        $file_name[] = Str::random(10) . '.mp4';
-        File::copy(public_path('videos/default2.mp4'), public_path('videos/content/' . $file_name[1]));
-        $file_name[] = Str::random(10) . '.mp4';
-        File::copy(public_path('videos/default3.mp4'), public_path('videos/content/' . $file_name[2]));
-
         foreach ($courses as $key => $value) {
-            for ($i = 0; $i < 3; $i++) {
-                Content::factory()->create([
-                    'course_id' => $value->id,
-                    'file'      => $file_name[$i]
-                ]);
-            }
+            Content::factory(3)->create([
+                'course_id' => $value->id,
+            ]);
         }
     }
 }

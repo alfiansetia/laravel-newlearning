@@ -1,4 +1,4 @@
-@extends('layouts.landing_app')
+@extends('layouts.landing_app', ['title' => 'Courses'])
 @section('content')
     @include('components.landing.header', ['title' => 'Courses'])
     @include('components.landing.category', ['categories' => $categories])

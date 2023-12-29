@@ -1,4 +1,4 @@
-@extends('layouts.landing_app')
+@extends('layouts.landing_app', ['title' => 'Home'])
 @section('content')
     @include('components.landing.carousel')
     @include('components.landing.service')

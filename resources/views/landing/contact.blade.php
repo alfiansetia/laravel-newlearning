@@ -1,4 +1,4 @@
-@extends('layouts.landing_app')
+@extends('layouts.landing_app', ['title' => 'Contact'])
 @section('content')
     @include('components.landing.header', ['title' => 'Contact'])
 

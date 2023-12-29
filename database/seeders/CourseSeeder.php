@@ -7,6 +7,7 @@ use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 
 class CourseSeeder extends Seeder
 {
@@ -15,6 +16,11 @@ class CourseSeeder extends Seeder
      */
     public function run(): void
     {
+        if (!file_exists(public_path('images/course'))) {
+            File::makeDirectory(public_path('images/course'));
+        } else {
+            File::cleanDirectory(public_path('images/course'));
+        }
         $subcategories = SubCategory::all();
         $mentors = User::where('role', 'mentor')->where('status', 'active')->get();
 

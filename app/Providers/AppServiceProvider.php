@@ -26,8 +26,11 @@ class AppServiceProvider extends ServiceProvider
             [
                 'layouts.template',
                 'layouts.frontend_app',
+                'layouts.landing_app',
                 'frontend.profile',
-                'frontend.course_detail'
+                'frontend.course_detail',
+                'frontend.course_detail',
+                'landing.contact',
             ],
             function ($view) {
                 $view->with('company', Company::first());

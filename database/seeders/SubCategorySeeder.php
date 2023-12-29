@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 
 class SubCategorySeeder extends Seeder
 {
@@ -14,11 +15,18 @@ class SubCategorySeeder extends Seeder
      */
     public function run(): void
     {
+        if (!file_exists(public_path('images/subcategory'))) {
+            File::makeDirectory(public_path('images/subcategory'));
+        } else {
+            File::cleanDirectory(public_path('images/subcategory'));
+        }
         $categories = Category::all();
-        for ($i = 0; $i < 10; $i++) {
-            SubCategory::factory()->create([
-                'category_id' => $categories->random()->id,
-            ]);
+        foreach ($categories as  $value) {
+            for ($i = 0; $i < 5; $i++) {
+                SubCategory::factory()->create([
+                    'category_id' => $value->id,
+                ]);
+            }
         }
     }
 }

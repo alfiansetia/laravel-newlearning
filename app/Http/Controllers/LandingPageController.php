@@ -51,8 +51,9 @@ class LandingPageController extends Controller
 
     public function about()
     {
+        $company = $this->getCompany();
         $mentors = User::where('role', 'mentor')->orderBy('id', 'DESC')->paginate(4);
-        return view('landing.about', compact('mentors'));
+        return view('landing.about', compact('mentors', 'company'));
     }
 
     public function team()
@@ -63,7 +64,12 @@ class LandingPageController extends Controller
 
     public function contact()
     {
-        $company = $this->getCompany();
-        return view('landing.contact', compact('company'));
+        return view('landing.contact');
+    }
+
+    public function testi()
+    {
+        $comments = Comment::with('user')->orderBy('id', 'DESC')->paginate(4);
+        return view('landing.testi', compact('comments'));
     }
 }
