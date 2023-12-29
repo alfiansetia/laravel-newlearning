@@ -12,7 +12,8 @@
                         @foreach ($categories as $key => $item)
                             @if ($key < 1)
                                 <div class="col-lg-12 col-md-12 wow zoomIn" data-wow-delay="0.1s">
-                                    <a class="position-relative d-block overflow-hidden" href="">
+                                    <a class="position-relative d-block overflow-hidden"
+                                        href="{{ url('cat') }}/{{ $item->slug }}">
                                         <img class="img-fluid" src="{{ $item->image }}" alt="">
                                         <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3"
                                             style="margin: 1px;">
@@ -25,7 +26,8 @@
                             @endif
                             @if ($key > 0 && $key < 3)
                                 <div class="col-lg-6 col-md-12 wow zoomIn" data-wow-delay="0.5s">
-                                    <a class="position-relative d-block overflow-hidden" href="">
+                                    <a class="position-relative d-block overflow-hidden"
+                                        href="{{ url('cat') }}/{{ $item->slug }}">
                                         <img class="img-fluid" src="{{ asset('landing/img/cat-3.jpg') }}"
                                             alt="">
                                         <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3"
@@ -42,7 +44,8 @@
                 </div>
                 @if (count($categories) > 3)
                     <div class="col-lg-5 col-md-6 wow zoomIn" data-wow-delay="0.7s" style="min-height: 350px;">
-                        <a class="position-relative d-block h-100 overflow-hidden" href="">
+                        <a class="position-relative d-block h-100 overflow-hidden"
+                            href="{{ url('cat') }}/{{ $categories[3]->slug }}">
                             <img class="img-fluid position-absolute w-100 h-100"
                                 src="{{ asset('landing/img/cat-4.jpg') }}" alt="" style="object-fit: cover;">
                             <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3"
