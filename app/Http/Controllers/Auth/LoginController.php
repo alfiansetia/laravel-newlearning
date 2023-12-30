@@ -42,7 +42,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if ($user->role === 'user') {
-            return redirect()->route('index');
+            return redirect()->route('index.category');
         }
     }
 }
