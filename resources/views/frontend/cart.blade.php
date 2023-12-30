@@ -49,7 +49,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
-                        <a href="{{ route('index') }}" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+                        <a href="{{ route('index.category') }}" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
                         <a href="{{ route('cart.index') }}" class="primary-btn cart-btn cart-btn-right"><span
                                 class="icon_loading"></span>
                             Update Cart</a>
