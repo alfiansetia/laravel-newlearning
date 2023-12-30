@@ -17,7 +17,7 @@
                         @foreach ($contents ?? [] as $key => $item)
                             <div class="tab-pane {{ $key === 0 ? 'fade show active' : '' }}" id="list-home{{ $item->id }}"
                                 role="tabpanel" aria-labelledby="list-video{{ $item->id }}">
-                                <video width="400" height="400" controls>
+                                <video height="400" controls style="width: 100%">
                                     <source src="{{ $item->file }}" type="video/mp4"
                                         id="{{ 'vid' . $item->id . $loop->iteration }}">
                                     Your browser does not support the video tag.
@@ -130,7 +130,8 @@
                         @foreach ($contents ?? [] as $key => $item)
                             <a class="list-group-item list-group-item-action {{ $key === 0 ? 'active' : '' }}"
                                 id="list-video{{ $item->id }}" data-toggle="list" href="#list-home{{ $item->id }}"
-                                role="tab" aria-controls="home">Video {{ $key + 1 }} {{ $item->title }}
+                                role="tab" aria-controls="home">Video
+                                {{ $key + 1 }} {{ $item->title }}
                             </a>
                         @endforeach
                         <a class="list-group-item list-group-item-action {{ $empty_contents ? 'active' : '' }}"
