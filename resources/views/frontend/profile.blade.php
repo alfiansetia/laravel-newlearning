@@ -147,8 +147,10 @@
                                     @forelse ($user->courses as $item)
                                         <p class="d-flex justify-content-between">
                                             <span>{{ $item->course->name }}</span>
-                                            <a href="{{ route('index.course.open', $item->course->slug) }}"
-                                                class="btn btn-sm">Open</a>
+                                            <span><a href="{{ route('index.course.open', $item->course->slug) }}"
+                                                    class="btn btn-sm">Open</a>
+                                                <a href="{{ route('index.course.detail', $item->course->slug) }}"
+                                                    class="btn btn-sm">Detail</a></span>
                                         </p>
 
                                         @php

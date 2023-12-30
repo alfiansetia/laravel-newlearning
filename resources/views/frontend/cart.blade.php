@@ -89,8 +89,8 @@
                         <h5>Cart Total</h5>
                         <ul>
                             <li>Total <span>
-                                    <img src="{{ asset('images/dollar.png') }}" alt=""
-                                        width="20">{{ $total }}
+                                    <img src="{{ asset('images/dollar.png') }}" alt="" width="20">
+                                    {{ $total }}
                                 </span>
                             </li>
                         </ul>
