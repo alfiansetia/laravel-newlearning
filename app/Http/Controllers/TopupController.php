@@ -78,7 +78,7 @@ class TopupController extends Controller
                 return redirect()->route('topup.index')->with($message);
             }
         }
-        return redirect()->route('index.profile')->with($message);
+        return redirect()->route('index.topup')->with($message);
     }
 
     /**
@@ -108,8 +108,15 @@ class TopupController extends Controller
         $this->validate($request, [
             'amount' => 'required|integer|min:200'
         ]);
-        $amount = $request->amount * 100;
         $user = $this->getUser();
+        $pending = Topup::where('user_id', $user->id)->where('status', 'pending')->count();
+        if (($pending ?? 0) > 0) {
+            if ($user->role == 'admin' || $user->role == 'mentor') {
+                return redirect()->route('topup.index')->with(['error' => 'Topup Failed, Any pending transaction!']);
+            }
+            return redirect()->route('index.topup')->with(['error' => 'Topup Failed, Any pending transaction!']);
+        }
+        $amount = $request->amount * 100;
         DB::beginTransaction();
         try {
             $topup = Topup::create([
@@ -148,7 +155,10 @@ class TopupController extends Controller
             return redirect($snap->redirect_url);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return redirect()->route('topup.index')->with(['error', 'Error : ' . $th->getMessage(),]);
+            if ($user->role == 'admin' || $user->role == 'mentor') {
+                return redirect()->route('topup.index')->with(['error', 'Error : ' . $th->getMessage(),]);
+            }
+            return redirect()->route('index.topup')->with(['error', 'Error : ' . $th->getMessage(),]);
         }
     }
 
