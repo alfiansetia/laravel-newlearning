@@ -17,7 +17,7 @@
                         @foreach ($contents ?? [] as $key => $item)
                             <div class="tab-pane {{ $key === 0 ? 'fade show active' : '' }}" id="list-home{{ $item->id }}"
                                 role="tabpanel" aria-labelledby="list-video{{ $item->id }}">
-                                <video height="400" controls style="width: 100%">
+                                <video height="400" controls style="width: 100%;">
                                     <source src="{{ $item->file }}" type="video/mp4"
                                         id="{{ 'vid' . $item->id . $loop->iteration }}">
                                     Your browser does not support the video tag.

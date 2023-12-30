@@ -67,7 +67,7 @@
                                 <button class="btn primary-btn">ADD TO CARD</button>
                                 @auth
                                     <button type="button" class="btn primary-btn" data-toggle="modal"
-                                        data-target="#exampleModal">REEDEM</button>
+                                        data-target="#exampleModal">REDEEM</button>
                                 @endauth
                             </form>
                         @endif
@@ -135,7 +135,7 @@
             <div class="modal-dialog  modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Reedem <b>{{ $data->name }}</b> With KEY</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Redeem <b>{{ $data->name }}</b> With KEY</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -150,7 +150,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn primary-btn">Reedem Now</button>
+                        <button type="submit" class="btn primary-btn">Redeem Now</button>
                     </div>
                 </div>
             </div>

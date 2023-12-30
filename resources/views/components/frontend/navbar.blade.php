@@ -2,20 +2,24 @@
 <div class="humberger__menu__overlay"></div>
 <div class="humberger__menu__wrapper">
     <div class="humberger__menu__logo">
-        <a href="{{ route('index') }}"><img src="{{ asset('frontend/img/logo.png') }}" alt=""></a>
+        <a href="{{ route('index.category') }}"><img src="{{ $company->logo }}" alt=""
+                style="max-height: 40px; max-width: 40px;">
+            <span>
+                <font size="10"><strong>{{ $company->name }}</strong></font>
+            </span>
+        </a>
     </div>
     <div class="humberger__menu__cart">
         <ul>
             @auth
                 <li>
-                    <a href="{{ route('cart.index') }}">
-                        <i class="fa fa-shopping-bag"></i><span>{{ $user->carts_count }}</span></a>
+                    <a href="{{ route('index.profile') }}">
+                        <img src="{{ asset('images/dollar.png') }}" alt="" width="18">
+                    </a>
                 </li>
                 <li>
-                    <a href="{{ route('index.profile') }}">
-                        <img src="{{ asset('images/dollar.png') }}" alt=""
-                            width="18"><span>{{ $user->point }}</span>
-                    </a>
+                    <a href="{{ route('cart.index') }}">
+                        <i class="fa fa-shopping-bag"></i><span>{{ $user->carts_count }}</span></a>
                 </li>
                 <li>
                     <button class="btn" onclick="logout()"><i class="fa fa-sign-out"></i></button>
@@ -39,7 +43,7 @@
         </div>
     </div>
     <nav class="humberger__menu__nav mobile-menu">
-        <ul>
+        {{-- <ul>
             <li class="active"><a href="{{ route('index.category') }}">Home</a></li>
             <li><a href="{{ route('index.course.list') }}">Course</a></li>
             <li><a href="#">Pages</a>
@@ -52,7 +56,7 @@
             </li>
             <li><a href="./blog.html">Blog</a></li>
             <li><a href="./contact.html">Contact</a></li>
-        </ul>
+        </ul> --}}
     </nav>
     <div id="mobile-menu-wrap"></div>
     <div class="header__top__right__social">

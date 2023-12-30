@@ -40,11 +40,14 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="header__logo">
-                    <a href="{{ route('index') }}"><img src="{{ asset('frontend/img/logo.png') }}" alt=""></a>
+                    <a href="{{ route('index.category') }}"><img src="{{ $company->logo }}" alt=""
+                            style="max-height: 40px; max-width: 40px;">
+                        <font color="black" size="5"><strong>{{ $company->name }}</strong></font>
+                    </a>
                 </div>
             </div>
             <div class="col-lg-6">
-                <nav class="header__menu">
+                {{-- <nav class="header__menu">
                     <ul>
                         <li class="active"><a href="{{ route('index.category') }}">Home</a></li>
                         <li><a href="{{ route('index.course.list') }}">Course</a></li>
@@ -59,21 +62,20 @@
                         <li><a href="./blog.html">Blog</a></li>
                         <li><a href="./contact.html">Contact</a></li>
                     </ul>
-                </nav>
+                </nav> --}}
             </div>
             <div class="col-lg-3">
                 <div class="header__cart">
                     <ul>
                         @auth
                             <li>
-                                <a href="{{ route('cart.index') }}">
-                                    <i class="fa fa-shopping-bag"></i><span>{{ $user->carts_count }}</span></a>
+                                <a href="{{ route('index.profile') }}">
+                                    <img src="{{ asset('images/dollar.png') }}" alt="" width="18">
+                                </a>
                             </li>
                             <li>
-                                <a href="{{ route('index.profile') }}">
-                                    <img src="{{ asset('images/dollar.png') }}" alt=""
-                                        width="18"><span>{{ $user->point }}</span>
-                                </a>
+                                <a href="{{ route('cart.index') }}">
+                                    <i class="fa fa-shopping-bag"></i><span>{{ $user->carts_count }}</span></a>
                             </li>
                             <li>
                                 <button class="btn" onclick="logout()"><i class="fa fa-sign-out"></i></button>
