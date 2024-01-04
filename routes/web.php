@@ -59,8 +59,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/courses-open/{course:slug}', [FrontendController::class, 'courseOpen'])->name('index.course.open');
 
         Route::get('/list-chat/{chat}', [FrontendController::class, 'chatDetail'])->name('index.chat.detail');
-        Route::post('/list-chat/{chat}', [FrontendController::class, 'saveChat'])->name('index.chat.save');
+        Route::post('/list-chat/{chat}', [FrontendController::class, 'saveDetailChat'])->name('index.chat.detail.save');
         Route::get('/list-chat', [FrontendController::class, 'chat'])->name('index.chat');
+        Route::post('/list-chat', [FrontendController::class, 'saveChat'])->name('index.chat.save');
         Route::get('/profile-upgrade', [FrontendController::class, 'upgrade'])->name('index.upgrade');
         Route::post('/profile-upgrade', [UpgradeUserController::class, 'store'])->name('index.upgrade.save');
         Route::get('/profile', [FrontendController::class, 'profile'])->name('index.profile');

@@ -18,6 +18,7 @@ use App\Models\Topup;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use App\Models\UpgradeUser;
+use App\Models\User;
 use App\Traits\CompanyTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -183,7 +184,7 @@ class FrontendController extends Controller
             $total += $item->course->price;
         }
         if ($user->point < $total) {
-            return redirect()->back()->with(['error' => 'Not Enough Token!']);
+            return redirect()->back()->with(['error' => 'Not Enough Point!']);
         }
         $trx = Transaction::create([
             'user_id'   => $user->id,
@@ -194,10 +195,21 @@ class FrontendController extends Controller
         ]);
 
         foreach ($carts as $item) {
+            $price = $item->course->price;
+            $reward = ceil($price / 2);
+            if ($price == 1) {
+                $reward = 1;
+            }
+            $mentor = $item->course->mentor;
+            if ($mentor) {
+                $mentor->update([
+                    'point' => $mentor->point + $reward
+                ]);
+            }
             TransactionDetail::create([
                 'transaction_id'    => $trx->id,
                 'course_id'         => $item->course_id,
-                'price'             => $item->course->price,
+                'price'             => $price,
             ]);
             $item->delete();
         }
@@ -230,9 +242,14 @@ class FrontendController extends Controller
             'price'             => $course->price,
         ]);
         $mentor = $course->mentor;
+        $price = $course->price;
+        $reward = ceil($price / 2);
+        if ($price == 1) {
+            $reward = 1;
+        }
         if ($mentor) {
             $mentor->update([
-                'point' => $mentor->point + ($course->price / 2)
+                'point' => $mentor->point + $reward
             ]);
         }
         $key->update([
@@ -269,27 +286,55 @@ class FrontendController extends Controller
         $user = $this->getUser();
         $data = Chat::with('messages')->withCount('messages')->orWhere('from_id', $user->id)->orWhere('to_id', $user->id)->get();
         $detail = null;
+        $ids = [];
+        foreach ($data as $key => $value) {
+            if ($value->from_id == $user->id) {
+                array_push($ids, $value->to_id);
+            }
+            if ($value->to_id == $user->id) {
+                array_push($ids, $value->from_id);
+            }
+        }
+        $users = User::whereNotIn('id', $ids)
+            ->where('role', '!=', 'admin')
+            ->where('id', '!=', $user->id)
+            ->get();
         return view('frontend.chat', compact([
             'data',
-            'detail'
+            'detail',
+            'users'
         ]));
     }
 
     public function chatDetail(Chat $chat)
     {
         $user = $this->getUser();
-        if ($chat->sender_id != $user->id && $chat->to_id != $user->id) {
+        if ($chat->from_id != $user->id && $chat->to_id != $user->id) {
             abort(404);
         }
         $data = Chat::with('messages')->withCount('messages')->orWhere('from_id', $user->id)->orWhere('to_id', $user->id)->get();
         $detail = $chat->load('messages.sender', 'from', 'to');
+        $ids = [];
+        foreach ($data as $key => $value) {
+            if ($value->from_id == $user->id) {
+                array_push($ids, $value->to_id);
+            }
+            if ($value->to_id == $user->id) {
+                array_push($ids, $value->from_id);
+            }
+        }
+        $users = User::whereNotIn('id', $ids)
+            ->where('role', '!=', 'admin')
+            ->where('id', '!=', $user->id)
+            ->get();
         return view('frontend.chat', compact([
             'data',
-            'detail'
+            'detail',
+            'users',
         ]));
     }
 
-    public function saveChat(Request $request, Chat $chat)
+    public function saveDetailChat(Request $request, Chat $chat)
     {
         $this->validate($request, [
             'message'   => 'required|max:250'
@@ -303,12 +348,34 @@ class FrontendController extends Controller
             'message'   => $request->message,
             'sender_id' => $user->id,
         ]);
-        $data = Chat::with('messages')->withCount('messages')->orWhere('from_id', $user->id)->orWhere('to_id', $user->id)->get();
+        $data = Chat::with(['messages'])->withCount('messages')->orWhere('from_id', $user->id)->orWhere('to_id', $user->id)->get();
         $detail = $chat->load('messages.sender', 'from', 'to');
         return view('frontend.chat', compact([
             'data',
             'detail'
         ]));
+    }
+
+    public function saveChat(Request $request)
+    {
+        $this->validate($request, [
+            'to'        => 'required|integer|exists:users,id',
+            'message'   => 'required|max:200'
+        ]);
+        $user = $this->getUser();
+        $chat = Chat::firstOrCreate([
+            'to_id'     => $request->to,
+            'from_id'   => $user->id,
+        ], [
+            'to_id'     => $request->to,
+            'from_id'   => $user->id,
+        ]);
+        ChatMessage::create([
+            'chat_id'   => $chat->id,
+            'sender_id' => $user->id,
+            'message'   => $request->message
+        ]);
+        return redirect()->back()->with(['success' => 'Chat Send!']);
     }
 
     public function topup()

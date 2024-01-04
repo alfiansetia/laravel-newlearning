@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'role'      => 'admin',
             'email_verified_at' => now(),
             'status'    => 'active',
-            'point'     => 100,
+            // 'point'     => 100,
             'phone'     => '62855552222555',
             'dob'       => '2002-05-01',
         ]);
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
             'role'      => 'user',
             'email_verified_at' => now(),
             'status'    => 'active',
-            'point'     => 100,
+            // 'point'     => 100,
             'phone'     => '62855552222555',
             'dob'       => '2002-05-02',
         ]);
@@ -45,7 +45,7 @@ class UserSeeder extends Seeder
             'role'      => 'mentor',
             'email_verified_at' => now(),
             'status'    => 'active',
-            'point'     => 50,
+            // 'point'     => 50,
             'phone'     => '62855552222555',
             'dob'       => '2002-05-03',
         ]);
