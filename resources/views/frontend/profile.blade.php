@@ -58,23 +58,27 @@
                                 <a href="{{ route('index.upgrade') }}" class="btn btn-block btn-primary">Upgrade to
                                     Mentor</a>
                             @endif
-                            <hr class="my-4">
+                            {{-- <hr class="my-4"> --}}
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-body">
                             <h5 class="d-flex align-items-center mb-3">My Keys</h5>
-                            <ul class="list-group list-group-flush">
-                                @forelse ($keys as $item)
-                                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                        <h6 class="mb-0">{{ $item->value }}</h6>
-                                    </li>
-                                @empty
-                                    <div class="alert alert-danger" role="alert">
-                                        No Available Keys
-                                    </div>
-                                @endforelse
-                            </ul>
+                            <div style="overflow-y: auto; max-height: 200px;">
+                                <ul class="list-group list-group-flush">
+                                    @forelse ($keys as $item)
+                                        <li
+                                            class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                            <h6 class="mb-0">{{ $item->value }}</h6>
+                                        </li>
+                                    @empty
+                                        <div class="alert alert-danger" role="alert">
+                                            No Available Keys
+                                        </div>
+                                    @endforelse
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -151,28 +155,31 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="d-flex align-items-center mb-3">My Course</h5>
-                            @forelse ($user->courses as $item)
-                                <p class="d-flex justify-content-between">
-                                    <span>{{ $item->course->name }}</span>
-                                    <span><a href="{{ route('index.course.open', $item->course->slug) }}"
-                                            class="btn btn-sm">Open</a>
-                                        <a href="{{ route('index.course.detail', $item->course->slug) }}"
-                                            class="btn btn-sm">Detail</a></span>
-                                </p>
+                            <div style="overflow-y: auto; max-height: 340px;">
+                                @forelse ($user->courses as $item)
+                                    <p class="d-flex justify-content-between">
+                                        <span>{{ $item->course->name }}</span>
+                                        <span><a href="{{ route('index.course.open', $item->course->slug) }}"
+                                                class="btn btn-sm">Open</a>
+                                            <a href="{{ route('index.course.detail', $item->course->slug) }}"
+                                                class="btn btn-sm">Detail</a></span>
+                                    </p>
 
-                                @php
-                                    $value = $item->course->userProgres() ?? 0;
-                                @endphp
-                                <div class="progress mb-3" style="height: 15px">
-                                    <div class="progress-bar bg-primary" role="progressbar"
-                                        style="width: {{ $value }}%" aria-valuenow="{{ $value }}"
-                                        aria-valuemin="0" aria-valuemax="100">{{ $value }}%</div>
-                                </div>
-                            @empty
-                                <div class="alert alert-danger" role="alert">
-                                    Empty Course!
-                                </div>
-                            @endforelse
+                                    @php
+                                        $value = $item->course->userProgres() ?? 0;
+                                    @endphp
+                                    <div class="progress mb-3" style="height: 15px">
+                                        <div class="progress-bar bg-primary" role="progressbar"
+                                            style="width: {{ $value }}%" aria-valuenow="{{ $value }}"
+                                            aria-valuemin="0" aria-valuemax="100">{{ $value }}%</div>
+                                    </div>
+                                @empty
+                                    <div class="alert alert-danger" role="alert">
+                                        Empty Course!
+                                    </div>
+                                @endforelse
+                            </div>
+
                         </div>
                     </div>
                 </div>

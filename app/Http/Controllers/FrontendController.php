@@ -284,7 +284,9 @@ class FrontendController extends Controller
     public function chat()
     {
         $user = $this->getUser();
-        $data = Chat::with('messages')->withCount('messages')->orWhere('from_id', $user->id)->orWhere('to_id', $user->id)->get();
+        $data = Chat::with('messages')->withCount('messages')
+            ->orWhere('from_id', $user->id)
+            ->orWhere('to_id', $user->id)->get();
         $detail = null;
         $ids = [];
         foreach ($data as $key => $value) {
@@ -312,7 +314,9 @@ class FrontendController extends Controller
         if ($chat->from_id != $user->id && $chat->to_id != $user->id) {
             abort(404);
         }
-        $data = Chat::with('messages')->withCount('messages')->orWhere('from_id', $user->id)->orWhere('to_id', $user->id)->get();
+        $data = Chat::with('messages')->withCount('messages')
+            ->orWhere('from_id', $user->id)
+            ->orWhere('to_id', $user->id)->get();
         $detail = $chat->load('messages.sender', 'from', 'to');
         $ids = [];
         foreach ($data as $key => $value) {
@@ -340,7 +344,7 @@ class FrontendController extends Controller
             'message'   => 'required|max:250'
         ]);
         $user = $this->getUser();
-        if ($chat->sender_id != $user->id && $chat->to_id != $user->id) {
+        if ($chat->from_id != $user->id && $chat->to_id != $user->id) {
             abort(404);
         }
         ChatMessage::create([
@@ -348,11 +352,27 @@ class FrontendController extends Controller
             'message'   => $request->message,
             'sender_id' => $user->id,
         ]);
-        $data = Chat::with(['messages'])->withCount('messages')->orWhere('from_id', $user->id)->orWhere('to_id', $user->id)->get();
+        $data = Chat::with('messages')->withCount('messages')
+            ->orWhere('from_id', $user->id)
+            ->orWhere('to_id', $user->id)->get();
         $detail = $chat->load('messages.sender', 'from', 'to');
+        $ids = [];
+        foreach ($data as $key => $value) {
+            if ($value->from_id == $user->id) {
+                array_push($ids, $value->to_id);
+            }
+            if ($value->to_id == $user->id) {
+                array_push($ids, $value->from_id);
+            }
+        }
+        $users = User::whereNotIn('id', $ids)
+            ->where('role', '!=', 'admin')
+            ->where('id', '!=', $user->id)
+            ->get();
         return view('frontend.chat', compact([
             'data',
-            'detail'
+            'detail',
+            'users',
         ]));
     }
 
