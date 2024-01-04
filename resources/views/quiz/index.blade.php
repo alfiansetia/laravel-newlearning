@@ -42,7 +42,7 @@
                         <thead>
                             <tr>
                                 <th>Course</th>
-                                <th>Title</th>
+                                <th>Question</th>
                                 <th class="text-center">Option Count</th>
                                 <th class="text-center">Action</th>
                             </tr>
@@ -51,7 +51,7 @@
                             @forelse ($data as $key => $item)
                                 <tr>
                                     <td>{{ $item->course->name ?? '' }}</td>
-                                    <td>{{ $item->title }}</td>
+                                    <td>{{ $item->question }}</td>
                                     <td class="text-center">{{ $item->options_count }}</td>
                                     <td class="text-center">
                                         <div class="dropdown">

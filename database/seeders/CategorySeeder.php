@@ -19,6 +19,6 @@ class CategorySeeder extends Seeder
         } else {
             File::cleanDirectory(public_path('images/category'));
         }
-        Category::factory(15)->create();
+        Category::factory(5)->create();
     }
 }

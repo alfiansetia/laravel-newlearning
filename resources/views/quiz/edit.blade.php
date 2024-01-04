@@ -26,17 +26,17 @@
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="name">Title</label>
                             <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
                                 id="title" placeholder="Title" value="{{ $data->title }}" required autofocus>
                             @error('title')
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label for="question">Question</label>
-                            <textarea name="question" id="question" placeholder="Question" required>{{ $data->question }}</textarea>
+                            <textarea name="question" id="question" placeholder="Question" required autofocus>{{ $data->question }}</textarea>
                             @error('question')
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror

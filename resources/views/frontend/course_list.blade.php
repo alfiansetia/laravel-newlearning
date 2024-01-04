@@ -294,8 +294,12 @@
                                         <h6><a
                                                 href="{{ route('index.course.detail', $item->slug) }}">{{ $item->name }}</a>
                                         </h6>
-                                        <h5><img src="{{ asset('images/dollar.png') }}" alt="" width="18">
-                                            {{ $item->price }}</h5>
+                                        @if (!$item->isPurchasedByUser())
+                                            <h5>
+                                                <img src="{{ asset('images/dollar.png') }}" alt="" width="18">
+                                                {{ $item->price }}
+                                            </h5>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

@@ -70,11 +70,12 @@
                                         <div class="card">
                                             <div class="card-header" id="headingOne{{ $item->id }}">
                                                 <h5 class="mb-0">
-                                                    <button type="button" class="btn btn-link" data-toggle="collapse"
+                                                    <button type="button" class="btn btn-link" style="text-align: left"
+                                                        data-toggle="collapse"
                                                         data-target="#collapseOne{{ $item->id }}"
                                                         aria-expanded="{{ $key === 0 ? 'true' : 'false' }}"
                                                         aria-controls="collapseOne{{ $item->id }}">
-                                                        {{ $key + 1 }}. {{ $item->title }}
+                                                        {{ $key + 1 }}. {{ $item->question }}
                                                     </button>
                                                 </h5>
                                             </div>
@@ -83,12 +84,13 @@
                                                 class="collapse {{ $key === 0 ? 'show' : '' }}"
                                                 aria-labelledby="headingOne{{ $item->id }}" data-parent="#accordion">
                                                 <div class="card-body">
-                                                    {{ $item->question }}
+                                                    {{-- {{ $item->question }}
+                                                    <br> --}}
+
                                                     @php
                                                         $old = $item->options ?? [];
                                                         $options = $old->shuffle();
                                                     @endphp
-                                                    <br>
                                                     @foreach ($options as $option)
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="radio"
@@ -129,8 +131,8 @@
                     <div class="list-group" id="list-tab" role="tablist">
                         @foreach ($contents ?? [] as $key => $item)
                             <a class="list-group-item list-group-item-action {{ $key === 0 ? 'active' : '' }}"
-                                id="list-video{{ $item->id }}" data-toggle="list" href="#list-home{{ $item->id }}"
-                                role="tab" aria-controls="home">Video
+                                id="list-video{{ $item->id }}" data-toggle="list"
+                                href="#list-home{{ $item->id }}" role="tab" aria-controls="home">Video
                                 {{ $key + 1 }} {{ $item->title }}
                             </a>
                         @endforeach

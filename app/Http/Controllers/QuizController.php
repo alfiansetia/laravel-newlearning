@@ -16,7 +16,7 @@ class QuizController extends Controller
     {
         $query = Quiz::query();
         if ($request->filled('search')) {
-            $query->orWhere('title', 'like', "%$request->search%");
+            $query->orWhere('question', 'like', "%$request->search%");
         }
         if ($request->filled('course')) {
             $query->where('course_id', $request->course);
@@ -42,7 +42,7 @@ class QuizController extends Controller
     {
         $this->validate($request, [
             'course'    => 'required|integer|exists:courses,id',
-            'title'     => 'required|max:200',
+            // 'title'     => 'required|max:200',
             'question'  => 'required|max:200',
             'value'     => 'required|array|min:1',
             'answer'    => 'nullable|array|min:1',
@@ -51,7 +51,7 @@ class QuizController extends Controller
         ]);
         $quiz = Quiz::create([
             'course_id' => $request->course,
-            'title'     => $request->title,
+            // 'title'     => $request->title,
             'question'  => $request->question,
         ]);
         foreach ($request->value as $i => $item) {
@@ -89,7 +89,7 @@ class QuizController extends Controller
     {
         $this->validate($request, [
             'course'    => 'required|integer|exists:courses,id',
-            'title'     => 'required|max:200',
+            // 'title'     => 'required|max:200',
             'question'  => 'required|max:200',
             'value'     => 'required|array|min:1',
             'answer'    => 'nullable|array|min:1',
@@ -98,7 +98,7 @@ class QuizController extends Controller
         ]);
         $quiz->update([
             'course_id' => $request->course,
-            'title'     => $request->title,
+            // 'title'     => $request->title,
             'question'  => $request->question,
         ]);
         foreach ($quiz->options ?? [] as $item) {

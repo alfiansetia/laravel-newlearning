@@ -39,11 +39,13 @@
                                                 </b>
                                             </a>
                                         </h6>
-                                        <h6>
-                                            <img src="{{ asset('images/dollar.png') }}" alt="" class="d-inline"
-                                                style="max-width: 18px; max-height: 18px">
-                                            <span class="d-inline">{{ $c->price }}</span>
-                                        </h6>
+                                        @if (!$c->isPurchasedByUser())
+                                            <h6>
+                                                <img src="{{ asset('images/dollar.png') }}" alt="" class="d-inline"
+                                                    style="max-width: 18px; max-height: 18px">
+                                                <span class="d-inline"><strong>{{ $c->price }}</strong></span>
+                                            </h6>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
