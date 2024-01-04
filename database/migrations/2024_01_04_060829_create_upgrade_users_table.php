@@ -11,18 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('topups', function (Blueprint $table) {
+        Schema::create('upgrade_users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->dateTime('date')->useCurrent();
-            $table->string('code');
-            $table->double('amount', 10, 2)->default(0);
-            $table->integer('point')->default(0);
-            $table->enum('status', ['done', 'pending', 'cancel'])->default('pending');
-            $table->string('desc')->nullable();
-            $table->string('snap_token')->nullable();
-            $table->string('transaction_id')->nullable();
-            $table->string('snap_url')->nullable();
+            $table->text('reason')->nullable();
+            $table->string('cv')->nullable();
+            $table->enum('status', ['acc', 'reject', 'pending'])->default('pending');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
         });
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('topups');
+        Schema::dropIfExists('upgrade_users');
     }
 };

@@ -50,6 +50,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function upgrade()
+    {
+        return $this->hasOne(UpgradeUser::class);
+    }
+
     public function carts()
     {
         return $this->hasMany(Cart::class);

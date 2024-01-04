@@ -54,6 +54,7 @@
                             <hr class="my-4">
                             <a href="{{ route('index.chat') }}" class="btn btn-block btn-primary">Open Chat</a>
                             <a href="{{ route('index.topup') }}" class="btn btn-block btn-primary">Topup Point</a>
+                            <a href="{{ route('index.upgrade') }}" class="btn btn-block btn-primary">Upgrade to Mentor</a>
                             <hr class="my-4">
                             <ul class="list-group list-group-flush">
                                 @forelse ($keys as $item)

@@ -77,15 +77,23 @@
                                 <a href="{{ route('cart.index') }}">
                                     <i class="fa fa-shopping-bag"></i><span>{{ $user->carts_count }}</span></a>
                             </li>
-                            <li>
-                                <button class="btn" onclick="logout()"><i class="fa fa-sign-out"></i></button>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
+                                        width="40" height="40" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    {{-- <a class="dropdown-item" href="#">Dashboard</a> --}}
+                                    <a class="dropdown-item" href="{{ route('index.profile') }}">Profile</a>
+                                    <a class="dropdown-item" href="javascript:void(0);" onclick="logout()">Log Out</a>
+                                </div>
                             </li>
                         @else
                             <li>
                                 <a href="{{ route('login') }}"><i class="fa fa-sign-in"></i></a>
                             </li>
                         @endauth
-
                     </ul>
                 </div>
             </div>

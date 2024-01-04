@@ -51,8 +51,7 @@
                                             <td>
                                                 {{ $item->status }}
                                                 @if ($item->status == 'pending')
-                                                    <a class="btn btn-primary"
-                                                        href="https://app.sandbox.midtrans.com/snap/v3/redirection/{{ $item->snap_token }}">Pay</a>
+                                                    <a class="btn btn-primary" href="{{ $item->snap_url ?? '#' }}">Pay</a>
                                                 @endif
                                             </td>
                                         </tr>

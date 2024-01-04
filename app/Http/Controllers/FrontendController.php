@@ -17,6 +17,7 @@ use App\Models\SubCategory;
 use App\Models\Topup;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use App\Models\UpgradeUser;
 use App\Traits\CompanyTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -68,6 +69,18 @@ class FrontendController extends Controller
             'data',
         ]));
     }
+
+    public function upgrade()
+    {
+        $user = $this->getUser();
+        $data = UpgradeUser::firstOrCreate([
+            'user_id' => $user->id,
+        ], [
+            'user_id' => $user->id,
+        ]);
+        return view('frontend.upgrade', compact('data'));
+    }
+
 
     public function profile()
     {

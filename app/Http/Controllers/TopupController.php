@@ -109,6 +109,7 @@ class TopupController extends Controller
             'amount' => 'required|integer|min:200'
         ]);
         $user = $this->getUser();
+        $company = $this->getCompany();
         $pending = Topup::where('user_id', $user->id)->where('status', 'pending')->count();
         if (($pending ?? 0) > 0) {
             if ($user->role == 'admin' || $user->role == 'mentor') {
@@ -119,17 +120,10 @@ class TopupController extends Controller
         $amount = $request->amount * 100;
         DB::beginTransaction();
         try {
-            $topup = Topup::create([
-                'code'      => Str::random(15),
-                'user_id'   => $user->id,
-                'amount'    => $amount,
-                'point'     => $request->amount,
-                'note'      => $request->note,
-            ]);
-
+            $code = Str::random(15);
             $payload = [
                 'transaction_details' => [
-                    'order_id'      => $topup->code,
+                    'order_id'      => $code,
                     'gross_amount'  => $amount,
                 ],
                 'customer_details' => [
@@ -138,19 +132,25 @@ class TopupController extends Controller
                 ],
                 'item_details' => [
                     [
-                        'id'            => $topup->code,
+                        'id'            => $code,
                         'price'         => $amount,
                         'quantity'      => 1,
-                        'name'          => 'Topup Point to ' . config('app.name'),
-                        // 'brand'         => 'Donation',
-                        // 'category'      => 'Donation',
-                        // 'merchant_name' => config('app.name'),
+                        'name'          => 'Topup Point to ' . $company->name,
                     ],
                 ],
             ];
             $snap = Snap::createTransaction($payload);
-            $topup->snap_token = $snap->token;
-            $topup->save();
+
+            $topup = Topup::create([
+                'code'          => $code,
+                'user_id'       => $user->id,
+                'amount'        => $amount,
+                'point'         => $request->amount,
+                'note'          => $request->note,
+                'snap_token'    => $snap->token,
+                'snap_url'      => $snap->redirect_url
+            ]);
+
             DB::commit();
             return redirect($snap->redirect_url);
         } catch (\Throwable $th) {

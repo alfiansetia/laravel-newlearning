@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
-                        <h3>{{ $data->name }}</h3>
+                        <h3>{{ $data->name }} </h3>
                         <div class="product__details__rating">
                             @for ($i = 1; $i <= 5; $i++)
                                 @if ($i <= $average_rating)

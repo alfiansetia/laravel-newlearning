@@ -47,24 +47,22 @@
                                                 class="badge badge-{{ $item->status == 'done' ? 'success' : ($item->status == 'pending' ? 'warning' : 'danger') }}">{{ $item->status }}</span>
                                         </td>
                                         <td class="text-center">
-                                            <div class="dropdown">
-                                                <button type="button" class="btn btn-sm btn-outline-info dropdown-toggle"
-                                                    id="dropdownMenuIconButton3" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    <i class="ti-settings"></i>
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton3">
-                                                    {{-- <a class="dropdown-item"
-                                                        href="{{ route('topup.edit', $item->id) }}">Edit</a> --}}
-                                                    @if ($item->status == 'pending')
-                                                        <a class="dropdown-item"
-                                                            href="https://app.sandbox.midtrans.com/snap/v3/redirection/{{ $item->snap_token }}">Pay</a>
+                                            @if ($item->status == 'pending')
+                                                <div class="dropdown">
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-outline-info dropdown-toggle"
+                                                        id="dropdownMenuIconButton3" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                        <i class="ti-settings"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton3">
+                                                        <a class="dropdown-item" href="{{ $item->snap_url ?? '#' }}">Pay</a>
                                                         <button type="button"
                                                             onclick="deleteData('{{ route('topup.destroy', $item->id) }}')"
                                                             class="dropdown-item">Cancel</button>
-                                                    @endif
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @endif
                                         </td>
                                     </tr>
                                 @empty

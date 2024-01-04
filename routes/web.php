@@ -14,6 +14,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\TopupController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UpgradeUserController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -60,6 +61,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/list-chat/{chat}', [FrontendController::class, 'chatDetail'])->name('index.chat.detail');
         Route::post('/list-chat/{chat}', [FrontendController::class, 'saveChat'])->name('index.chat.save');
         Route::get('/list-chat', [FrontendController::class, 'chat'])->name('index.chat');
+        Route::get('/profile-upgrade', [FrontendController::class, 'upgrade'])->name('index.upgrade');
+        Route::post('/profile-upgrade', [UpgradeUserController::class, 'store'])->name('index.upgrade.save');
         Route::get('/profile', [FrontendController::class, 'profile'])->name('index.profile');
         Route::post('/profile', [FrontendController::class, 'profileUpdate'])->name('index.profile.update');
         Route::resource('cart', CartController::class)->only(['index', 'store', 'destroy']);
@@ -70,6 +73,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('save-answer/{course}', [FrontendController::class, 'saveAnswer'])->name('index.save.answer');
         Route::post('save-progres/', [FrontendController::class, 'saveProgres'])->name('index.save.progres');
     });
+
+    Route::resource('upgrade', UpgradeUserController::class)->only(['edit']);
 
     Route::group(['middleware' => ['is.admin']], function () {
 
@@ -89,5 +94,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('transaction', TransactionController::class)->only(['index', 'show', 'destroy']);
         Route::resource('content', ContentController::class);
         Route::resource('quiz', QuizController::class);
+        Route::resource('upgrade', UpgradeUserController::class)->except(['edit']);
+        Route::post('upgrade-action/{upgrade}', [UpgradeUserController::class, 'acc'])->name('upgrade.acc');
     });
 });

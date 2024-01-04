@@ -56,7 +56,7 @@ class CourseController extends Controller
             'subtitle'      => 'required|max:255',
             'header'        => 'required|max:255',
             'image_materi'  => 'required|image|mimes:jpg,jpeg,png|max:5120',
-            'detail'        => 'required|max:500',
+            'detail'        => 'required|max:1000',
         ]);
         $image = null;
         if ($files = $request->file('image')) {
@@ -116,7 +116,7 @@ class CourseController extends Controller
             'subtitle'      => 'required|max:255',
             'header'        => 'required|max:255',
             'image_materi'  => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
-            'detail'        => 'required|max:500',
+            'detail'        => 'required|max:1000',
         ]);
         $path = public_path('images/course/');
         $image = $course->getRawOriginal('image');
