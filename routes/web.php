@@ -77,11 +77,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('upgrade', UpgradeUserController::class)->only(['edit']);
 
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
     Route::group(['middleware' => ['is.admin']], function () {
 
         Route::resource('topup', TopupController::class);
-
-        Route::get('/home', [HomeController::class, 'index'])->name('home');
 
         Route::get('/setting/profile', [SettingController::class, 'profile'])->name('setting.profile');
         Route::post('/setting/profile', [SettingController::class, 'profileUpdate'])->name('setting.profile.update');
