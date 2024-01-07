@@ -1,4 +1,17 @@
 @extends('layouts.frontend_app')
+@push('css')
+    <style>
+        body {
+            background: url('/images/bg.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .header {
+            background-color: aliceblue;
+        }
+    </style>
+@endpush
 
 @section('content')
     @php
