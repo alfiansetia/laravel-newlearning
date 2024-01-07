@@ -25,7 +25,7 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <textarea name="reason" id="reason" class="form-control @error('reason') is-invalid @enderror" rows="10"
-                                            required minlength="500">{{ old('reason', $data->reason) }}</textarea>
+                                            required minlength="500" maxlength="1000">{{ old('reason', $data->reason) }}</textarea>
                                         @error('reason')
                                             <div class="alert alert-danger mt-2">{{ $message }}</div>
                                         @enderror

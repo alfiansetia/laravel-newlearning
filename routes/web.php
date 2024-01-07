@@ -78,6 +78,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('upgrade', UpgradeUserController::class)->only(['edit']);
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::resource('chat', ChatController::class);
 
     Route::group(['middleware' => ['is.admin']], function () {
 
@@ -86,7 +87,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/setting/profile', [SettingController::class, 'profile'])->name('setting.profile');
         Route::post('/setting/profile', [SettingController::class, 'profileUpdate'])->name('setting.profile.update');
 
-        Route::resource('chat', ChatController::class);
         Route::resource('category', CategoryController::class);
         Route::resource('subcategory', SubCategoryController::class);
         Route::resource('course', CourseController::class);

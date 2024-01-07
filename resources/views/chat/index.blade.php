@@ -1,5 +1,7 @@
 @extends('layouts.template', ['title' => 'Chat'])
 @push('css')
+    <link rel="stylesheet" href="{{ asset('backend/vendors/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/vendors/select2-bootstrap-theme/select2-bootstrap.min.css') }}">
     <style>
         body {
             margin-top: 20px;
@@ -56,9 +58,17 @@
 @endpush
 
 @push('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"
+        integrity="sha512-RtZU3AyMVArmHLiW0suEZ9McadTdegwbgtiQl5Qqo9kunkVg1ofwueXD8/8wv3Af8jkME3DDe3yLfR8HSJfT2g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="{{ asset('backend/vendors/select2/select2.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script>
         feather.replace();
+        $('#to').select2({
+            // dropdownParent: $('#createChat')
+        })
     </script>
 @endpush
 
@@ -78,29 +88,33 @@
                     <div class="px-4 d-none d-md-block mt-2">
                         <div class="d-flex align-items-center">
                             <div class="flex-grow-1">
-                                <button class="btn btn-block btn-primary">Create Chat</button>
+                                <button class="btn btn-block btn-primary" data-toggle="modal"
+                                    data-target="#createChat">Create
+                                    Chat</button>
                             </div>
                         </div>
                     </div>
-                    @forelse ($data as $item)
-                        <a href="{{ route('chat.show', $item->id) }}"
-                            class="list-group-item list-group-item-action border-0 mt-2 {{ !empty($detail) && $item->id == $detail->id ? 'bg-secondary' : '' }}">
-                            <div class="badge bg-success float-right">{{ $item->messages_count }}</div>
-                            <div class="d-flex align-items-start">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar5.png" class="rounded-circle mr-1"
-                                    alt="Vanessa Tucker" width="40" height="40">
-                                <div class="flex-grow-1 ml-3">
-                                    {{ $item->from_id == $usr->id ? $item->to->name : $item->from->name }}
-                                    <div class="small"><span class="fas fa-circle chat-online"></span> Online</div>
+                    <div style="overflow-y: auto; max-height: 500px;">
+                        @forelse ($data as $item)
+                            <a href="{{ route('chat.show', $item->id) }}"
+                                class="list-group-item list-group-item-action border-0 mt-2 {{ !empty($detail) && $item->id == $detail->id ? 'bg-secondary' : '' }}">
+                                <div class="badge bg-success float-right">{{ $item->messages_count }}</div>
+                                <div class="d-flex align-items-start">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar5.png"
+                                        class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
+                                    <div class="flex-grow-1 ml-3">
+                                        {{ $item->from_id == $usr->id ? $item->to->name : $item->from->name }}
+                                        <div class="small"><span class="fas fa-circle chat-online"></span> Online</div>
+                                    </div>
                                 </div>
+                            </a>
+                            <hr class="d-block d-lg-none mt-1 mb-0">
+                        @empty
+                            <div class="alert alert-danger mt-3" role="alert">
+                                Empty Chat
                             </div>
-                        </a>
-                        <hr class="d-block d-lg-none mt-1 mb-0">
-                    @empty
-                        <div class="alert alert-danger mt-3" role="alert">
-                            Empty Chat
-                        </div>
-                    @endforelse
+                        @endforelse
+                    </div>
                 </div>
                 <div class="col-12 col-lg-7 col-xl-9">
                     @if ($detail)
@@ -183,4 +197,41 @@
         </div>
         {{-- </div> --}}
     </main>
+
+    <div class="modal fade" id="createChat" tabindex="-1" aria-labelledby="createChatModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createChatModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('chat.store') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="to">To </label>
+                            <select name="to" id="to" class="js-example-basic-single w-100" required
+                                style="width: 100%">
+                                <option value="">Select User</option>
+                                @foreach ($users as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }} ({{ $item->role }})
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message </label>
+                            <textarea name="message" id="message" class="form-control" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection

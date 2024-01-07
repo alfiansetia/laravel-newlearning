@@ -76,7 +76,7 @@ class UpgradeUserController extends Controller
     {
         $file = $upgrade->cv;
         $path = public_path('files/cv/');
-        if (empty($file) && !file_exists($path . $file)) {
+        if (empty($file) || !file_exists($path . $file)) {
             return redirect()->back()->with(['error' => 'CV Not Ready!']);
         }
         return response()->download($path . $file);

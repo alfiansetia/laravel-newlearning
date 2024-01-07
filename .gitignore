@@ -22,3 +22,5 @@ yarn-error.log
 /public/images/subcategory/*
 /public/images/content/*
 /public/videos/content/*
+/public/files/cv/*
+!/public/files/cv/cv.txt

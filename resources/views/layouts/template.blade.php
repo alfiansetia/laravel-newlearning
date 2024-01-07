@@ -10,6 +10,7 @@
     {{-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> --}}
 
     <title>{{ $title }} || {{ $company->name }}</title>
+    <link rel="shortcut icon" href="{{ asset('backend/images/favicon.png') }}" />
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('backend/vendors/feather/feather.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/vendors/ti-icons/css/themify-icons.css') }}">
@@ -20,10 +21,10 @@
     @stack('csslib')
     <!-- End plugin css for this page -->
     <!-- inject:css -->
+    @stack('css')
+
     <link rel="stylesheet" href="{{ asset('backend/css/vertical-layout-light/style.css') }}">
     <!-- endinject -->
-    <link rel="shortcut icon" href="{{ asset('backend/images/favicon.png') }}" />
-    @stack('css')
 
 </head>
 
@@ -115,6 +116,15 @@
     @endif
 
     @stack('js')
+    <script>
+        $('.table-responsive').on('show.bs.dropdown', function() {
+            $('.table-responsive').css("overflow", "inherit");
+        });
+
+        $('.table-responsive').on('hide.bs.dropdown', function() {
+            $('.table-responsive').css("overflow", "auto");
+        })
+    </script>
 
 </body>
 
