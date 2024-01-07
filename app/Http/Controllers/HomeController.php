@@ -37,6 +37,9 @@ class HomeController extends Controller
     public function index()
     {
         $user_login = $this->getUser();
+        if ($user_login->role == 'user') {
+            return redirect()->route('index.category');
+        }
         if ($user_login->role == 'admin') {
             $user = User::count();
             $category = Category::count();

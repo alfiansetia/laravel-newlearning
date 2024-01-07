@@ -26,6 +26,17 @@
             @enderror
         </div>
         <div class="form-group">
+            <select name="gender" id="gender" class="form-control form-control-lg @error('phone') is-invalid @enderror"
+                required>
+                <option value="">Selcet Gender</option>
+                <option {{ old('gender') == 'Male' ? 'selected' : '' }} value="Male">Male</option>
+                <option {{ old('gender') == 'Female' ? 'selected' : '' }} value="Female">Female</option>
+            </select>
+            @error('gender')
+                <div class="alert alert-danger mt-2">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="form-group">
             <input type="password" name="password"
                 class="form-control form-control-lg @error('password') is-invalid @enderror" id="password"
                 placeholder="Password" required>
