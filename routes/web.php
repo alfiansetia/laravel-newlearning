@@ -9,6 +9,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KeyController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\ListCourseController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubCategoryController;
@@ -80,12 +81,20 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::resource('chat', ChatController::class);
 
+    Route::get('/setting/profile', [SettingController::class, 'profile'])->name('setting.profile');
+    Route::post('/setting/profile', [SettingController::class, 'profileUpdate'])->name('setting.profile.update');
+
+    Route::resource('topup', TopupController::class)->only(['index', 'store']);
+
+    Route::get('list-course', [ListCourseController::class, 'index'])->name('list.course.index');
+    Route::get('list-course/create', [ListCourseController::class, 'stepCreate'])->name('list.course.step.create');
+    Route::get('list-course/edit/{course}', [ListCourseController::class, 'stepEdit'])->name('list.course.step.edit');
+    Route::get('list-course/content/{course}', [ListCourseController::class, 'stepContent'])->name('list.course.step.content');
+    Route::get('list-course/quiz/{course}', [ListCourseController::class, 'stepQuiz'])->name('list.course.step.quiz');
+
     Route::group(['middleware' => ['is.admin']], function () {
 
-        Route::resource('topup', TopupController::class);
-
-        Route::get('/setting/profile', [SettingController::class, 'profile'])->name('setting.profile');
-        Route::post('/setting/profile', [SettingController::class, 'profileUpdate'])->name('setting.profile.update');
+        Route::resource('topup', TopupController::class)->only(['destroy']);
 
         Route::resource('category', CategoryController::class);
         Route::resource('subcategory', SubCategoryController::class);

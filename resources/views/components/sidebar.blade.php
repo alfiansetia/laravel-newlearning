@@ -6,47 +6,52 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <i class="icon-layout menu-icon"></i>
-                <span class="menu-title">UI Elements</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('transaction.index') }}">Transaction</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('content.index') }}">Video Content</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('quiz.index') }}">Quiz</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
+        @if ($user->role == 'admin')
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#master_data" aria-expanded="false"
+                    aria-controls="master_data">
+                    <i class="ti-save menu-icon"></i>
+                    <span class="menu-title">Master Data</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="master_data">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.index') }}"> User </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('category.index') }}">Category </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('subcategory.index') }}"> Sub Category </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('course.index') }}"> Course </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('key.index') }}"> Key </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('content.index') }}">Video Content</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('quiz.index') }}">Quiz</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('transaction.index') }}">Transaction</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        @endif
 
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
-                <i class="icon-ban menu-icon"></i>
-                <span class="menu-title">Master Data</span>
-                <i class="menu-arrow"></i>
+            <a class="nav-link" href="{{ route('list.course.index') }}">
+                <i class="ti-agenda menu-icon"></i>
+                <span class="menu-title">Course</span>
             </a>
-            <div class="collapse" id="error">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('user.index') }}"> User </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('category.index') }}"> Category </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('subcategory.index') }}"> Sub Category </a>
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('course.index') }}"> Course </a>
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('key.index') }}"> Key </a>
-                    </li>
-                    <li class="nav-item"> <a class="nav-link"
-                            href="{{ asset('backend/pages/samples/error-500.html') }}">
-                            500 </a></li>
-                </ul>
-            </div>
         </li>
+
         <li class="nav-item">
             <a class="nav-link" href="{{ route('chat.index') }}">
                 <i class="ti-comments menu-icon"></i>
@@ -55,21 +60,17 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('topup.index') }}">
-                <i class="ti-comments menu-icon"></i>
+                <i class="ti-money menu-icon"></i>
                 <span class="menu-title">Topup</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('upgrade.index') }}">
-                <i class="ti-comments menu-icon"></i>
-                <span class="menu-title">Upgrade</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ asset('backend/pages/documentation/documentation.html') }}">
-                <i class="icon-paper menu-icon"></i>
-                <span class="menu-title">Documentation</span>
-            </a>
-        </li>
+        @if ($user->role == 'admin')
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('upgrade.index') }}">
+                    <i class="ti-medall menu-icon"></i>
+                    <span class="menu-title">Upgrade</span>
+                </a>
+            </li>
+        @endif
     </ul>
 </nav>

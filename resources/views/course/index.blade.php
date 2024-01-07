@@ -9,7 +9,11 @@
                         <div class="row align-items-center mb-3">
                             <div class="col-md-6">
                                 <h4 class="card-title">Course
-                                    <a href="{{ route('course.create') }}" class="btn btn-sm btn-info">Create</a>
+                                    @if ($user->role == 'admin')
+                                        <a href="{{ route('course.create') }}" class="btn btn-sm btn-info">Create</a>
+                                    @endif
+                                    <a href="{{ route('list.course.step.create') }}" class="btn btn-sm btn-info">Create
+                                        Step</a>
                                 </h4>
                             </div>
                             <div class="col-md-3">
@@ -68,11 +72,18 @@
                                                 <i class="ti-settings"></i>
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton3">
+                                                @if ($user->role == 'admin')
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('course.edit', $item->id) }}">Edit</a>
+                                                @endif
                                                 <a class="dropdown-item"
-                                                    href="{{ route('course.edit', $item->id) }}">Edit</a>
-                                                <button type="button"
-                                                    onclick="deleteData('{{ route('course.destroy', $item->id) }}')"
-                                                    class="dropdown-item">Delete</button>
+                                                    href="{{ route('list.course.step.edit', $item->id) }}">Edit
+                                                    Step</a>
+                                                @if ($user->role == 'admin')
+                                                    <button type="button"
+                                                        onclick="deleteData('{{ route('course.destroy', $item->id) }}')"
+                                                        class="dropdown-item">Delete</button>
+                                                @endif
                                             </div>
                                         </div>
                                     </td>

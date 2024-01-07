@@ -51,7 +51,7 @@
                             @forelse ($data as $key => $item)
                                 <tr>
                                     <td>{{ $item->course->name ?? '' }}</td>
-                                    <td>{{ $item->question }}</td>
+                                    <td>{{ Str::limit($item->question, 50) }}</td>
                                     <td class="text-center">{{ $item->options_count }}</td>
                                     <td class="text-center">
                                         <div class="dropdown">
@@ -82,7 +82,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <div class="d-flex justify-content-center pb-5">
         {{ $data->links() }}

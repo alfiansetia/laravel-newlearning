@@ -58,6 +58,9 @@
                                 <a href="{{ route('index.upgrade') }}" class="btn btn-block btn-primary">Upgrade to
                                     Mentor</a>
                             @endif
+                            @if ($user->role == 'mentor')
+                                <a href="{{ route('home') }}" class="btn btn-block btn-primary">Open Dashboard</a>
+                            @endif
                             {{-- <hr class="my-4"> --}}
                         </div>
                     </div>

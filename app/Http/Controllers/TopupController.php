@@ -86,18 +86,15 @@ class TopupController extends Controller
      */
     public function index()
     {
-        $data = Topup::paginate(10);
-        // dd($data);
+        $user = $this->getUser();
+        $query = Topup::query();
+        if ($user->role == 'mentor') {
+            $query->where('user_id', $user->id);
+        }
+        $data =  $query->paginate(10);
         return view('topup.index', compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -163,34 +160,13 @@ class TopupController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Topup $topup)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Topup $topup)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Topup $topup)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Topup $topup)
     {
+        if ($topup->status == 'cancel') {
+            return redirect()->route('topup.index')->with(['error' => 'Transaction Already Cancel!']);
+        }
         $topup->update([
             'status' => 'cancel'
         ]);
