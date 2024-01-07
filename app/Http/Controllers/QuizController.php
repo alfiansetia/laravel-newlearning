@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Quiz;
 use App\Models\QuizOption;
+use App\Traits\CompanyTrait;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller
 {
+
+    use CompanyTrait;
+
     /**
      * Display a listing of the resource.
      */
@@ -87,20 +91,28 @@ class QuizController extends Controller
      */
     public function update(Request $request, Quiz $quiz)
     {
-        $this->validate($request, [
-            'course'    => 'required|integer|exists:courses,id',
-            // 'title'     => 'required|max:200',
+        $user = $this->getUser();
+        if ($user->role != 'admin' && $quiz->course->mentor_id != $user->id) {
+            abort(403, 'Unauthorize!');
+        }
+        $valid =  [
             'question'  => 'required|max:200',
             'value'     => 'required|array|min:1',
             'answer'    => 'nullable|array|min:1',
             'value.*'   => 'required|max:250',
             'answer.*'  => 'nullable|in:yes,no',
-        ]);
-        $quiz->update([
-            'course_id' => $request->course,
-            // 'title'     => $request->title,
+        ];
+        if ($user->role == 'admin') {
+            $valid['course'] = 'required|integer|exists:courses,id';
+        }
+        $this->validate($request, $valid);
+        $param = [
             'question'  => $request->question,
-        ]);
+        ];
+        if ($user->role == 'admin') {
+            $param['course_id'] = $request->course;
+        }
+        $quiz->update($param);
         foreach ($quiz->options ?? [] as $item) {
             $item->delete();
         }
@@ -111,7 +123,7 @@ class QuizController extends Controller
                 'is_answer' => $request->answer[$i] ?? 'no',
             ]);
         }
-        return redirect()->route('quiz.index')->with(['success' => 'Update Data Success!']);
+        return redirect()->back()->with(['success' => 'Update Data Success!']);
     }
 
     /**
@@ -119,7 +131,11 @@ class QuizController extends Controller
      */
     public function destroy(Quiz $quiz)
     {
+        $user = $this->getUser();
+        if ($user->role != 'admin' && $quiz->course->mentor_id != $user->id) {
+            abort(403, 'Unauthorize!');
+        }
         $quiz->delete();
-        return redirect()->route('quiz.index')->with(['success' => 'Delete Data Success!']);
+        return redirect()->back()->with(['success' => 'Delete Data Success!']);
     }
 }

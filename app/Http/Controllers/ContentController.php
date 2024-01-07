@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Content;
 use App\Models\Course;
+use App\Traits\CompanyTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 class ContentController extends Controller
 {
+
+    use CompanyTrait;
+
     /**
      * Display a listing of the resource.
      */
@@ -83,12 +87,19 @@ class ContentController extends Controller
      */
     public function update(Request $request, Content $content)
     {
-        $this->validate($request, [
-            'course'    => 'required|integer|exists:courses,id',
+        $user = $this->getUser();
+        if ($user->role != 'admin' && $content->course->mentor_id != $user->id) {
+            abort(403, 'Unauthorize!');
+        }
+        $valid =  [
             'title'     => 'required|max:200',
             'file'      => 'nullable|mimes:mp4,mov,avi,wmv|max:20480',
             'detail'    => 'nullable|max:500',
-        ]);
+        ];
+        if ($user->role == 'admin') {
+            $valid['course'] = 'required|integer|exists:courses,id';
+        }
+        $this->validate($request, $valid);
         $file = $content->getRawOriginal('file');
         $path = public_path('videos/content/');
         if ($files = $request->file('file')) {
@@ -98,13 +109,16 @@ class ContentController extends Controller
             $file = 'file_' . date('dmyHis') . '.' . $files->getClientOriginalExtension();
             $files->move(public_path('videos/content/'), $file);
         }
-        $content->update([
-            'course_id' => $request->course,
+        $param = [
             'title'     => $request->title,
             'file'      => $file,
             'detail'    => $request->detail,
-        ]);
-        return redirect()->route('content.index')->with(['success' => 'Insert Data Success!']);
+        ];
+        if ($user->role == 'admin') {
+            $param['course_id'] = $request->course;
+        }
+        $content->update($param);
+        return redirect()->back()->with(['success' => 'Insert Data Success!']);
     }
 
     /**
@@ -112,12 +126,16 @@ class ContentController extends Controller
      */
     public function destroy(Content $content)
     {
+        $user = $this->getUser();
+        if ($user->role != 'admin' && $content->course->mentor_id != $user->id) {
+            abort(403, 'Unauthorize!');
+        }
         $file = $content->getRawOriginal('file');
         $path = public_path('videos/content');
         if (!empty($file) && file_exists($path . $file)) {
             File::delete($path . $file);
         }
         $content->delete();
-        return redirect()->route('content.index')->with(['success' => 'Delete Data Success!']);
+        return redirect()->back()->with(['success' => 'Delete Data Success!']);
     }
 }

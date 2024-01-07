@@ -83,10 +83,17 @@
                     <img src="{{ asset('backend/images/faces/face28.jpg') }}" alt="profile" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item" href="{{ route('setting.profile') }}">
-                        <i class="ti-settings text-primary"></i>
-                        Settings
-                    </a>
+                    @if (auth()->user()->role == 'admin')
+                        <a class="dropdown-item" href="{{ route('setting.profile') }}">
+                            <i class="ti-settings text-primary"></i>
+                            Settings
+                        </a>
+                    @else
+                        <a class="dropdown-item" href="{{ route('index.profile') }}">
+                            <i class="ti-settings text-primary"></i>
+                            Settings
+                        </a>
+                    @endif
                     <a class="dropdown-item" onclick="logout()">
                         <i class="ti-power-off text-primary"></i>
                         Logout

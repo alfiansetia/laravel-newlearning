@@ -3,7 +3,7 @@
 @section('content')
     <ul class="nav nav-pills nav-fill">
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('list.course.step.create') }}">Create Course</a>
+            <a class="nav-link" href="{{ route('list.course.step.edit', $course->id) }}">Edit Course</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('list.course.step.content', $course->id) }}">Create Content</a>
@@ -12,7 +12,7 @@
             <a class="nav-link active" href="">Create Quiz</a>
         </li>
     </ul>
-    <form class="forms-sample" id="form" action="{{ route('quiz.store') }}" method="POST"
+    <form class="forms-sample" id="form" action="{{ route('list.course.step.quiz.save', $course->id) }}" method="POST"
         enctype="multipart/form-data">
         @csrf
         <div class="row mt-3">

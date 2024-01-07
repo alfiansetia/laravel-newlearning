@@ -12,10 +12,9 @@
             <a class="nav-link" href="{{ route('list.course.step.quiz', $data->id) }}">Create Quiz</a>
         </li>
     </ul>
-    <form class="forms-sample" id="form" action="{{ route('course.update', $data->id) }}" method="POST"
+    <form class="forms-sample" id="form" action="{{ route('list.course.step.edit.save', $data->id) }}" method="POST"
         enctype="multipart/form-data">
         @csrf
-        @method('PUT')
         <div class="row">
             <div class="col-lg-6">
                 <div class="card">
@@ -79,7 +78,7 @@
                             @enderror
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        <a href="{{ route('course.index') }}" class="btn btn-light">Cancel</a>
+                        <a href="{{ route('list.course.index') }}" class="btn btn-light">Cancel</a>
                     </div>
                 </div>
             </div>

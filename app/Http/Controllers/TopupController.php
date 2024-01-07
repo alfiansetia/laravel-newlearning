@@ -87,6 +87,9 @@ class TopupController extends Controller
     public function index()
     {
         $user = $this->getUser();
+        if ($user->role != 'admin') {
+            return redirect()->route('index.topup');
+        }
         $query = Topup::query();
         if ($user->role == 'mentor') {
             $query->where('user_id', $user->id);

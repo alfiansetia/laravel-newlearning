@@ -13,6 +13,9 @@ class SettingController extends Controller
     public function profile()
     {
         $data = $this->getUser();
+        if ($data->role != 'admin') {
+            return redirect()->route('index.profile');
+        }
         return view('setting.profile', compact('data'));
     }
 

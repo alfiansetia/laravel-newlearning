@@ -3,7 +3,7 @@
 @section('content')
     <ul class="nav nav-pills nav-fill">
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('list.course.step.create') }}">Create Course</a>
+            <a class="nav-link" href="{{ route('list.course.step.edit', $course->id) }}">Edit Course</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="">Create Content</a>
@@ -17,7 +17,8 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Create Content</h4>
-                    <form class="forms-sample" id="form" action="{{ route('content.store') }}" method="POST"
+                    <form class="forms-sample" id="form"
+                        action="{{ route('list.course.step.content.save', $course->id) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">

@@ -10,30 +10,24 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Edit Quiz</h4>
-                        <div class="form-group">
-                            <label for="course">Course</label>
-                            <select class="form-control @error('course') is-invalid @enderror" name="course" id="course"
-                                required>
-                                <option value="">Select Course</option>
-                                @foreach ($courses as $item)
-                                    <option value="{{ $item->id }}"
-                                        {{ $data->course_id == $item->id ? 'selected' : '' }}>
-                                        {{ $item->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('course')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        {{-- <div class="form-group">
-                            <label for="name">Title</label>
-                            <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
-                                id="title" placeholder="Title" value="{{ $data->title }}" required autofocus>
-                            @error('title')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div> --}}
+                        @if (auth()->user()->role == 'admin')
+                            <div class="form-group">
+                                <label for="course">Course</label>
+                                <select class="form-control @error('course') is-invalid @enderror" name="course"
+                                    id="course" required>
+                                    <option value="">Select Course</option>
+                                    @foreach ($courses as $item)
+                                        <option value="{{ $item->id }}"
+                                            {{ $data->course_id == $item->id ? 'selected' : '' }}>
+                                            {{ $item->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('course')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        @endif
                         <div class="form-group">
                             <label for="question">Question</label>
                             <textarea name="question" id="question" placeholder="Question" required autofocus>{{ $data->question }}</textarea>
@@ -42,7 +36,12 @@
                             @enderror
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        <a href="{{ route('quiz.index') }}" class="btn btn-light">Cancel</a>
+                        @if (auth()->user()->role == 'admin')
+                            <a href="{{ route('quiz.index') }}" class="btn btn-light">Cancel</a>
+                        @else
+                            <a href="{{ route('list.course.step.quiz', $data->course_id) }}"
+                                class="btn btn-light">Cancel</a>
+                        @endif
                     </div>
                 </div>
             </div>

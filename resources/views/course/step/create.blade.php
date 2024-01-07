@@ -12,7 +12,7 @@
             <a class="nav-link" href="javascript:void(0);">Create Quiz</a>
         </li>
     </ul>
-    <form class="forms-sample" id="form" action="{{ route('course.store') }}" method="POST"
+    <form class="forms-sample" id="form" action="{{ route('list.course.step.create.save') }}" method="POST"
         enctype="multipart/form-data">
         @csrf
         <div class="row">
@@ -74,7 +74,7 @@
                             @enderror
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        <a href="{{ route('course.index') }}" class="btn btn-light">Cancel</a>
+                        <a href="{{ route('list.course.index') }}" class="btn btn-light">Cancel</a>
                     </div>
                 </div>
             </div>

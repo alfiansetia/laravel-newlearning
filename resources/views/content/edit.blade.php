@@ -9,22 +9,24 @@
                     <form class="forms-sample" id="form" action="{{ route('content.update', $data->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <div class="form-group">
-                            <label for="course">Course</label>
-                            <select name="course" id="course" class="form-control @error('course') is-invalid @enderror"
-                                required>
-                                <option value="">Select Course</option>
-                                @foreach ($courses as $item)
-                                    <option value="{{ $item->id }}"
-                                        {{ $data->course_id == $item->id ? 'selected' : '' }}>
-                                        {{ $item->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('course')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        @if (auth()->user()->role == 'admin')
+                            <div class="form-group">
+                                <label for="course">Course</label>
+                                <select name="course" id="course"
+                                    class="form-control @error('course') is-invalid @enderror" required>
+                                    <option value="">Select Course</option>
+                                    @foreach ($courses as $item)
+                                        <option value="{{ $item->id }}"
+                                            {{ $data->course_id == $item->id ? 'selected' : '' }}>
+                                            {{ $item->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('course')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        @endif
                         <div class="form-group">
                             <label for="title">Title</label>
                             <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
@@ -63,7 +65,12 @@
                             @enderror
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        <a href="{{ route('content.index') }}" class="btn btn-light">Cancel</a>
+                        @if (auth()->user()->role == 'admin')
+                            <a href="{{ route('content.index') }}" class="btn btn-light">Cancel</a>
+                        @else
+                            <a href="{{ route('list.course.step.content', $data->course_id) }}"
+                                class="btn btn-light">Cancel</a>
+                        @endif
                     </form>
                 </div>
             </div>

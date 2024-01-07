@@ -18,6 +18,9 @@ class ChatController extends Controller
     public function index()
     {
         $user = $this->getUser();
+        if ($user->role != 'admin') {
+            return redirect()->route('index.chat');
+        }
         $data = Chat::with('messages')->withCount('messages')->orWhere('from_id', $user->id)->orWhere('to_id', $user->id)->get();
         $detail = null;
         $ids = [];

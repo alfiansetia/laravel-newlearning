@@ -52,29 +52,29 @@ Auth::routes([
 
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::group(['middleware' => ['is.user']], function () {
+    // Route::group(['middleware' => ['is.user']], function () {
 
-        Route::get('/list-topup', [FrontendController::class, 'topup'])->name('index.topup');
-        Route::post('/list-topup', [TopupController::class, 'store'])->name('index.topup.store');
+    Route::get('/list-topup', [FrontendController::class, 'topup'])->name('index.topup');
+    Route::post('/list-topup', [TopupController::class, 'store'])->name('index.topup.store');
 
-        Route::get('/courses-open/{course:slug}', [FrontendController::class, 'courseOpen'])->name('index.course.open');
+    Route::get('/courses-open/{course:slug}', [FrontendController::class, 'courseOpen'])->name('index.course.open');
 
-        Route::get('/list-chat/{chat}', [FrontendController::class, 'chatDetail'])->name('index.chat.detail');
-        Route::post('/list-chat/{chat}', [FrontendController::class, 'saveDetailChat'])->name('index.chat.detail.save');
-        Route::get('/list-chat', [FrontendController::class, 'chat'])->name('index.chat');
-        Route::post('/list-chat', [FrontendController::class, 'saveChat'])->name('index.chat.save');
-        Route::get('/profile-upgrade', [FrontendController::class, 'upgrade'])->name('index.upgrade');
-        Route::post('/profile-upgrade', [UpgradeUserController::class, 'store'])->name('index.upgrade.save');
-        Route::get('/profile', [FrontendController::class, 'profile'])->name('index.profile');
-        Route::post('/profile', [FrontendController::class, 'profileUpdate'])->name('index.profile.update');
-        Route::resource('cart', CartController::class)->only(['index', 'store', 'destroy']);
+    Route::get('/list-chat/{chat}', [FrontendController::class, 'chatDetail'])->name('index.chat.detail');
+    Route::post('/list-chat/{chat}', [FrontendController::class, 'saveDetailChat'])->name('index.chat.detail.save');
+    Route::get('/list-chat', [FrontendController::class, 'chat'])->name('index.chat');
+    Route::post('/list-chat', [FrontendController::class, 'saveChat'])->name('index.chat.save');
+    Route::get('/profile-upgrade', [FrontendController::class, 'upgrade'])->name('index.upgrade');
+    Route::post('/profile-upgrade', [UpgradeUserController::class, 'store'])->name('index.upgrade.save');
+    Route::get('/profile', [FrontendController::class, 'profile'])->name('index.profile');
+    Route::post('/profile', [FrontendController::class, 'profileUpdate'])->name('index.profile.update');
+    Route::resource('cart', CartController::class)->only(['index', 'store', 'destroy']);
 
-        Route::post('rate-course/{course}', [FrontendController::class, 'rate'])->name('index.save.review');
-        Route::post('transaction-key/{course}', [FrontendController::class, 'withKey'])->name('index.save.transaction.key');
-        Route::post('save-transaction/', [FrontendController::class, 'saveTransaction'])->name('index.save.transaction');
-        Route::post('save-answer/{course}', [FrontendController::class, 'saveAnswer'])->name('index.save.answer');
-        Route::post('save-progres/', [FrontendController::class, 'saveProgres'])->name('index.save.progres');
-    });
+    Route::post('rate-course/{course}', [FrontendController::class, 'rate'])->name('index.save.review');
+    Route::post('transaction-key/{course}', [FrontendController::class, 'withKey'])->name('index.save.transaction.key');
+    Route::post('save-transaction/', [FrontendController::class, 'saveTransaction'])->name('index.save.transaction');
+    Route::post('save-answer/{course}', [FrontendController::class, 'saveAnswer'])->name('index.save.answer');
+    Route::post('save-progres/', [FrontendController::class, 'saveProgres'])->name('index.save.progres');
+    // });
 
     Route::resource('upgrade', UpgradeUserController::class)->only(['edit']);
 
@@ -88,9 +88,17 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('list-course', [ListCourseController::class, 'index'])->name('list.course.index');
     Route::get('list-course/create', [ListCourseController::class, 'stepCreate'])->name('list.course.step.create');
+    Route::post('list-course/create', [ListCourseController::class, 'stepCreateSave'])->name('list.course.step.create.save');
     Route::get('list-course/edit/{course}', [ListCourseController::class, 'stepEdit'])->name('list.course.step.edit');
+    Route::post('list-course/edit/{course}', [ListCourseController::class, 'stepEditSave'])->name('list.course.step.edit.save');
     Route::get('list-course/content/{course}', [ListCourseController::class, 'stepContent'])->name('list.course.step.content');
+    Route::post('list-course/content/{course}', [ListCourseController::class, 'stepContentSave'])->name('list.course.step.content.save');
     Route::get('list-course/quiz/{course}', [ListCourseController::class, 'stepQuiz'])->name('list.course.step.quiz');
+    Route::post('list-course/quiz/{course}', [ListCourseController::class, 'stepQuizSave'])->name('list.course.step.quiz.save');
+
+    Route::resource('content', ContentController::class)->only(['edit', 'update', 'destroy']);
+    Route::resource('quiz', QuizController::class)->only(['edit', 'update', 'destroy']);
+    Route::resource('course', CourseController::class)->only(['destroy']);
 
     Route::group(['middleware' => ['is.admin']], function () {
 
@@ -98,12 +106,12 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::resource('category', CategoryController::class);
         Route::resource('subcategory', SubCategoryController::class);
-        Route::resource('course', CourseController::class);
+        Route::resource('course', CourseController::class)->except(['destroy']);
         Route::resource('user', UserController::class);
         Route::resource('key', KeyController::class);
         Route::resource('transaction', TransactionController::class)->only(['index', 'show', 'destroy']);
-        Route::resource('content', ContentController::class);
-        Route::resource('quiz', QuizController::class);
+        Route::resource('content', ContentController::class)->except(['edit', 'update', 'destroy']);
+        Route::resource('quiz', QuizController::class)->except(['edit', 'update', 'destroy']);
         Route::resource('upgrade', UpgradeUserController::class)->except(['edit']);
         Route::post('upgrade-action/{upgrade}', [UpgradeUserController::class, 'acc'])->name('upgrade.acc');
     });
