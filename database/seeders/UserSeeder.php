@@ -50,6 +50,6 @@ class UserSeeder extends Seeder
             'dob'       => '2002-05-03',
         ]);
 
-        User::factory(50)->create();
+        // User::factory(50)->create();
     }
 }

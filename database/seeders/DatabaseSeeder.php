@@ -15,14 +15,14 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CompanySeeder::class,
             UserSeeder::class,
-            CategorySeeder::class,
-            SubCategorySeeder::class,
-            CourseSeeder::class,
-            KeySeeder::class,
-            CartSeeder::class,
-            QuizSeeder::class,
-            QuizOptionSeeder::class,
-            ContentSeeder::class,
+            // CategorySeeder::class,
+            // SubCategorySeeder::class,
+            // CourseSeeder::class,
+            // KeySeeder::class,
+            // CartSeeder::class,
+            // QuizSeeder::class,
+            // QuizOptionSeeder::class,
+            // ContentSeeder::class,
 
         ]);
     }
