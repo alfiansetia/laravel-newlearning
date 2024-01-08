@@ -1,5 +1,9 @@
 @extends('layouts.template', ['title' => 'Course'])
 
+@push('css')
+    <link rel="stylesheet" href="{{ asset('backend/vendors/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/vendors/select2-bootstrap-theme/select2-bootstrap.min.css') }}">
+@endpush
 @section('content')
     <form class="forms-sample" id="form" action="{{ route('course.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -19,7 +23,7 @@
                         <div class="form-group">
                             <label for="subcategory">Sub Category</label>
                             <select class="form-control @error('subcategory') is-invalid @enderror" name="subcategory"
-                                id="subcategory" required>
+                                id="subcategory" required style="width: 100%">
                                 <option value="">Select Sub Category</option>
                                 @foreach ($subcategories as $item)
                                     <option value="{{ $item->id }}"
@@ -126,10 +130,15 @@
     <script src="{{ asset('backend/js/file-upload.js') }}"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+    <script src="{{ asset('backend/vendors/select2/select2.min.js') }}"></script>
 @endpush
 
 @push('js')
     <script>
+        $('#subcategory').select2()
+        $('#mentor').select2()
+
         var toolbar = [
             ['style', ['style']],
             ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],

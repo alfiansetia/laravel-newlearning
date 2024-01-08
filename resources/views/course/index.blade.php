@@ -1,6 +1,9 @@
 @extends('layouts.template', ['title' => 'Course'])
 
 @section('content')
+    @php
+        $user = auth()->user();
+    @endphp
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
