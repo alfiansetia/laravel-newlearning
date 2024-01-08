@@ -11,8 +11,8 @@
          <span class="navbar-toggler-icon"></span>
      </button>
      <div class="collapse navbar-collapse" id="navbarCollapse">
-         {{-- <div class="navbar-nav ms-auto p-4 p-lg-0">
-             <a href="{{ route('index') }}" class="nav-item nav-link {{ $title == 'Home' ? 'active' : '' }}">Home</a>
+         <div class="navbar-nav ms-auto p-4 p-lg-0">
+             {{-- <a href="{{ route('index') }}" class="nav-item nav-link {{ $title == 'Home' ? 'active' : '' }}">Home</a>
              <a href="{{ route('index.landing.about') }}"
                  class="nav-item nav-link {{ $title == 'About' ? 'active' : '' }}">About</a>
              <a href="{{ route('index.landing.course') }}"
@@ -30,8 +30,8 @@
                  </div>
              </div>
              <a href="{{ route('index.landing.contact') }}"
-                 class="nav-item nav-link {{ $title == 'Contact' ? 'active' : '' }}">Contact</a>
-         </div> --}}
+                 class="nav-item nav-link {{ $title == 'Contact' ? 'active' : '' }}">Contact</a> --}}
+         </div>
          @auth
              <a href="{{ route('index.profile') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Profile<i
                      class="fa fa-arrow-right ms-3"></i></a>
