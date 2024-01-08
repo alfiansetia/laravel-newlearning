@@ -45,11 +45,7 @@ class HomeController extends Controller
             $category = Category::count();
             $subcategory = SubCategory::count();
             $course = Course::count();
-            $courses = Course::select('courses.*', DB::raw('COUNT(transaction_details.id) as purchase_count'))
-                ->leftJoin('transaction_details', 'courses.id', '=', 'transaction_details.course_id')
-                ->groupBy('courses.id')
-                ->orderByDesc('purchase_count')
-                ->take(5)->get();
+            $courses = Course::latest('id')->take(5)->get();
             $transactions = Transaction::latest('id')->take(10)->get();
             return view('home', compact([
                 'courses',
