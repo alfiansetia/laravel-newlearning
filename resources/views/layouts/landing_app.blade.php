@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="{{ asset('landing/img/favicon.ico') }}" rel="icon">
+    <link rel="shortcut icon" href="{{ $company->logo }}" />
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

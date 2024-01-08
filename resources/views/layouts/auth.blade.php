@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {{-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> --}}
 
-    <title>Skydash Admin</title>
+    <title>{{ $company->name }}</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('backend/vendors/feather/feather.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/vendors/ti-icons/css/themify-icons.css') }}">
@@ -18,7 +18,7 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('backend/css/vertical-layout-light/style.css') }}">
     <!-- endinject -->
-    <link rel="shortcut icon" href="{{ asset('backend/images/favicon.png') }}" />
+    <link rel="shortcut icon" href="{{ $company->logo }}" />
 </head>
 
 <body>

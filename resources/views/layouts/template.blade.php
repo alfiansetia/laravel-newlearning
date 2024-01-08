@@ -10,7 +10,7 @@
     {{-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> --}}
 
     <title>{{ $title }} || {{ $company->name }}</title>
-    <link rel="shortcut icon" href="{{ asset('backend/images/favicon.png') }}" />
+    <link rel="shortcut icon" href="{{ $company->logo }}" />
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('backend/vendors/feather/feather.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/vendors/ti-icons/css/themify-icons.css') }}">
