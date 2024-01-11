@@ -91,7 +91,8 @@
                 <div class="col-lg-8">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('index.profile.update') }}" method="POST">
+                            <form action="{{ route('index.profile.update') }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
