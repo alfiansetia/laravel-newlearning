@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Subscribtion;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -69,15 +70,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user =  User::create([
             'name'              => $data['name'],
             'email'             => $data['email'],
             'password'          => Hash::make($data['password']),
             'gender'            => $data['gender'],
             'phone'             => $data['phone'],
-            // 'email_verified_at' => now(),
+            'email_verified_at' => now(),
             'remember_token'    => Str::random(10),
             'point'             => 50
         ]);
+        Subscribtion::create([
+            'user_id'       => $user->id,
+            'date'          => date('Y-m-d'),
+            'last_update'   => now(),
+        ]);
+        return $user;
     }
 }
