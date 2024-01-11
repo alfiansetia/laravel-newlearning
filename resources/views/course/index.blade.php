@@ -52,6 +52,7 @@
                                 <th>Sub Category</th>
                                 <th>Image</th>
                                 <th class="text-center">Price</th>
+                                <th class="text-center">Status</th>
                                 <th class="text-center">Content Count</th>
                                 <th class="text-center">Action</th>
                             </tr>
@@ -66,6 +67,7 @@
                                         <img src="{{ asset('images/dollar.png') }}" alt=""
                                             style="max-width: 20px;max-height: 20px;"> {{ $item->price }}
                                     </td>
+                                    <td class="text-center">{{ $item->status }}</td>
                                     <td class="text-center">{{ $item->contents_count }}</td>
                                     <td class="text-center">
                                         <div class="dropdown">
@@ -86,6 +88,26 @@
                                                     <button type="button"
                                                         onclick="deleteData('{{ route('course.destroy', $item->id) }}')"
                                                         class="dropdown-item">Delete</button>
+                                                @endif
+                                                @if ($user->role == 'admin')
+                                                    @if ($item->status == 'pending')
+                                                        <button type="button"
+                                                            onclick="accData('{{ route('course.acc', $item->id) }}')"
+                                                            class="dropdown-item">ACC</button>
+                                                        <button type="button"
+                                                            onclick="rejectData('{{ route('course.reject', $item->id) }}')"
+                                                            class="dropdown-item">Reject</button>
+                                                    @endif
+                                                    @if ($item->status == 'reject')
+                                                        <button type="button"
+                                                            onclick="accData('{{ route('course.acc', $item->id) }}')"
+                                                            class="dropdown-item">ACC</button>
+                                                    @endif
+                                                    @if ($item->status == 'publish')
+                                                        <button type="button"
+                                                            onclick="rejectData('{{ route('course.reject', $item->id) }}')"
+                                                            class="dropdown-item">Reject</button>
+                                                    @endif
                                                 @endif
                                             </div>
                                         </div>
@@ -114,8 +136,66 @@
         @csrf
         @method('DELETE')
     </form>
+
+    <form action="" method="POST" id="form_acc">
+        @csrf
+    </form>
+
+    <form action="" method="POST" id="form_reject">
+        @csrf
+        @method('DELETE')
+    </form>
 @endsection
 
 @push('jslib')
     <script src="{{ asset('backend/js/custom.js') }}"></script>
+    <script>
+        function accData(action) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Your data will be Acc!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '<i class="ti-thumb-up"></i> Yes!',
+                confirmButtonAriaLabel: 'Thumbs up, Yes!',
+                cancelButtonText: '<i class="ti-thumb-down"></i> No',
+                cancelButtonAriaLabel: 'Thumbs down',
+                customClass: 'animated tada',
+                showClass: {
+                    popup: 'animate__animated animate__tada'
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#form_acc').attr('action', action)
+                    $('#form_acc').submit()
+                }
+            })
+        }
+
+        function rejectData(action) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Your data will be Reject!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '<i class="ti-thumb-up"></i> Yes!',
+                confirmButtonAriaLabel: 'Thumbs up, Yes!',
+                cancelButtonText: '<i class="ti-thumb-down"></i> No',
+                cancelButtonAriaLabel: 'Thumbs down',
+                customClass: 'animated tada',
+                showClass: {
+                    popup: 'animate__animated animate__tada'
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#form_reject').attr('action', action)
+                    $('#form_reject').submit()
+                }
+            })
+        }
+    </script>
 @endpush

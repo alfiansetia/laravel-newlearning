@@ -29,6 +29,7 @@ class CourseSeeder extends Seeder
                 Course::factory()->create([
                     'subcategory_id' => $value->id,
                     'mentor_id'      => $mentors->random()->id,
+                    'status'         => 'publish',
                 ]);
             }
         }

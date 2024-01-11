@@ -30,18 +30,14 @@ class FrontendController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $subcategories = SubCategory::all();
-        $courses = Course::all();
         return view('welcome', compact([
             'categories',
-            'subcategories',
-            'courses',
         ]));
     }
 
     public function courseList()
     {
-        $courses = Course::with('subcategory.category')->paginate(9);
+        $courses = Course::where('status', 'publish')->with('subcategory.category')->paginate(9);
         return view('frontend.course_list', compact([
             'courses',
         ]));
@@ -65,7 +61,7 @@ class FrontendController extends Controller
 
     public function category(Category $category)
     {
-        $data = $category->load('subcategories.courses');
+        $data = $category->load('subcategories.publish_courses');
         return view('frontend.subcategory_list', compact([
             'data',
         ]));

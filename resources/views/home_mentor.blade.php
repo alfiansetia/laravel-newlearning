@@ -38,7 +38,10 @@
                                 @forelse ($courses as $item)
                                     <tr>
                                         <td>{{ $item->name }}</td>
-                                        <td class="font-weight-bold">{{ $item->price }}</td>
+                                        <td class="font-weight-bold">
+                                            <img src="{{ asset('images/dollar.png') }}" alt="" width="20"
+                                                style="max-height: 25px;max-width: 25px"> {{ $item->price }}
+                                        </td>
                                     </tr>
                                 @empty
                                 @endforelse

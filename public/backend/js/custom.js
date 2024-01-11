@@ -1,5 +1,4 @@
 function deleteData(action) {
-    console.log('del')
     Swal.fire({
         title: 'Are you sure?',
         text: "Your data will be lost!",

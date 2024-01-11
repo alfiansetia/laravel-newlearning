@@ -106,6 +106,8 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::resource('category', CategoryController::class);
         Route::resource('subcategory', SubCategoryController::class);
+        Route::post('course-act/{course}', [CourseController::class, 'acc'])->name('course.acc');
+        Route::delete('course-act/{course}', [CourseController::class, 'reject'])->name('course.reject');
         Route::resource('course', CourseController::class)->except(['destroy']);
         Route::resource('user', UserController::class);
         Route::resource('key', KeyController::class);

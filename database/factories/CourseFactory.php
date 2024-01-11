@@ -36,6 +36,7 @@ class CourseFactory extends Factory
             'header_materi' => fake()->text(25),
             'detail_materi' => fake()->text(500),
             'image'         => $newFileName,
+            'status'        => fake()->randomElement(['reject', 'pending', 'publish']),
         ];
     }
 }

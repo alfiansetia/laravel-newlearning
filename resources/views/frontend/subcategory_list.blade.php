@@ -36,7 +36,7 @@
                 <div class="row">
                     <div class="categories__slider owl-carousel">
 
-                        @forelse ($item->courses as $c)
+                        @forelse ($item->publish_courses as $c)
                             <div class="col-lg-3">
                                 <div class="card">
                                     <div class="categories__item set-bg" data-setbg="{{ $c->image }}">

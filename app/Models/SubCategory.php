@@ -29,4 +29,9 @@ class SubCategory extends Model
     {
         return $this->hasMany(Course::class, 'subcategory_id');
     }
+
+    public function publish_courses()
+    {
+        return $this->hasMany(Course::class, 'subcategory_id')->where('status', 'publish');
+    }
 }

@@ -166,4 +166,20 @@ class CourseController extends Controller
         $course->delete();
         return redirect()->route('course.index')->with(['success' => 'Delete Data Success!']);
     }
+
+    public function acc(Course $course)
+    {
+        $course->update([
+            'status' => 'publish'
+        ]);
+        return redirect()->route('course.index')->with(['success' => 'Pubish Data Success!']);
+    }
+
+    public function reject(Course $course)
+    {
+        $course->update([
+            'status' => 'reject'
+        ]);
+        return redirect()->route('course.index')->with(['success' => 'Reject Data Success!']);
+    }
 }
