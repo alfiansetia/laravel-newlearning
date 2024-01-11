@@ -106,7 +106,7 @@ class TopupController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'amount' => 'required|integer|min:200'
+            'amount' => 'required|integer|min:50'
         ]);
         $user = $this->getUser();
         $company = $this->getCompany();

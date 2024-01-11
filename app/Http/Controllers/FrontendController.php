@@ -416,7 +416,7 @@ class FrontendController extends Controller
     {
         $this->validate($request, [
             'to'        => 'required|integer|exists:users,id',
-            'message'   => 'required|max:200'
+            'message'   => 'required|max:1000'
         ]);
         $user = $this->getUser();
         $chat = Chat::firstOrCreate([

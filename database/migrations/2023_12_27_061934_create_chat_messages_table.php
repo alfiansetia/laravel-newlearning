@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('chat_id');
             $table->unsignedBigInteger('sender_id');
             $table->dateTime('date')->useCurrent();
-            $table->string('message');
+            $table->longText('message');
             $table->enum('is_read', ['yes', 'no'])->default('no');
             $table->timestamps();
             $table->foreign('chat_id')->references('id')->on('chats')->cascadeOnDelete()->cascadeOnUpdate();

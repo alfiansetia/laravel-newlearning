@@ -91,8 +91,8 @@
                         <div class="form-group">
                             <label for="amount">Amount Point</label>
                             <input type="number" name="amount" class="form-control @error('amount') is-invalid @enderror"
-                                id="amount" placeholder="Amount" value="{{ old('amount', 200) }}" min="200"
-                                required autofocus>
+                                id="amount" placeholder="Amount" value="{{ old('amount', 50) }}" min="50" required
+                                autofocus>
                         </div>
                         <div class="form-group">
                             <label for="rp">Amount Rupiah</label>
