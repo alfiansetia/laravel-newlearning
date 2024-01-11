@@ -42,7 +42,7 @@
                     @yield('content')
                 </div>
                 <!-- content-wrapper ends -->
-                @include('components.footer')
+                {{-- @include('components.footer') --}}
             </div>
             <!-- main-panel ends -->
         </div>
