@@ -99,11 +99,11 @@
                                     class="list-group-item list-group-item-action border-0 mt-2 {{ !empty($detail) && $item->id == $detail->id ? 'bg-secondary' : '' }}">
                                     <div class="badge bg-success float-right">{{ $item->messages_count }}</div>
                                     <div class="d-flex align-items-start">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar5.png"
+                                        <img src="{{ $item->from_id == $usr->id ? $item->to->image : $item->from->image }}"
                                             class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
                                         <div class="flex-grow-1 ml-3">
                                             {{ $item->from_id == $usr->id ? $item->to->name : $item->from->name }}
-                                            <div class="small"><span class="fas fa-circle chat-online"></span> Online</div>
+                                            {{-- <div class="small"><span class="fas fa-circle chat-online"></span> Online</div> --}}
                                         </div>
                                     </div>
                                 </a>
@@ -121,12 +121,12 @@
                             <div class="py-2 px-4 border-bottom d-none d-lg-block">
                                 <div class="d-flex align-items-center py-1">
                                     <div class="position-relative">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                        <img src="{{ $detail->from_id == $usr->id ? $detail->to->image : $detail->from->image }}"
                                             class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
                                     </div>
                                     <div class="flex-grow-1 pl-3">
                                         <strong>{{ $detail->from_id == $usr->id ? $detail->to->name : $detail->from->name }}</strong>
-                                        <div class="text-muted small"><em>Typing...</em></div>
+                                        {{-- <div class="text-muted small"><em>Typing...</em></div> --}}
                                     </div>
                                     <div>
                                         <button class="btn btn-danger btn-lg mr-1 px-3">
@@ -144,9 +144,8 @@
                                         @if ($item->sender_id == auth()->user()->id)
                                             <div class="chat-message-right pb-4">
                                                 <div>
-                                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                        class="rounded-circle mr-1" alt="Chris Wood" width="40"
-                                                        height="40">
+                                                    <img src="{{ $item->sender->image }}" class="rounded-circle mr-1"
+                                                        alt="Chris Wood" width="40" height="40">
                                                     <div class="text-muted small text-nowrap mt-2">{{ $item->date }}</div>
                                                 </div>
                                                 <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
@@ -157,10 +156,10 @@
                                         @else
                                             <div class="chat-message-left pb-4">
                                                 <div>
-                                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                                                        class="rounded-circle mr-1" alt="Sharon Lessman" width="40"
-                                                        height="40">
-                                                    <div class="text-muted small text-nowrap mt-2">{{ $item->date }}</div>
+                                                    <img src="{{ $item->sender->image }}" class="rounded-circle mr-1"
+                                                        alt="Sharon Lessman" width="40" height="40">
+                                                    <div class="text-muted small text-nowrap mt-2">{{ $item->date }}
+                                                    </div>
                                                 </div>
                                                 <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
                                                     <div class="font-weight-bold mb-1">{{ $item->sender->name }}</div>
