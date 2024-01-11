@@ -25,8 +25,8 @@
     <section class="product-details spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-12 mb-3">
-                    <div class="tab-content" id="nav-tabContent">
+                <div class="col-lg-8 col-md-8 col-sm-12 mb-3" style="background-color: aliceblue">
+                    <div class="tab-content mb-3 mt-2" id="nav-tabContent">
                         @foreach ($contents ?? [] as $key => $item)
                             <div class="tab-pane {{ $key === 0 ? 'fade show active' : '' }}" id="list-home{{ $item->id }}"
                                 role="tabpanel" aria-labelledby="list-video{{ $item->id }}">
@@ -54,11 +54,14 @@
                         <div class="tab-pane fade {{ $empty_contents ? 'fade show active' : '' }}" id="list-profile"
                             role="tabpanel" aria-labelledby="list-profile-list">
                             <br>
-                            <img src="{{ $data->image_materi }}" alt="">
+                            <center>
+                                <img src="{{ $data->image_materi }}" alt="">
+                            </center>
                             <br>
-                            <h3 class="pt-2">{!! $data->header_materi !!}</h3>
-                            {!! $data->detail_materi !!}
-                            <br>
+                            <h3 class="pt-2 mb-2">{!! $data->header_materi !!}</h3>
+                            <p style="background-color: aliceblue">{!! $data->detail_materi !!}
+                                <br>
+                            </p>
                             @if (!$data->isCourseDoneUser($data->id))
                                 <form action="{{ route('index.save.progres') }}" method="POST">
                                     @csrf
@@ -121,7 +124,9 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <button class="btn primary-btn mt-3 mb-2">SAVE ANSWER</button>
+                                @if ($score < 100)
+                                    <button class="btn primary-btn mt-3 mb-2">SAVE ANSWER</button>
+                                @endif
                             </form>
                             @if (!$data->isQuizDoneUser($data->id))
                                 <form action="{{ route('index.save.progres') }}" method="POST">
@@ -161,7 +166,7 @@
                             style="width: {{ $progres }}%" aria-valuenow="{{ $progres }}" aria-valuemin="0"
                             aria-valuemax="100">{{ $progres }}%</div>
                     </div>
-                    <p class="mt-3">{!! $data->subtitle !!}</p>
+                    <p class="mt-3" style="background-color: aliceblue">{!! $data->subtitle !!}</p>
                 </div>
             </div>
 

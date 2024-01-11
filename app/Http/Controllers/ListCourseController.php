@@ -45,10 +45,10 @@ class ListCourseController extends Controller
             'subcategory'   => 'required|integer|exists:sub_categories,id',
             'image'         => 'required|image|mimes:jpg,jpeg,png|max:5120',
             'price'         => 'required|integer|gte:1',
-            'subtitle'      => 'required|max:255',
+            'subtitle'      => 'required|max:1000',
             'header'        => 'required|max:255',
             'image_materi'  => 'required|image|mimes:jpg,jpeg,png|max:5120',
-            'detail'        => 'required|max:1000',
+            'detail'        => 'required|max:2000',
         ]);
         $image = null;
         if ($files = $request->file('image')) {
@@ -89,10 +89,10 @@ class ListCourseController extends Controller
             'subcategory'   => 'required|integer|exists:sub_categories,id',
             'image'         => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
             'price'         => 'required|integer|gte:1',
-            'subtitle'      => 'required|max:255',
+            'subtitle'      => 'required|max:1000',
             'header'        => 'required|max:255',
             'image_materi'  => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
-            'detail'        => 'required|max:1000',
+            'detail'        => 'required|max:2000',
         ]);
         $path = public_path('images/course/');
         $image = $course->getRawOriginal('image');
@@ -137,7 +137,7 @@ class ListCourseController extends Controller
         $this->validate($request, [
             'title'     => 'required|max:200',
             'file'      => 'required|mimes:mp4,mov,avi,wmv|max:20480',
-            'detail'    => 'nullable|max:500',
+            'detail'    => 'nullable|max:1000',
         ]);
         $file = null;
         if ($files = $request->file('file')) {
@@ -162,7 +162,7 @@ class ListCourseController extends Controller
     public function stepQuizSave(Request $request, Course $course)
     {
         $this->validate($request, [
-            'question'  => 'required|max:200',
+            'question'  => 'required|max:2000',
             'value'     => 'required|array|min:1',
             'answer'    => 'nullable|array|min:1',
             'value.*'   => 'required|max:250',

@@ -53,10 +53,10 @@ class CourseController extends Controller
             'mentor'        => 'required|integer|exists:users,id',
             'image'         => 'required|image|mimes:jpg,jpeg,png|max:5120',
             'price'         => 'required|integer|gte:1',
-            'subtitle'      => 'required|max:255',
+            'subtitle'      => 'required|max:1000',
             'header'        => 'required|max:255',
             'image_materi'  => 'required|image|mimes:jpg,jpeg,png|max:5120',
-            'detail'        => 'required|max:1000',
+            'detail'        => 'required|max:2000',
         ]);
         $image = null;
         if ($files = $request->file('image')) {
@@ -113,10 +113,10 @@ class CourseController extends Controller
             'mentor'        => 'required|integer|exists:users,id',
             'image'         => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
             'price'         => 'required|integer|gte:1',
-            'subtitle'      => 'required|max:255',
+            'subtitle'      => 'required|max:1000',
             'header'        => 'required|max:255',
             'image_materi'  => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
-            'detail'        => 'required|max:1000',
+            'detail'        => 'required|max:2000',
         ]);
         $path = public_path('images/course/');
         $image = $course->getRawOriginal('image');

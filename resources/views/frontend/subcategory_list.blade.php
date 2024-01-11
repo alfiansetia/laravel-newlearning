@@ -1,6 +1,16 @@
 @extends('layouts.frontend_app')
 
+@push('css')
+    <style>
+        body {
+            background: aliceblue;
+        }
 
+        .header {
+            background-color: #fff;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="container">
         <div class="row mb-1">

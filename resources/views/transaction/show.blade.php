@@ -18,6 +18,12 @@
                         <div class="col-lg-3">User : </div>
                         <div class="col-lg-9">{{ $data->user->name ?? '' }} {{ $data->user->email ?? '' }}</div>
                     </div>
+                    @if (!empty($data->key_id))
+                        <div class="row mb-3">
+                            <div class="col-lg-3">Key : </div>
+                            <div class="col-lg-9">{{ $data->key->value ?? '' }}</div>
+                        </div>
+                    @endif
                     <div class="row mb-3">
                         <div class="col-lg-3">Total : </div>
                         <div class="col-lg-9">

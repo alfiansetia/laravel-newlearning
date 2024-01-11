@@ -46,8 +46,7 @@ class QuizController extends Controller
     {
         $this->validate($request, [
             'course'    => 'required|integer|exists:courses,id',
-            // 'title'     => 'required|max:200',
-            'question'  => 'required|max:200',
+            'question'  => 'required|max:2000',
             'value'     => 'required|array|min:1',
             'answer'    => 'nullable|array|min:1',
             'value.*'   => 'required|max:250',
@@ -55,7 +54,6 @@ class QuizController extends Controller
         ]);
         $quiz = Quiz::create([
             'course_id' => $request->course,
-            // 'title'     => $request->title,
             'question'  => $request->question,
         ]);
         foreach ($request->value as $i => $item) {
@@ -96,7 +94,7 @@ class QuizController extends Controller
             abort(403, 'Unauthorize!');
         }
         $valid =  [
-            'question'  => 'required|max:200',
+            'question'  => 'required|max:2000',
             'value'     => 'required|array|min:1',
             'answer'    => 'nullable|array|min:1',
             'value.*'   => 'required|max:250',

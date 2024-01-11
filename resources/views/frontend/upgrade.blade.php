@@ -13,10 +13,12 @@
                                 </div>
                             @endif
                             <h4 class="mb-2">Upgrade to Mentor</h4>
-                            <h5 class="mb-2 pt-2 pb-2">Date : {{ $data->date }}</h5>
-                            <h5 class="mb-2 pt-2 pb-2">Status : <span
-                                    class="badge badge-{{ $data->status == 'acc' ? 'success' : ($data->status == 'pending' ? 'warning' : 'danger') }}">{{ $data->status }}</span>
-                            </h5>
+                            @if (!empty($data->date))
+                                <h5 class="mb-2 pt-2 pb-2">Date : {{ $data->date }}</h5>
+                                <h5 class="mb-2 pt-2 pb-2">Status : <span
+                                        class="badge badge-{{ $data->status == 'acc' ? 'success' : ($data->status == 'pending' ? 'warning' : 'danger') }}">{{ $data->status }}</span>
+                                </h5>
+                            @endif
                             <form action="{{ route('index.upgrade.save') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row mb-3">
@@ -25,7 +27,7 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <textarea name="reason" id="reason" class="form-control @error('reason') is-invalid @enderror" rows="10"
-                                            required minlength="500" maxlength="1000">{{ old('reason', $data->reason) }}</textarea>
+                                            required minlength="200" maxlength="1000">{{ old('reason', $data->reason) }}</textarea>
                                         @error('reason')
                                             <div class="alert alert-danger mt-2">{{ $message }}</div>
                                         @enderror

@@ -15,6 +15,7 @@
                                 <tr>
                                     <th>Date</th>
                                     <th>Number</th>
+                                    <th>User</th>
                                     <th>Total</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
@@ -25,6 +26,7 @@
                                     <tr>
                                         <td>{{ $item->date }}</td>
                                         <td>{{ $item->number }}</td>
+                                        <td>{{ $item->user->email ?? '' }}</td>
                                         <td>
                                             <img src="{{ asset('images/dollar.png') }}"
                                                 style="max-width: 20px;max-height: 20px"> {{ $item->total }}

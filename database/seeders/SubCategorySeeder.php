@@ -22,7 +22,7 @@ class SubCategorySeeder extends Seeder
         }
         $categories = Category::all();
         foreach ($categories as  $value) {
-            for ($i = 0; $i < 5; $i++) {
+            for ($i = 0; $i < 1; $i++) {
                 SubCategory::factory()->create([
                     'category_id' => $value->id,
                 ]);

@@ -96,13 +96,20 @@ class FrontendController extends Controller
             'phone'     => 'required|max:15',
             'dob'       => 'required|date_format:Y-m-d',
             'gender'    => 'required|in:Male,Female',
+            'image'     => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
         ]);
+        $image = $user->getRawOriginal('image');
+        if ($files = $request->file('image')) {
+            $image = 'user_' . date('dmyHis') . '.' . $files->getClientOriginalExtension();
+            $files->move(public_path('images/user/'), $image);
+        }
 
         $user->update([
             'name'      => $request->name,
             'phone'     => $request->phone,
             'dob'       => $request->dob,
             'gender'    => $request->gender,
+            'image'     => $image,
         ]);
         return redirect()->route('index.profile')->with(['success' => 'Update Profile Success']);
     }
@@ -126,11 +133,40 @@ class FrontendController extends Controller
         $total_questions = count($course->quizzes ?? []);
         $score_percentage = ($correct_answer / $total_questions) * 100;
         $score_percentage = min($score_percentage, 100);
+        if ($score_percentage == 100) {
+            foreach ($course->contents as $key => $value) {
+                Progres::updateOrCreate([
+                    'user_id'    => $user->id,
+                    'content_id' => $value->id,
+                ], [
+                    'user_id'    => $user->id,
+                    'content_id' => $value->id,
+                ]);
+            }
+            Progres::updateOrCreate([
+                'user_id'   => $user->id,
+                'course_id' => $course->id,
+            ], [
+                'user_id'   => $user->id,
+                'course_id' => $course->id,
+            ]);
+            Progres::updateOrCreate([
+                'user_id'   => $user->id,
+                'quiz_id'   => $request->quiz,
+            ], [
+                'user_id'   => $user->id,
+                'quiz_id'   => $course->id,
+            ]);
+            $user_point = $user->point;
+            $user->update([
+                'point' => $user_point + 25,
+            ]);
+        }
         QuizUserAnswer::updateOrCreate([
             'user_id'   => $user->id,
             'course_id' => $course->id
         ], [
-            'iser_id'   => $user->id,
+            'user_id'   => $user->id,
             'date'      => date('Y-m-d H:i:s'),
             'course_id' => $course->id,
             'value'     => $score_percentage,

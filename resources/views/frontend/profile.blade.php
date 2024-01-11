@@ -1,5 +1,8 @@
 @extends('layouts.frontend_app')
 @push('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body {
             background: #f7f7ff;
@@ -37,8 +40,8 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin"
-                                    class="rounded-circle p-1 bg-primary" width="110">
+                                <img src="{{ $user->image }}" alt="Admin" class="rounded-circle p-1 bg-primary"
+                                    width="110">
                                 <div class="mt-3">
                                     <h4>{{ $user->name }}</h4>
                                     <p class="text-secondary mb-2">{{ $user->email }}</p>
@@ -47,7 +50,7 @@
                                         <b>{{ $user->point }}</b>
                                     </p>
                                     <p class="text-muted font-size-sm">
-                                        <b>{{ count($keys) }} Key</b>
+                                        <b>{{ count($keys) }} <i class="fas fa-key"></i> </b>
                                     </p>
                                 </div>
                             </div>
@@ -98,6 +101,9 @@
                                         <input type="text" name="name"
                                             class="form-control @error('name') is-invalid @enderror"
                                             value="{{ $user->name }}" required autofocus>
+                                        @error('name')
+                                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -108,6 +114,9 @@
                                         <input type="email" name="email"
                                             class="form-control @error('email') is-invalid @enderror"
                                             value="{{ $user->email }}" required disabled readonly>
+                                        @error('email')
+                                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -118,6 +127,9 @@
                                         <input type="tel" name="phone"
                                             class="form-control @error('phone') is-invalid @enderror"
                                             value="{{ $user->phone }}" required>
+                                        @error('phone')
+                                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -134,6 +146,9 @@
                                                 Female
                                             </option>
                                         </select>
+                                        @error('gender')
+                                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -144,7 +159,24 @@
                                         <input type="date" name="dob"
                                             class="form-control @error('dob') is-invalid @enderror"
                                             value="{{ $user->dob }}" required>
+                                        @error('dob')
+                                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
                                     </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Image </h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <input type="file" name="image"
+                                            class="form-control @error('image') is-invalid @enderror">
+                                        <img src="{{ $user->image }}" alt="" width="100">
+                                        @error('image')
+                                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-3"></div>

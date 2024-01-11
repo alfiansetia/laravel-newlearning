@@ -8,9 +8,13 @@
             box-sizing: border-box;
             height: 100%;
             width: 100%;
-            background: #FFF;
+            background: aliceblue;
             font-family: 'Roboto', sans-serif;
             font-weight: 400;
+        }
+
+        .header {
+            background-color: #fff;
         }
 
         .wrapper {
@@ -23,7 +27,7 @@
             display: table-cell;
             padding: 1em;
             text-align: center;
-            vertical-align: middle;
+            vertical-align: top;
         }
 
         .fostrap-logo {
@@ -118,13 +122,11 @@
 @endpush
 <section class="wrapper">
     <div class="container-fostrap">
-        <div>
-            {{-- <img src="https://4.bp.blogspot.com/-7OHSFmygfYQ/VtLSb1xe8kI/AAAAAAAABjI/FxaRp5xW2JQ/s320/logo.png"
-                class="fostrap-logo" /> --}}
-            <h1 class="heading">
-                All Course Category
-            </h1>
-        </div>
+        {{-- <div> --}}
+        <h1 class="heading">
+            All Course Category
+        </h1>
+        {{-- </div> --}}
         <div class="content">
             <div class="container">
                 <div class="row">

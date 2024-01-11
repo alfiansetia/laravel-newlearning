@@ -22,7 +22,7 @@ return new class extends Migration
             $table->enum('status', ['active', 'nonactive'])->default('nonactive');
             $table->date('dob')->nullable();
             $table->string('phone')->nullable();
-            $table->string('avatar')->nullable();
+            $table->string('image')->nullable();
             $table->integer('point')->default(0);
             $table->rememberToken();
             $table->timestamps();

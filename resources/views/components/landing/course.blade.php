@@ -26,7 +26,10 @@
                                 </div>
                             </div>
                             <div class="text-center p-4 pb-0">
-                                <h3 class="mb-0">${{ $item->price }}</h3>
+                                <h3 class="mb-0">
+                                    <img src="{{ asset('images/dollar.png') }}" alt="" width="25">
+                                    {{ $item->price }}
+                                </h3>
                                 <div class="mb-3">
                                     @for ($i = 1; $i <= 5; $i++)
                                         @if ($i <= $average_rating)
@@ -42,8 +45,8 @@
                             <div class="d-flex border-top">
                                 <small class="flex-fill text-center border-end py-2"><i
                                         class="fa fa-user-tie text-primary me-2"></i>{{ $item->mentor->name }}</small>
-                                <small class="flex-fill text-center border-end py-2"><i
-                                        class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small>
+                                {{-- <small class="flex-fill text-center border-end py-2"><i
+                                        class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small> --}}
                                 <small class="flex-fill text-center py-2"><i
                                         class="fa fa-user text-primary me-2"></i>{{ $item->transaction_details_count }}
                                     Students</small>

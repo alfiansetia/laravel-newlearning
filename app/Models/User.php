@@ -70,6 +70,15 @@ class User extends Authenticatable
         return $this->hasMany(Key::class)->where('status', 'available');
     }
 
+    public function getImageAttribute($value)
+    {
+        if ($value && file_exists(public_path('/images/user/' . $value))) {
+            return url('/images/user/' . $value);
+        } else {
+            return url('/images/default-user.jpg');
+        }
+    }
+
     public function courses()
     {
         return $this->hasManyThrough(

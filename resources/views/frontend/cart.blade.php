@@ -1,5 +1,16 @@
 @extends('layouts.frontend_app')
 
+@push('css')
+    <style>
+        body {
+            background: aliceblue;
+        }
+
+        .header {
+            background-color: #fff;
+        }
+    </style>
+@endpush
 @section('content')
     <!-- Shoping Cart Section Begin -->
     <section class="shoping-cart spad">

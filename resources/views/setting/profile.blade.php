@@ -50,6 +50,15 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="image">Image</label>
+                            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"
+                                id="image" placeholder="Date OF Birth">
+                            <img src="{{ $data->image }}" alt="" width="100">
+                            @error('image')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="password">New Password</label>
                             <input type="password" name="password"
                                 class="form-control @error('password') is-invalid @enderror" id="password"

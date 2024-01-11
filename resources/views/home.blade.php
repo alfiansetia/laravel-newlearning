@@ -5,7 +5,7 @@
         <div class="col-md-12 grid-margin">
             <div class="row">
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                    <h3 class="font-weight-bold">Welcome Aamir</h3>
+                    <h3>Welcome {{ auth()->user()->name }}</h3>
                     @if (empty(auth()->user()->email_verified_at))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong>Hello {{ auth()->user()->name }}!</strong> Your account is unverified, please check your
@@ -102,6 +102,7 @@
                                 <tr>
                                     <th>Date</th>
                                     <th>Number</th>
+                                    <th>User</th>
                                     <th>Total</th>
                                     <th>Status</th>
                                 </tr>
@@ -111,6 +112,7 @@
                                     <tr>
                                         <td>{{ $item->date }}</td>
                                         <td>{{ $item->number }}</td>
+                                        <td>{{ $item->user->email }}</td>
                                         <td class="font-weight-bold">{{ $item->total }}</td>
                                         <td class="font-weight-medium">
                                             <div class="badge badge-success">{{ $item->status }}</div>
