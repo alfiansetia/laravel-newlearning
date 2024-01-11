@@ -76,7 +76,7 @@ class User extends Authenticatable
         if ($value && file_exists(public_path('/images/user/' . $value))) {
             return url('/images/user/' . $value);
         } else {
-            return url('/images/default-user.jpg');
+            return url('/images/default-user-' . $this->gender . '.jpg');
         }
     }
 

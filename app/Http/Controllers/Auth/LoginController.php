@@ -92,10 +92,10 @@ class LoginController extends Controller
         }
         if ($user->role == 'user') {
             if ($point > 0) {
-                return redirect()->route('index.category')->with(['success' => 'Congratulation! You Get ' . $point . ' Point!']);
+                return redirect()->route('index.category')->with(['success' => 'Congratulation! You Get ' . $point . ' Point from Subscription!']);
             }
             if ($get_key > 0) {
-                return redirect()->route('index.category')->with(['success' => 'Congratulation! You Get 1 Key!']);
+                return redirect()->route('index.category')->with(['success' => 'Congratulation! You Get 1 Key from Subscription!']);
             }
             return redirect()->route('index.category');
         }

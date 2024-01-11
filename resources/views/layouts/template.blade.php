@@ -83,7 +83,7 @@
                 confirmButtonAriaLabel: 'Thumbs up, Yes!',
                 cancelButtonText: '<i class="ti-thumb-down"></i> No',
                 cancelButtonAriaLabel: 'Thumbs down',
-                customClass: 'animated tada',
+                customClass: 'animated tada pt-4',
                 showClass: {
                     popup: 'animate__animated animate__tada'
                 },
@@ -103,6 +103,7 @@
                 icon: 'success',
                 title: 'Success',
                 text: "{{ session('success') }}",
+                customClass: 'pt-4',
             })
         </script>
     @elseif (session()->has('error'))
@@ -111,6 +112,7 @@
                 icon: 'error',
                 title: 'Oops...',
                 text: "{{ session('error') }}",
+                customClass: 'pt-4',
             })
         </script>
     @endif
