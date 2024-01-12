@@ -166,7 +166,7 @@
                             style="width: {{ $progres }}%" aria-valuenow="{{ $progres }}" aria-valuemin="0"
                             aria-valuemax="100">{{ $progres }}%</div>
                     </div>
-                    <p class="mt-3" style="background-color: aliceblue">{!! $data->subtitle !!}</p>
+                    {{-- <p class="mt-3" style="background-color: aliceblue">{!! $data->subtitle !!}</p> --}}
                 </div>
             </div>
 

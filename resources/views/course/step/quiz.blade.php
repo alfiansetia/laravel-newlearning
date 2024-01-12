@@ -38,21 +38,25 @@
                         <h4 class="card-title">Options Of Quiz</h4>
                         <div id="options-container">
                             <!-- Container untuk input dinamis -->
-                            <div class="form-group option">
-                                <div>
-                                    <label for="value">Value</label>
-                                    <input type="text" name="value[0]" class="form-control" placeholder="Value" required>
+                            @for ($i = 0; $i < 5; $i++)
+                                <div class="form-group option">
+                                    <div>
+                                        <label for="value">Value</label>
+                                        <input type="text" name="value[{{ $i }}]" class="form-control"
+                                            placeholder="Value" required>
+                                    </div>
+                                    <div class="answers-group">
+                                        <label>Is Answer</label><br>
+                                        <label>
+                                            <input type="radio" name="answer[{{ $i }}]" value="yes"> Yes
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="answer[{{ $i }}]" value="no" checked>
+                                            No
+                                        </label>
+                                    </div>
                                 </div>
-                                <div class="answers-group">
-                                    <label>Is Answer</label><br>
-                                    <label>
-                                        <input type="radio" name="answer[0]" value="yes"> Yes
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="answer[0]" value="no" checked> No
-                                    </label>
-                                </div>
-                            </div>
+                            @endfor
                         </div>
                         <button type="button" class="btn btn-primary mt-3" id="addOption">Add Option</button>
                         <button type="button" class="btn btn-danger mt-3" id="resetOptions">Reset Options</button>
@@ -125,7 +129,7 @@
 
 @push('js')
     <script>
-        let optionIndex = 1;
+        let optionIndex = 5;
 
         document.getElementById('addOption').addEventListener('click', function() {
             let optionsContainer = document.getElementById('options-container');
@@ -153,7 +157,7 @@
         document.getElementById('resetOptions').addEventListener('click', function() {
             var optionsContainer = document.getElementById('options-container');
             var options = optionsContainer.getElementsByClassName('option');
-            while (options.length > 1) {
+            while (options.length > 5) {
                 optionsContainer.removeChild(options[options.length - 1]);
             }
         });

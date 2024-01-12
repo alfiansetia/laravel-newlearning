@@ -67,7 +67,7 @@
                             {{-- <hr class="my-4"> --}}
                         </div>
                     </div>
-                    <div class="card">
+                    {{-- <div class="card">
                         <div class="card-body">
                             <h5 class="d-flex align-items-center mb-3">My Keys</h5>
                             <div style="overflow-y: auto; max-height: 200px;">
@@ -86,7 +86,7 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-lg-8">
                     <div class="card">
@@ -172,7 +172,6 @@
                                     <div class="col-sm-9 text-secondary">
                                         <input type="file" name="image"
                                             class="form-control @error('image') is-invalid @enderror">
-                                        <img src="{{ $user->image }}" alt="" width="100">
                                         @error('image')
                                             <div class="alert alert-danger mt-2">{{ $message }}</div>
                                         @enderror

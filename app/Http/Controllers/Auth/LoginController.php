@@ -90,7 +90,7 @@ class LoginController extends Controller
                 }
             }
         }
-        if ($user->role == 'user') {
+        if ($user->role != 'admin') {
             if ($point > 0) {
                 return redirect()->route('index.category')->with(['success' => 'Congratulation! You Get ' . $point . ' Point from Subscription!']);
             }

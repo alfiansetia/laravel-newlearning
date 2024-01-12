@@ -1,14 +1,29 @@
-@extends('layouts.template', ['title' => 'User'])
+@extends('layouts.template', ['title' => 'Upgrade'])
 
 @section('content')
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    @include('components.card_header', [
-                        'title' => 'User',
-                        'route' => 'user.create',
-                    ])
+                    <div class="row align-items-center mb-3">
+                        <div class="col-md-8">
+                            <h4 class="card-title">Upgrade
+                            </h4>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <form action="">
+                                    <div class="input-group">
+                                        <input type="text" name="search" class="form-control form-control-sm"
+                                            placeholder="Search User" value="{{ request('search') }}">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-sm btn-primary" type="submit">Search</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-sm table-hover" style="width: 100%" id="table">
                             <thead>

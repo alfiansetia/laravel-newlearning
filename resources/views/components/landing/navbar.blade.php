@@ -4,7 +4,7 @@
          <h2 class="m-0 text-primary">
              {{-- <i class="fa fa-book me-3"></i> --}}
              <img src="{{ $company->logo }}" alt="" height="40" width="40">
-             {{ $company->name }}
+             <font color="black">{{ $company->name }}</font>
          </h2>
      </a>
      <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
