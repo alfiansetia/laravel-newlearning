@@ -21,7 +21,7 @@ class UpgradeUserController extends Controller
         if ($request->filled('search')) {
             $query->orWhereRelation('user', 'name', 'like', "%$request->search%");
         }
-        $data = $query->paginate(10)->withQueryString();
+        $data = $query->whereNotNull('reason')->paginate(10)->withQueryString();
         return view('upgrade.index', compact('data'));
     }
 
