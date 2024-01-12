@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Key;
 use App\Models\Topup;
 use App\Traits\CompanyTrait;
 use Illuminate\Http\Request;
@@ -44,11 +45,20 @@ class TopupController extends Controller
             $transactionStatus = $requestData['transaction_status'];
             $topup->transaction_id = $transactionId;
             if ($transactionStatus === 'settlement') {
+                $point =  $topup->point;
+                $get_key = floor($point / 100);
                 $topup->status = 'done';
                 $tuser = $topup->user;
                 $tuser->update([
-                    'point' => $tuser->point + $topup->point,
+                    'point' => $tuser->point + $point,
                 ]);
+                for ($j = 0; $j < $get_key; $j++) {
+                    Key::create([
+                        'user_id'   => $tuser->id,
+                        'value'     => Str::random(20),
+                        'status'    => 'available',
+                    ]);
+                }
             } elseif ($transactionStatus == 'pending') {
                 $topup->status = 'pending';
             } else {
