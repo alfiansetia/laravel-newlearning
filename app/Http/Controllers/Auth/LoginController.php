@@ -47,6 +47,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         $point = 0;
+        $get_key = false;
         if ($user->role != 'admin') {
             $date = date('Y-m-d');
             $date_parse = Carbon::parse($date);
@@ -79,7 +80,6 @@ class LoginController extends Controller
                 }
                 $user->point += $point;
                 $user->save();
-                $get_key = false;
                 if ($count_sub == 7) {
                     Key::create([
                         'user_id'   => $user->id,
