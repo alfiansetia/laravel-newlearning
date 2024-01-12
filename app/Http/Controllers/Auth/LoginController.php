@@ -46,6 +46,7 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        $point = 0;
         if ($user->role != 'admin') {
             $date = date('Y-m-d');
             $date_parse = Carbon::parse($date);
@@ -70,7 +71,6 @@ class LoginController extends Controller
                 }
                 $all_user_sub = Subscribtion::where('user_id', $user->id)->get();
                 $count_sub = count($all_user_sub);
-                $point = 0;
                 if ($count_sub == 1 || $count_sub == 2 || $count_sub == 3 || $count_sub == 4) {
                     $point = 25;
                 }
