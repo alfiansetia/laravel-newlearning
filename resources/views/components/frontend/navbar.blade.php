@@ -30,16 +30,19 @@
     </div>
     <div class="humberger__menu__widget">
         <div class="header__top__right__language">
-            <img src="{{ asset('frontend/img/language.png') }}" alt="">
+            {{-- <img src="{{ asset('frontend/img/language.png') }}" alt="">
             <div>English</div>
             <span class="arrow_carrot-down"></span>
             <ul>
                 <li><a href="#">Spanis</a></li>
                 <li><a href="#">English</a></li>
-            </ul>
+            </ul> --}}
         </div>
-        <div class="header__top__right__auth">
-            <a href="{{ route('login') }}"><i class="fa fa-user"></i> Login</a>
+        @auth
+        @else
+            <div class="header__top__right__auth">
+                <a href="{{ route('login') }}"><i class="fa fa-user"></i> Login</a>
+            @endauth
         </div>
     </div>
     <nav class="humberger__menu__nav mobile-menu">
@@ -60,16 +63,16 @@
     </nav>
     <div id="mobile-menu-wrap"></div>
     <div class="header__top__right__social">
-        <a href="#"><i class="fa fa-facebook"></i></a>
+        {{-- <a href="#"><i class="fa fa-facebook"></i></a>
         <a href="#"><i class="fa fa-twitter"></i></a>
         <a href="#"><i class="fa fa-linkedin"></i></a>
-        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+        <a href="#"><i class="fa fa-pinterest-p"></i></a> --}}
     </div>
     <div class="humberger__menu__contact">
-        <ul>
+        {{-- <ul>
             <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
             <li>Free Shipping for all Order of $99</li>
-        </ul>
+        </ul> --}}
     </div>
 </div>
 <!-- Humberger End -->
