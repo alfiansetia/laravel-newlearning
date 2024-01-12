@@ -102,7 +102,9 @@
                                         <img src="{{ $item->from_id == $usr->id ? $item->to->image : $item->from->image }}"
                                             class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
                                         <div class="flex-grow-1 ml-3">
-                                            {{ $item->from_id == $usr->id ? $item->to->name : $item->from->name }}
+                                            <font color="white">
+                                                {{ $item->from_id == $usr->id ? $item->to->name : $item->from->name }}
+                                            </font>
                                             {{-- <div class="small"><span class="fas fa-circle chat-online"></span> Online</div> --}}
                                         </div>
                                     </div>
@@ -126,16 +128,18 @@
                                     </div>
                                     <div class="flex-grow-1 pl-3">
                                         <strong>{{ $detail->from_id == $usr->id ? $detail->to->name : $detail->from->name }}</strong>
-                                        {{-- <div class="text-muted small"><em>Typing...</em></div> --}}
+                                        <div class="text-muted small">
+                                            <em>{{ $detail->from_id == $usr->id ? $detail->to->role : $detail->from->role }}</em>
+                                        </div>
                                     </div>
-                                    <div>
+                                    {{-- <div>
                                         <button class="btn btn-danger btn-lg mr-1 px-3">
                                             <i data-feather="trash"></i>
                                         </button>
                                         <button class="btn btn-light border btn-lg px-3">
                                             <i data-feather="more-horizontal"></i>
                                         </button>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="position-relative">
