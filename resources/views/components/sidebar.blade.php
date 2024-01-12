@@ -79,6 +79,12 @@
                     <span class="menu-title">Upgrade</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('setting.company') }}">
+                    <i class="ti-settings menu-icon"></i>
+                    <span class="menu-title">Setting</span>
+                </a>
+            </li>
         @endif
     </ul>
 </nav>

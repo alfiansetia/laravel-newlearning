@@ -21,6 +21,7 @@ yarn-error.log
 /public/images/course/*
 /public/images/subcategory/*
 /public/images/content/*
+/public/images/slider/*
 /public/images/user/*
 /public/videos/content/*
 /public/files/cv/*

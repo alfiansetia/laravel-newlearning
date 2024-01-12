@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Company;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 
 class CompanySeeder extends Seeder
 {
@@ -13,6 +14,11 @@ class CompanySeeder extends Seeder
      */
     public function run(): void
     {
+        if (!file_exists(public_path('images/logo'))) {
+            File::makeDirectory(public_path('images/logo'));
+        } else {
+            File::cleanDirectory(public_path('images/logo'));
+        }
         Company::create([
             'name'      => 'CStudy',
             'email'     => 'cs@gmail.com',

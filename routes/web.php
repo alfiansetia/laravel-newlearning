@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FrontendController;
@@ -13,6 +13,7 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\ListCourseController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\TopupController;
 use App\Http\Controllers\TransactionController;
@@ -103,8 +104,12 @@ Route::group(['middleware' => ['auth', 'is.active', 'verified']], function () {
 
     Route::group(['middleware' => ['is.admin']], function () {
 
+        Route::get('setting/company', [CompanyController::class, 'index'])->name('setting.company');
+        Route::post('setting/company', [CompanyController::class, 'update'])->name('setting.company.update');
+
         Route::resource('topup', TopupController::class)->only(['destroy']);
 
+        Route::resource('slider', SliderController::class);
         Route::resource('category', CategoryController::class);
         Route::resource('subcategory', SubCategoryController::class);
         Route::post('course-act/{course}', [CourseController::class, 'acc'])->name('course.acc');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Course;
+use App\Models\Slider;
 use App\Models\User;
 use App\Traits\CompanyTrait;
 use Illuminate\Http\Request;
@@ -31,7 +32,8 @@ class LandingPageController extends Controller
 
         $mentors = User::where('role', 'mentor')->orderBy('id', 'DESC')->paginate(4);
         $comments = Comment::with('user')->orderBy('id', 'DESC')->paginate(4);
-        return view('landing.index', compact('courses', 'categories', 'mentors', 'comments'));
+        $sliders = Slider::where('show', 'yes')->get();
+        return view('landing.index', compact('courses', 'categories', 'mentors', 'comments', 'sliders'));
     }
 
     public function course()

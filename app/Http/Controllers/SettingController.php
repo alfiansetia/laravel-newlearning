@@ -22,6 +22,10 @@ class SettingController extends Controller
 
     public function profileUpdate(Request $request)
     {
+        $data = $this->getUser();
+        if ($data->role != 'admin') {
+            return redirect()->route('index.profile');
+        }
         $this->validate($request, [
             'name'      => 'required',
             'gender'    => 'required|in:Male,Female',

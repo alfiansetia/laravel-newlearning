@@ -1,6 +1,6 @@
 @extends('layouts.landing_app', ['title' => 'Home'])
 @section('content')
-    @include('components.landing.carousel')
+    @include('components.landing.carousel', ['sliders' => $sliders])
     @include('components.landing.service')
     @include('components.landing.about')
     @include('components.landing.category', ['categories' => $categories])

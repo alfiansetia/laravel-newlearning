@@ -13,7 +13,7 @@ class Company extends Model
 
     public function getLogoAttribute($value)
     {
-        if ($value && file_exists(public_path('/images/' . $value))) {
+        if ($value && file_exists(public_path('/images/logo/' . $value))) {
             return url('/images/logo/' . $value);
         } else {
             return url('/images/logo.jpg');

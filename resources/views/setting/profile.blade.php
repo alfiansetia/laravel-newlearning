@@ -53,7 +53,7 @@
                         <div class="form-group">
                             <label for="image">Image</label>
                             <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"
-                                id="image" placeholder="Date OF Birth">
+                                id="image" placeholder="Image">
                             <img src="{{ $data->image }}" alt="" width="100">
                             @error('image')
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
