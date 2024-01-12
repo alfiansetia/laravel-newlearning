@@ -50,7 +50,7 @@
                                         <b>{{ $user->point }}</b>
                                     </p>
                                     <p class="text-muted font-size-sm">
-                                        <b>{{ count($keys) }} <i class="fas fa-key"></i> </b>
+                                        <b><i class="fas fa-key"></i> {{ count($keys) }} </b>
                                     </p>
                                 </div>
                             </div>
