@@ -4,9 +4,9 @@
         integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        body {
-            margin-top: 20px;
-        }
+        /* body {
+                margin-top: 20px;
+            } */
 
         .chat-online {
             color: #34ce57
