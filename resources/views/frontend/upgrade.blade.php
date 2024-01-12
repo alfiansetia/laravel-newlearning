@@ -13,7 +13,7 @@
                                 </div>
                             @endif
                             <h4 class="mb-2">Upgrade to Mentor</h4>
-                            @if (!empty($data->date))
+                            @if (!empty($data->reason))
                                 <h5 class="mb-2 pt-2 pb-2">Date : {{ $data->date }}</h5>
                                 <h5 class="mb-2 pt-2 pb-2">Status : <span
                                         class="badge badge-{{ $data->status == 'acc' ? 'success' : ($data->status == 'pending' ? 'warning' : 'danger') }}">{{ $data->status }}</span>
