@@ -116,7 +116,10 @@
                                         <td>{{ $item->date }}</td>
                                         <td>{{ $item->number }}</td>
                                         <td>{{ $item->user->email }}</td>
-                                        <td class="font-weight-bold">{{ $item->total }}</td>
+                                        <td class="font-weight-bold">
+                                            <img src="{{ asset('images/dollar.png') }}" alt="" width="20"
+                                                style="max-height: 25px;max-width: 25px"> {{ $item->total }}
+                                        </td>
                                         <td class="font-weight-medium">
                                             <div class="badge badge-success">{{ $item->status }}</div>
                                         </td>

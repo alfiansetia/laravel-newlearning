@@ -46,6 +46,10 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        if ($user->status != 'active' || empty($user->email_verified_at)) {
+            auth()->logout();
+            return redirect()->route('login')->with(['error' => 'Your Account is Nonactive/Unverified!']);
+        }
         $point = 0;
         $get_key = false;
         if ($user->role != 'admin') {

@@ -18,11 +18,13 @@ class ActiveMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($this->getUser()->status != 'active') {
+        $user = $this->getUser();
+        if ($user->status != 'active') {
+            auth()->logout();
             if ($request->ajax() || $request->expectsJson()) {
                 return response()->json(['message' => 'Your account is Nonactive!'], 403);
             }
-            if ($this->getUser()->role === 'user') {
+            if ($user->role === 'user') {
                 return redirect()->route('index');
             }
             return redirect()->route('home')->with('error', 'Your account is Nonactive!');

@@ -51,7 +51,7 @@ Auth::routes([
     'verify' => false,
 ]);
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'is.active', 'verified']], function () {
 
     // Route::group(['middleware' => ['is.user']], function () {
 
