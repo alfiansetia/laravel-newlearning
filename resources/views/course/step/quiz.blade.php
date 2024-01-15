@@ -58,8 +58,8 @@
                                 </div>
                             @endfor
                         </div>
-                        <button type="button" class="btn btn-primary mt-3" id="addOption">Add Option</button>
-                        <button type="button" class="btn btn-danger mt-3" id="resetOptions">Reset Options</button>
+                        {{-- <button type="button" class="btn btn-primary mt-3" id="addOption">Add Option</button>
+                        <button type="button" class="btn btn-danger mt-3" id="resetOptions">Reset Options</button> --}}
                     </div>
                 </div>
             </div>

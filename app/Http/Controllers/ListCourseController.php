@@ -43,11 +43,11 @@ class ListCourseController extends Controller
         $this->validate($request, [
             'name'          => 'required|max:100|unique:courses,name',
             'subcategory'   => 'required|integer|exists:sub_categories,id',
-            'image'         => 'required|image|mimes:jpg,jpeg,png|max:5120',
+            'image'         => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
             'price'         => 'required|integer|gte:1',
             'subtitle'      => 'required|max:1000',
             'header'        => 'required|max:255',
-            'image_materi'  => 'required|image|mimes:jpg,jpeg,png|max:5120',
+            'image_materi'  => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
             'detail'        => 'required|max:2000',
         ]);
         $image = null;
