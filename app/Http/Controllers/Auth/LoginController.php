@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Key;
+use App\Models\Mutation;
 use App\Models\Subscribtion;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -82,7 +83,17 @@ class LoginController extends Controller
                 if ($count_sub == 5 || $count_sub == 6) {
                     $point = 50;
                 }
-                $user->point += $point;
+                $mtotal = $user->point + $point;
+                Mutation::create([
+                    'date'      => now(),
+                    'user_id'   => $user->id,
+                    'type'      => 'plus',
+                    'value'     => $point,
+                    'before'    => $user->point,
+                    'after'     => $mtotal,
+                    'desc'      => 'Reward From Subscription!'
+                ]);
+                $user->point = $mtotal;
                 $user->save();
                 if ($count_sub == 7) {
                     Key::create([

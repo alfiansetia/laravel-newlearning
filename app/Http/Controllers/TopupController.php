@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Key;
+use App\Models\Mutation;
 use App\Models\Topup;
 use App\Traits\CompanyTrait;
 use Illuminate\Http\Request;
@@ -49,8 +50,18 @@ class TopupController extends Controller
                 $get_key = floor($point / 100);
                 $topup->status = 'done';
                 $tuser = $topup->user;
+                $total = $tuser->point + $point;
+                Mutation::create([
+                    'date'      => now(),
+                    'user_id'   => $tuser->id,
+                    'type'      => 'plus',
+                    'value'     => $point,
+                    'before'    => $tuser->point,
+                    'after'     => $total,
+                    'desc'      => 'New Topup!'
+                ]);
                 $tuser->update([
-                    'point' => $tuser->point + $point,
+                    'point' => $total,
                 ]);
                 for ($j = 0; $j < $get_key; $j++) {
                     Key::create([

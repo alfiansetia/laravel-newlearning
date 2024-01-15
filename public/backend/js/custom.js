@@ -10,7 +10,7 @@ function deleteData(action) {
         confirmButtonAriaLabel: 'Thumbs up, Yes!',
         cancelButtonText: '<i class="ti-thumb-down"></i> No',
         cancelButtonAriaLabel: 'Thumbs down',
-        customClass: 'animated tada',
+        customClass: 'animated tada pt-4',
         showClass: {
             popup: 'animate__animated animate__tada'
         },

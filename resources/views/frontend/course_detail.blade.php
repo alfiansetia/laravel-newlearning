@@ -4,6 +4,7 @@
     @php
         $average_rating = $data->averageRating();
         $user_review = $data->userComment();
+        $user_key = $user->key ?? [];
     @endphp
     <!-- Product Details Section Begin -->
     <section class="product-details spad">
@@ -54,9 +55,9 @@
                                 </div>
                             </div>
                         </div> --}}
-                        @if ($data->isPurchasedByUser())
+                        @if ($data->isPurchasedByUser() || $data->mentor_id == ($user->id ?? ''))
                             <a href="{{ route('index.course.open', $data->slug) }}" class="primary-btn">OPEN COURSE</a>
-                            @if (!$user_review)
+                            @if (!$user_review && $data->mentor_id != ($user->id ?? ''))
                                 <button type="button" class="btn primary-btn" data-toggle="modal"
                                     data-target="#reviewModal">REVIEW</button>
                             @endif
@@ -66,8 +67,7 @@
                                 <input type="hidden" name="course" value="{{ $data->id }}">
                                 <button class="btn primary-btn">ADD TO CARD</button>
                                 @auth
-                                    <button type="button" class="btn primary-btn" data-toggle="modal"
-                                        data-target="#exampleModal">REDEEM</button>
+                                    <button type="button" class="btn primary-btn" onclick="reedem()">REDEEM</button>
                                 @endauth
                             </form>
                         @endif
@@ -102,10 +102,10 @@
                             @endif
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane active mt-3" id="tabs-1" role="tabpanel">
+                            <div class="tab-pane active mt-2" id="tabs-1" role="tabpanel">
                                 @forelse ($data->comments as $item)
-                                    <div class="product__details__tab__desc">
-                                        <h6>{{ $item->user->name ?? '-' }}</h6>
+                                    <div class="product__details__tab__desc p-2" style="background-color: white">
+                                        <h6 class="mb-2">{{ $item->user->name ?? '-' }}</h6>
                                         <p>{{ $item->value }} </p>
                                     </div>
                                 @empty
@@ -115,9 +115,9 @@
                                 @endforelse
                             </div>
                             @if ($user_review)
-                                <div class="tab-pane" id="tabs-2" role="tabpanel">
-                                    <div class="product__details__tab__desc">
-                                        <h6>{{ $user_review->user->name }}</h6>
+                                <div class="tab-pane mt-2" id="tabs-2" role="tabpanel">
+                                    <div class="product__details__tab__desc p-2" style="background-color: white">
+                                        <h6 class="mb-2">{{ $user_review->user->name }}</h6>
                                         <p>{{ $user_review->value }}</p>
                                     </div>
                                 </div>
@@ -128,33 +128,10 @@
             </div>
         </div>
     </section>
+
     <!-- Product Details Section End -->
-    <form action="{{ route('index.save.transaction.key', $data->id) }}" method="POST">
+    <form id="form_reedem" action="{{ route('index.save.transaction.key', $data->id) }}" method="POST">
         @csrf
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog  modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Redeem <b>{{ $data->name }}</b> With KEY</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <select name="key" id="key" class="form-control form-control-lg" required>
-                            <option value="">Select Key</option>
-                            @foreach ($user->available_keys ?? [] as $item)
-                                <option value="{{ $item->id }}">{{ $item->value }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn primary-btn">Redeem Now</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </form>
 
     <form action="{{ route('index.save.review', $data->id) }}" method="POST">
@@ -181,7 +158,7 @@
                         </div>
                         <div class="form-group">
                             <label for="comment">Comment</label>
-                            <textarea name="comment" id="comment" class="form-control" required>{{ old('comment') }}</textarea>
+                            <textarea name="comment" id="comment" class="form-control" maxlength="250" required>{{ old('comment') }}</textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -193,3 +170,30 @@
         </div>
     </form>
 @endsection
+@push('js')
+    <script>
+        function reedem() {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Reedem with Key!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '<i class="ti-thumb-up"></i> Yes!',
+                confirmButtonAriaLabel: 'Thumbs up, Yes!',
+                cancelButtonText: '<i class="ti-thumb-down"></i> No',
+                cancelButtonAriaLabel: 'Thumbs down',
+                customClass: 'animated tada',
+                showClass: {
+                    popup: 'animate__animated animate__tada'
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#form_reedem').submit();
+                    block()
+                }
+            })
+        }
+    </script>
+@endpush

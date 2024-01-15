@@ -121,6 +121,9 @@ class QuizController extends Controller
                 'is_answer' => $request->answer[$i] ?? 'no',
             ]);
         }
+        if ($user->role != 'admin') {
+            return redirect()->route('list.course.step.quiz', $quiz->course_id)->with(['success' => 'Update Data Success!']);
+        }
         return redirect()->back()->with(['success' => 'Update Data Success!']);
     }
 

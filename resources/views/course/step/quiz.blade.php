@@ -162,7 +162,7 @@
             }
         });
     </script>
-
+    <script src="{{ asset('backend/js/custom.js') }}"></script>
     <script>
         var toolbar = [
             ['style', ['style']],

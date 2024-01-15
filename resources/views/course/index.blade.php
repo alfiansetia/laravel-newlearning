@@ -79,10 +79,10 @@
                                                 <i class="ti-settings"></i>
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton3">
-                                                @if ($user->role == 'admin')
+                                                {{-- @if ($user->role == 'admin')
                                                     <a class="dropdown-item"
                                                         href="{{ route('course.edit', $item->id) }}">Edit</a>
-                                                @endif
+                                                @endif --}}
                                                 <a class="dropdown-item"
                                                     href="{{ route('list.course.step.edit', $item->id) }}">Edit
                                                     Step</a>
@@ -164,7 +164,7 @@
                 confirmButtonAriaLabel: 'Thumbs up, Yes!',
                 cancelButtonText: '<i class="ti-thumb-down"></i> No',
                 cancelButtonAriaLabel: 'Thumbs down',
-                customClass: 'animated tada',
+                customClass: 'animated tada pt-4',
                 showClass: {
                     popup: 'animate__animated animate__tada'
                 },
@@ -188,7 +188,7 @@
                 confirmButtonAriaLabel: 'Thumbs up, Yes!',
                 cancelButtonText: '<i class="ti-thumb-down"></i> No',
                 cancelButtonAriaLabel: 'Thumbs down',
-                customClass: 'animated tada',
+                customClass: 'animated tada pt-4',
                 showClass: {
                     popup: 'animate__animated animate__tada'
                 },

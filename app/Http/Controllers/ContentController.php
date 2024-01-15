@@ -118,6 +118,9 @@ class ContentController extends Controller
             $param['course_id'] = $request->course;
         }
         $content->update($param);
+        if ($user->role != 'admin') {
+            return redirect()->route('list.course.step.content', $content->course_id)->with(['success' => 'Update Data Success!']);
+        }
         return redirect()->back()->with(['success' => 'Insert Data Success!']);
     }
 

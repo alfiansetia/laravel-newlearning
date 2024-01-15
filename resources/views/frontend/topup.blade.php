@@ -47,7 +47,8 @@
                                         <tr>
                                             <td>{{ $item->date }}</td>
                                             <td>{{ $item->code }}</td>
-                                            <td>{{ $item->point }}</td>
+                                            <td><img src="{{ asset('images/dollar.png') }}" alt="" width="20"
+                                                    style="max-width: 20px;max-height: 20px">{{ $item->point }}</td>
                                             <td>
                                                 {{ $item->status }}
                                                 @if ($item->status == 'pending')

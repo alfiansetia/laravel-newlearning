@@ -9,6 +9,7 @@ use App\Models\ChatMessage;
 use App\Models\Comment;
 use App\Models\Course;
 use App\Models\Key;
+use App\Models\Mutation;
 use App\Models\Progres;
 use App\Models\QuizOption;
 use App\Models\QuizUserAnswer;
@@ -21,6 +22,7 @@ use App\Models\UpgradeUser;
 use App\Models\User;
 use App\Traits\CompanyTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class FrontendController extends Controller
@@ -154,6 +156,15 @@ class FrontendController extends Controller
                 'quiz_id'   => $course->id,
             ]);
             $user_point = $user->point;
+            Mutation::create([
+                'date'      => now(),
+                'user_id'   => $user->id,
+                'type'      => 'plus',
+                'value'     => 25,
+                'before'    => $user_point,
+                'after'     => $user_point + 25,
+                'desc'      => 'Reward After Done Course!'
+            ]);
             $user->update([
                 'point' => $user_point + 25,
             ]);
@@ -218,76 +229,121 @@ class FrontendController extends Controller
         if ($user->point < $total) {
             return redirect()->back()->with(['error' => 'Not Enough Point!']);
         }
-        $trx = Transaction::create([
-            'user_id'   => $user->id,
-            'date'      => date('Y-m-d H:i:s'),
-            'number'    => Str::random(10),
-            'total'     => $total,
-            'status'    => 'success',
-        ]);
-
-        foreach ($carts as $item) {
-            $price = $item->course->price;
-            $reward = ceil($price / 2);
-            if ($price == 1) {
-                $reward = 1;
-            }
-            $mentor = $item->course->mentor;
-            if ($mentor) {
-                $mentor->update([
-                    'point' => $mentor->point + $reward
-                ]);
-            }
-            TransactionDetail::create([
-                'transaction_id'    => $trx->id,
-                'course_id'         => $item->course_id,
-                'price'             => $price,
+        DB::beginTransaction();
+        try {
+            $trx = Transaction::create([
+                'user_id'   => $user->id,
+                'date'      => date('Y-m-d H:i:s'),
+                'number'    => Str::random(10),
+                'total'     => $total,
+                'status'    => 'success',
             ]);
-            $item->delete();
+
+            foreach ($carts as $item) {
+                $price = $item->course->price;
+                $reward = ceil($price / 2);
+                if ($price == 1) {
+                    $reward = 1;
+                }
+                $mentor = $item->course->mentor;
+                if ($mentor) {
+                    $mtotal = $mentor->point + $reward;
+                    Mutation::create([
+                        'date'      => now(),
+                        'user_id'   => $mentor->id,
+                        'type'      => 'plus',
+                        'value'     => $reward,
+                        'before'    => $mentor->point,
+                        'after'     => $mtotal,
+                        'desc'      => 'Reward From transaction User!'
+                    ]);
+                    $mentor->update([
+                        'point' => $mtotal,
+                    ]);
+                }
+                TransactionDetail::create([
+                    'transaction_id'    => $trx->id,
+                    'course_id'         => $item->course_id,
+                    'price'             => $price,
+                ]);
+                $item->delete();
+            }
+            $new_point = $user->point - $total;
+            Mutation::create([
+                'date'      => now(),
+                'user_id'   => $user->id,
+                'type'      => 'min',
+                'value'     => $total,
+                'before'    => $user->point,
+                'after'     => $new_point,
+                'desc'      => 'Buy Course!'
+            ]);
+            $user->update([
+                'point' => $new_point,
+            ]);
+            DB::commit();
+            return redirect()->back()->with(['success' => 'Payment Successfull !']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'Payment Error!']);
         }
-        $new_point = $user->point - $total;
-        $user->update([
-            'point' => $new_point,
-        ]);
-        return redirect()->back()->with(['success' => 'Payment Successfull !']);
     }
 
     public function withKey(Request $request, Course $course)
     {
         $user = $this->getUser();
-        $key = Key::where('user_id', $user->id)->where('status', 'available')->find($request->key);
+        $key = Key::where('user_id', $user->id)->where('status', 'available')->first();
         if (!$key) {
-            return redirect()->back()->with(['error' => 'Key not Valid!']);
+            return redirect()->back()->with(['error' => 'You not have Key!']);
         }
+        DB::beginTransaction();
+        try {
 
-        $trx = Transaction::create([
-            'user_id'   => $user->id,
-            'date'      => date('Y-m-d H:i:s'),
-            'number'    => Str::random(10),
-            'total'     => $course->price,
-            'status'    => 'success',
-        ]);
 
-        TransactionDetail::create([
-            'transaction_id'    => $trx->id,
-            'course_id'         => $course->id,
-            'price'             => $course->price,
-        ]);
-        $mentor = $course->mentor;
-        $price = $course->price;
-        $reward = ceil($price / 2);
-        if ($price == 1) {
-            $reward = 1;
-        }
-        if ($mentor) {
-            $mentor->update([
-                'point' => $mentor->point + $reward
+            $trx = Transaction::create([
+                'key_id'    => $key->id,
+                'user_id'   => $user->id,
+                'date'      => date('Y-m-d H:i:s'),
+                'number'    => Str::random(10),
+                'total'     => $course->price,
+                'status'    => 'success',
             ]);
+
+            TransactionDetail::create([
+                'transaction_id'    => $trx->id,
+                'course_id'         => $course->id,
+                'price'             => $course->price,
+            ]);
+            $mentor = $course->mentor;
+            $price = $course->price;
+            $reward = ceil($price / 2);
+            if ($price == 1) {
+                $reward = 1;
+            }
+            if ($mentor) {
+                $mtotal = $mentor->point + $reward;
+                Mutation::create([
+                    'date'      => now(),
+                    'user_id'   => $mentor->id,
+                    'type'      => 'plus',
+                    'value'     => $reward,
+                    'before'    => $mentor->point,
+                    'after'     => $mtotal,
+                    'desc'      => 'Reward From transaction User W Key!'
+                ]);
+                $mentor->update([
+                    'point' => $mtotal,
+                ]);
+            }
+            $key->update([
+                'status' => 'unavailable',
+            ]);
+            DB::commit();
+            return redirect()->back()->with(['success' => 'Reedem Success!']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'Reedem Error!']);
         }
-        $key->update([
-            'status' => 'unavailable',
-        ]);
-        return redirect()->back()->with(['success' => 'Reedem Success!']);
     }
 
     public function rate(Request $request, Course $course)
@@ -435,6 +491,15 @@ class FrontendController extends Controller
         $user = $this->getUser();
         $data = Topup::where('user_id', $user->id)->get();
         return view('frontend.topup', compact([
+            'data',
+        ]));
+    }
+
+    public function mutation()
+    {
+        $user = $this->getUser();
+        $data = Mutation::where('user_id', $user->id)->latest('date')->get();
+        return view('frontend.mutation', compact([
             'data',
         ]));
     }

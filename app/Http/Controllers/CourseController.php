@@ -118,6 +118,7 @@ class CourseController extends Controller
             'image_materi'  => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
             'detail'        => 'required|max:2000',
         ]);
+        $user = $this->getUser();
         $path = public_path('images/course/');
         $image = $course->getRawOriginal('image');
         if ($files = $request->file('image')) {
@@ -147,6 +148,9 @@ class CourseController extends Controller
             'detail_materi'     => $request->detail,
             'slug'              => Str::slug($request->name),
         ]);
+        if ($user->role != 'admin') {
+            return redirect()->route('list.course.step.course', $course->id)->with(['success' => 'Update Data Success!']);
+        }
         return redirect()->route('course.index')->with(['success' => 'Update Data Success!']);
     }
 

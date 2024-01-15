@@ -114,6 +114,7 @@
 @endpush
 
 @push('js')
+    <script src="{{ asset('backend/js/custom.js') }}"></script>
     <script>
         $('#summernote').summernote({
             placeholder: 'Detail Content',

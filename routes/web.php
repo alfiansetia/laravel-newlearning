@@ -56,6 +56,8 @@ Route::group(['middleware' => ['auth', 'is.active', 'verified']], function () {
 
     // Route::group(['middleware' => ['is.user']], function () {
 
+    Route::get('/list-point', [FrontendController::class, 'mutation'])->name('index.mutation');
+
     Route::get('/list-topup', [FrontendController::class, 'topup'])->name('index.topup');
     Route::post('/list-topup', [TopupController::class, 'store'])->name('index.topup.store');
 

@@ -37,7 +37,7 @@ class HomeController extends Controller
     public function index()
     {
         $user_login = $this->getUser();
-        if ($user_login->role != 'admin') {
+        if ($user_login->role == 'user') {
             return redirect()->route('index.category');
         }
         if ($user_login->role == 'admin') {

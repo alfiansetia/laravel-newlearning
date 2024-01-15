@@ -60,12 +60,12 @@
             </li>
         @endif
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" href="{{ route('chat.index') }}">
                 <i class="ti-comments menu-icon"></i>
                 <span class="menu-title">Chat</span>
             </a>
-        </li>
+        </li> --}}
         <li class="nav-item">
             <a class="nav-link" href="{{ route('topup.index') }}">
                 <i class="ti-money menu-icon"></i>

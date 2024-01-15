@@ -141,6 +141,7 @@
 @endpush
 
 @push('js')
+    <script src="{{ asset('backend/js/custom.js') }}"></script>
     <script>
         $('#subcategory').select2()
 

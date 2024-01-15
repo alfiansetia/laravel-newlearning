@@ -1,7 +1,8 @@
 <!-- partial:{{ asset('backend/partials/_navbar.html') }} -->
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5 font-weight-bold" href="{{ route('home') }}">
+        <a class="navbar-brand brand-logo mr-5 font-weight-bold"
+            href="{{ $user->role == 'admin' ? route('home') : route('index.category') }}">
             <img src="{{ $company->logo }}" alt="logo" style="max-height: 40px;max-width: 40px;" />
             {{ $company->name }}
             {{-- <img src="{{ asset('backend/images/logo.svg') }}" class="mr-2" alt="logo" /> --}}

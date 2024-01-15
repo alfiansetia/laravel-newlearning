@@ -55,7 +55,8 @@
                                 </div>
                             </div>
                             <hr class="my-4">
-                            <a href="{{ route('index.chat') }}" class="btn btn-block btn-primary">Open Chat</a>
+                            <a href="{{ route('index.mutation') }}" class="btn btn-block btn-primary">History Point</a>
+                            {{-- <a href="{{ route('index.chat') }}" class="btn btn-block btn-primary">Open Chat</a> --}}
                             <a href="{{ route('index.topup') }}" class="btn btn-block btn-primary">Topup Point</a>
                             @if ($user->role == 'user')
                                 <a href="{{ route('index.upgrade') }}" class="btn btn-block btn-primary">Upgrade to
