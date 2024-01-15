@@ -50,6 +50,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Sub Category</th>
+                                <th>Mentor</th>
                                 <th>Image</th>
                                 <th class="text-center">Price</th>
                                 <th class="text-center">Status</th>
@@ -62,6 +63,7 @@
                                 <tr>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->subcategory->name }}</td>
+                                    <td>{{ $item->mentor->name }}</td>
                                     <td><img src="{{ $item->image }}" alt="" width="100"></td>
                                     <td class="text-center">
                                         <img src="{{ asset('images/dollar.png') }}" alt=""

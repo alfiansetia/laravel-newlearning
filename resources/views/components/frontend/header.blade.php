@@ -42,7 +42,7 @@
                 <div class="header__logo">
                     <a href="{{ route('index.category') }}"><img src="{{ $company->logo }}" alt=""
                             style="max-height: 40px; max-width: 40px;">
-                        <font color="black" size="5"><strong>{{ $company->name }}</strong></font>
+                        <font color="#27367f" size="5"><strong>{{ $company->name }}</strong></font>
                     </a>
                 </div>
             </div>

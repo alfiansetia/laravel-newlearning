@@ -37,7 +37,7 @@ class HomeController extends Controller
     public function index()
     {
         $user_login = $this->getUser();
-        if ($user_login->role == 'user') {
+        if ($user_login->role != 'admin') {
             return redirect()->route('index.category');
         }
         if ($user_login->role == 'admin') {
@@ -45,7 +45,7 @@ class HomeController extends Controller
             $category = Category::count();
             $subcategory = SubCategory::count();
             $course = Course::count();
-            $courses = Course::latest('id')->take(5)->get();
+            $courses = Course::where('status', 'publish')->latest('id')->take(5)->get();
             $transactions = Transaction::latest('id')->take(10)->get();
             return view('home', compact([
                 'courses',
@@ -58,7 +58,7 @@ class HomeController extends Controller
         } else {
             $key = Key::where('user_id', $user_login->id)->count();
             $course = Course::where('mentor_id', $user_login->id)->count();
-            $courses = Course::where('mentor_id', $user_login->id)->latest('id')->take(5)->get();
+            $courses = Course::where('status', 'publish')->where('mentor_id', $user_login->id)->latest('id')->take(5)->get();
             $transactions = Transaction::where('user_id', $user_login->id)->latest('id')->take(10)->get();
             $user = $user_login;
             $chat = Chat::orWhere('from_id', $user->id)->orWhere('to_id', $user->id)->count();
