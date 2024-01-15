@@ -147,6 +147,7 @@ class CourseController extends Controller
             'image_materi'      => $image_materi,
             'detail_materi'     => $request->detail,
             'slug'              => Str::slug($request->name),
+            'status'            => 'pending',
         ]);
         if ($user->role != 'admin') {
             return redirect()->route('list.course.step.course', $course->id)->with(['success' => 'Update Data Success!']);

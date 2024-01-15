@@ -122,6 +122,7 @@ class ListCourseController extends Controller
             'image_materi'      => $image_materi,
             'detail_materi'     => $request->detail,
             'slug'              => Str::slug($request->name),
+            'status'            => 'pending',
         ]);
         return redirect()->back()->with(['success' => 'Update Data Success!']);
     }
