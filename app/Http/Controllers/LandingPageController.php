@@ -17,6 +17,12 @@ class LandingPageController extends Controller
 
     public function index()
     {
+        $user = $this->getUser();
+        if ($user) {
+            if ($user->role == 'admin') {
+                return redirect('home');
+            }
+        }
         $courses = Course::where('status', 'publish')->with('mentor')->withCount('rates', 'comments', 'transaction_details')->orderBy('id', 'DESC')->paginate(3);
         $categories = Category::with(['subcategories' => function ($query) {
             $query->withCount('courses');

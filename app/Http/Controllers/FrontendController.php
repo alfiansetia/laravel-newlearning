@@ -165,8 +165,13 @@ class FrontendController extends Controller
                 'after'     => $user_point + 25,
                 'desc'      => 'Reward After Done Course!'
             ]);
+            $course_point = $course->price;
+            $reward = ceil($course_point / 2);
+            if ($course_point == 1) {
+                $reward = 1;
+            }
             $user->update([
-                'point' => $user_point + 25,
+                'point' => $user_point + $reward,
             ]);
         }
         QuizUserAnswer::updateOrCreate([

@@ -2,7 +2,7 @@
 @push('css')
     <style>
         body {
-            background: url('/images/bg.jpg');
+            background: url("{{ asset('/images/bg.jpg') }}");
             background-repeat: no-repeat;
             background-size: cover;
         }
@@ -91,7 +91,7 @@
                                                         data-target="#collapseOne{{ $item->id }}"
                                                         aria-expanded="{{ $key === 0 ? 'true' : 'false' }}"
                                                         aria-controls="collapseOne{{ $item->id }}">
-                                                        {{ $key + 1 }}. {{ $item->question }}
+                                                        {{ $key + 1 }}. {!! $item->question !!}
                                                     </button>
                                                 </h5>
                                             </div>
@@ -129,12 +129,14 @@
                                 @endif
                             </form>
                             @if (!$data->isQuizDoneUser($data->id))
-                                <form action="{{ route('index.save.progres') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="type" value="quiz">
-                                    <input type="hidden" name="quiz" value="{{ $data->id }}">
-                                    <button type="submit" class="btn btn-sm primary-btn">Set Done</button>
-                                </form>
+                                @if ($score >= 100)
+                                    <form action="{{ route('index.save.progres') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="type" value="quiz">
+                                        <input type="hidden" name="quiz" value="{{ $data->id }}">
+                                        <button type="submit" class="btn btn-sm primary-btn">Set Done</button>
+                                    </form>
+                                @endif
                             @else
                                 <div class="alert alert-success" role="alert">
                                     You have completed this session!

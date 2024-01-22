@@ -48,7 +48,7 @@ Route::get('/category-list/{category:slug}', [FrontendController::class, 'catego
 Route::get('/payment', [TopupController::class, 'payment'])->name('topup.handle.callback');
 
 Auth::routes([
-    'reset' => false,
+    'reset' => true,
     'verify' => false,
 ]);
 

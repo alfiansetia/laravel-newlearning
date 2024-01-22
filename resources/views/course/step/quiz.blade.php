@@ -27,7 +27,7 @@
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                        <button id="btn_submit" type="submit" class="btn btn-primary mr-2">Submit</button>
                         <a href="{{ route('quiz.index') }}" class="btn btn-light">Cancel</a>
                     </div>
                 </div>
@@ -119,6 +119,10 @@
             </div>
         </div>
     </div>
+    <form action="" method="POST" id="form_delete">
+        @csrf
+        @method('DELETE')
+    </form>
 @endsection
 
 @push('jslib')
@@ -129,6 +133,17 @@
 
 @push('js')
     <script>
+        $(document).ready(function() {
+            $('#btn_submit').prop('disabled', true)
+            $('#form input').change(function() {
+                var count = $('input[name^="answer["][value="yes"]:checked').length;
+                if (count > 0) {
+                    $('#btn_submit').prop('disabled', false)
+                } else {
+                    $('#btn_submit').prop('disabled', true)
+                }
+            });
+        });
         let optionIndex = 5;
 
         document.getElementById('addOption').addEventListener('click', function() {

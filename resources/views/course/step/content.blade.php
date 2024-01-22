@@ -106,6 +106,11 @@
         </div>
 
     </div>
+
+    <form action="" method="POST" id="form_delete">
+        @csrf
+        @method('DELETE')
+    </form>
 @endsection
 @push('jslib')
     <script src="{{ asset('backend/js/file-upload.js') }}"></script>
